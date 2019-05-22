@@ -1,11 +1,6 @@
 # Donkey Lite
 帮助Web快速构建项目，并通过插件的方式实现快速开发。
 
-# 应用部署
-打包命令:
-```jvm
-mvn clean -Pprod package -Dmaven.test.skip=true -Pprod
-```
 # 接口参数校验
 
 ## Web接口复合对象参数校验
