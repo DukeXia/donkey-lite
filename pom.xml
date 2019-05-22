@@ -15,7 +15,7 @@
     </licenses>
 
     <scm>
-        <tag>v0.0.4</tag>
+        <tag>v0.0.1</tag>
         <url>https://github.com/donkeycart/donkey-lite</url>
         <connection>scm:git:https://github.com/donkeycart/donkey-lite.git</connection>
         <developerConnection>scm:git:https://github.com/donkeycart/donkey-lite.git</developerConnection>
