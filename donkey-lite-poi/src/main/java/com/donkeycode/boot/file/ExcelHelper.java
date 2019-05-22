@@ -1,0 +1,266 @@
+package com.donkeycode.boot.file;
+
+import com.donkeycode.boot.ReflectUtils;
+import com.donkeycode.core.date.DateCalcUtil;
+import com.donkeycode.core.date.DateTime;
+import com.donkeycode.core.utils.StringSuperUtils;
+
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.Validate;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.*;
+
+/**
+ *
+ * Excel 操作
+ *
+ */
+@Slf4j
+public class ExcelHelper {
+
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static List<Object> importToObjectList(ExcelHead head, File file, Class<?> cls) {
+
+        Objects.requireNonNull(head);
+        Objects.requireNonNull(file);
+        Objects.requireNonNull(cls);
+
+        // 根据excel生成list类型的数据
+        try (FileInputStream fis = new FileInputStream(file)) {
+            List<List> rows = excelFileConvertToList(fis);
+            // 删除头信息
+            List<Object> headName = new ArrayList<>();
+            for (int i = 0; i < head.getRowCount(); i++) {
+                if (i == head.getRowCount() - 1) {
+                    headName = rows.get(0);
+                }
+                rows.remove(0);
+            }
+            Map<Integer, String> excelHeadMap = convertExcelHeadToMap(head.getColumns(), headName);
+            Map<String, Integer> filedTypeMap = convertExcelHeadToPropertyType(head.getColumns());
+            return buildDataObject(excelHeadMap, filedTypeMap, rows, cls);
+        } catch (FileNotFoundException ex) {
+            log.error("文件读取异常:" + ex.getMessage());
+            throw new ExcelHandleException("文件读取异常");
+        } catch (IOException e) {
+            log.error("新建Excel错误:" + e.getMessage());
+            throw new ExcelHandleException("新建Excel错误");
+        }
+    }
+
+    /**
+     *
+     * @param head
+     * @param dataList
+     * @return
+     */
+    public static Workbook exportExcelFile(ExcelHead head, List<?> dataList) {
+
+        Objects.requireNonNull(head);
+        Objects.requireNonNull(dataList);
+
+        Workbook wb = new SXSSFWorkbook();
+        Sheet sheet = wb.createSheet();
+        // 生成Excel头
+        buildExcelHead(sheet, head);
+        // 生成导出数据
+        buildExcelData(sheet, head, dataList);
+        return wb;
+    }
+
+    /**
+     *
+     * @param excelColumns
+     * @param headName
+     * @return
+     */
+    private static Map<Integer, String> convertExcelHeadToMap(List<ExcelColumn> excelColumns, List<Object> headName) {
+
+        Validate.notEmpty(excelColumns);
+        Validate.notEmpty(headName);
+
+        if (excelColumns.size() != headName.size()) {
+            throw new ExcelHandleException("导入模板与资源不匹配，请核实");
+        }
+        Map<Integer, String> excelHeadMap = new HashMap<Integer, String>();
+        for (int index = 0; index < headName.size(); index++) {
+            boolean flag = false;
+            String hName = (String) headName.get(index);
+            for (ExcelColumn excelColumn : excelColumns) {
+                if (StringSuperUtils.filterNull(hName).equals(excelColumn.getFieldDispName().trim())) {
+                    flag = true;
+                    excelHeadMap.put(index, excelColumn.getFieldName());
+                }
+            }
+            if (!flag) {
+                throw new ExcelHandleException("列：\"" + hName + "\" 不是此资源中的属性");
+            }
+        }
+        return excelHeadMap;
+    }
+
+    /**
+     *
+     * @param excelColumns
+     * @return
+     */
+    private static Map<String, Integer> convertExcelHeadToPropertyType(List<ExcelColumn> excelColumns) {
+
+        Objects.requireNonNull(excelColumns);
+
+        Map<String, Integer> map = new HashMap<>();
+
+        excelColumns.stream().parallel().forEach(excelColumn -> {
+            map.put(excelColumn.getFieldName(), excelColumn.getFieldType());
+        });
+        return map;
+
+    }
+
+    private static void buildExcelData(Sheet sheet, ExcelHead head, List<?> dataList) {
+
+        Objects.requireNonNull(head);
+        Objects.requireNonNull(dataList);
+
+        List<ExcelColumn> excelColumns = head.getColumns();
+
+        // 从第几行开始插入数据
+        int startRow = head.getRowCount();
+        int order = 1;
+        for (Object obj : dataList) {
+            Row row = sheet.createRow(startRow++);
+            for (int j = 0; j < excelColumns.size(); j++) {
+                Cell cell = row.createCell(j);
+                String fieldName = excelColumns.get(j).getFieldName();
+                if (fieldName != null) {
+
+                    Object valueObject = ReflectUtils.getBeanProperty(obj, fieldName);
+                    if (valueObject == null) {
+                        cell.setCellValue("");
+                    } else if (valueObject instanceof Integer) {
+                        cell.setCellValue((Integer) valueObject);
+                    } else if (valueObject instanceof Long) {
+                        cell.setCellValue((Long) valueObject);
+                    } else if (valueObject instanceof Double) {
+                        cell.setCellValue((Double) valueObject);
+                    } else if (valueObject instanceof Float) {
+                        cell.setCellValue((Float) valueObject);
+                    } else if (valueObject instanceof BigDecimal) {
+                        cell.setCellValue(((BigDecimal) valueObject).doubleValue());
+                    } else if (valueObject instanceof String) {
+                        cell.setCellValue((String) valueObject);
+                    } else if (valueObject instanceof Date) {
+                        String dateByString = DateCalcUtil.getFormatDate((Date) valueObject, "");
+                        cell.setCellValue(dateByString);
+                    } else {
+                        cell.setCellValue(valueObject.toString());
+                    }
+                } else {
+                    cell.setCellValue(order++);
+                }
+            }
+        }
+    }
+
+    private static void buildExcelHead(Sheet sheet, ExcelHead head) {
+        List<ExcelColumn> excelColumns = head.getColumns();
+        for (int index = 0; index < head.getRowCount(); index++) {
+            Row row = sheet.createRow(index);
+            for (int j = 0; j < excelColumns.size(); j++) {
+                Cell cell = row.createCell(j);
+                cell.setCellType(CellType.STRING);
+                String value = excelColumns.get(j).getFieldDispName();
+                cell.setCellValue(value);
+            }
+        }
+    }
+
+    @SuppressWarnings({"rawtypes"})
+    public static List<List> excelFileConvertToList(FileInputStream fis) throws IOException {
+
+        Objects.requireNonNull(fis);
+
+        Workbook wb = WorkbookFactory.create(fis);
+        Sheet sheet = wb.getSheetAt(0);
+
+        List<List> rows = new ArrayList<List>();
+        for (Row row : sheet) {
+            List<Object> cells = new ArrayList<Object>();
+            for (Cell cell : row) {
+                Object obj;
+                switch (cell.getCellType()) {
+                    case STRING:
+                        obj = cell.getRichStringCellValue().getString();
+                        break;
+                    case NUMERIC:
+                        obj = DateUtil.isCellDateFormatted(cell) ? new DateTime(cell.getDateCellValue()) : cell.getNumericCellValue();
+                        break;
+                    case BOOLEAN:
+                        obj = cell.getBooleanCellValue();
+                        break;
+                    case FORMULA:
+                        obj = cell.getNumericCellValue();
+                        break;
+                    default:
+                        obj = null;
+                }
+                cells.add(obj);
+            }
+            rows.add(cells);
+        }
+        return rows;
+    }
+
+    @SuppressWarnings("rawtypes")
+    private static List<Object> buildDataObject(Map<Integer, String> excelHeadMap, Map<String, Integer> filedTypeMap, List<List> rows, Class<?> cls) {
+        List<Object> contents = new ArrayList<>();
+        for (List<?> list : rows) {
+            // 如果当前第一列中无数据,则忽略当前行的数据
+            if (list == null || list.get(0) == null) {
+                break;
+            }
+            // 当前行的数据放入map中,生成<fieldName, value>的形式
+            Map<String, Object> rowMap = rowListToMap(excelHeadMap, list);
+            try {
+                // 将当前行转换成对应的对象
+                Object obj = cls.getDeclaringClass().newInstance();
+                ReflectUtils.populateBean(obj, rowMap, filedTypeMap);
+                contents.add(obj);
+            } catch (InstantiationException e) {
+                log.error("类实例化异常:" + e.getMessage());
+                throw new ExcelHandleException("类实例化异常");
+            } catch (IllegalAccessException e) {
+                log.error("类安全权限异常:" + e.getMessage());
+                throw new ExcelHandleException("类安全权限异常");
+            }
+        }
+        return contents;
+    }
+
+    /**
+     * 将行转行成map,生成<fieldName, value>的形式
+     *
+     * @param excelHeadMap 表头信息
+     * @param list         数据
+     * @return Map
+     */
+    private static Map<String, Object> rowListToMap(Map<Integer, String> excelHeadMap, List<?> list) {
+        Map<String, Object> rowMap = new HashMap<>();
+        for (int i = 0; i < list.size(); i++) {
+            String fieldName = excelHeadMap.get(i);
+            if (fieldName != null) {
+                rowMap.put(fieldName, list.get(i));
+            }
+        }
+        return rowMap;
+    }
+}

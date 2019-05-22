@@ -1,0 +1,424 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.donkeycat</groupId>
+	<version>0.0.1</version>
+	<artifactId>donkey-lite</artifactId>
+	<packaging>pom</packaging>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<tag>v0.0.4</tag>
+		<url>https://github.com/donkeycart/donkey-lite</url>
+		<connection>scm:git:https://github.com/donkeycart/donkey-lite.git</connection>
+		<developerConnection>scm:git:https://github.com/donkeycart/donkey-lite.git</developerConnection>
+	</scm>
+
+	<developers>
+		<developer>
+			<name>Xue.Nanfeng</name>
+			<email>xueyj163@163.com</email>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
+		<java.version>1.8</java.version>
+
+		<maven.version>3.1.0</maven.version>
+		<node.version>v8.9.3</node.version>
+		<npm.version>5.6.0</npm.version>
+		<resource.delimiter>@</resource.delimiter>
+
+		<spring-boot-starter-redis.version>1.4.7.RELEASE</spring-boot-starter-redis.version>
+		<javax.mail.version>1.6.0</javax.mail.version>
+		<poi.version>4.0.1</poi.version>
+		<xmlbeans.version>3.0.2</xmlbeans.version>
+		<fastjson.version>1.2.58</fastjson.version>
+		<aliyun-java-sdk-dysmsapi.version>1.1.0</aliyun-java-sdk-dysmsapi.version>
+		<aliyun-sdk-oss.version>3.4.2</aliyun-sdk-oss.version>
+		<jaxb.version>2.3.1</jaxb.version>
+		<lombok.version>1.18.4</lombok.version>
+		<mysql.version>5.1.47</mysql.version>
+		<mapper.version>4.1.5</mapper.version>
+		<tk.mybatis.version>2.1.5</tk.mybatis.version>
+		<mybatis-spring-boot.version>2.0.0</mybatis-spring-boot.version>
+		<pagehelper.version>1.2.10</pagehelper.version>
+		<jasypt.version>2.1.1</jasypt.version>
+		<commons-logging.version>1.2</commons-logging.version>
+		<commons-lang3.version>3.8.1</commons-lang3.version>
+		<commons-cli.version>1.4</commons-cli.version>
+		<commons-exec.version>1.3</commons-exec.version>
+
+        <!-- Plugin versions -->
+		<jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
+		<maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
+		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+		<maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
+		<maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
+		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+		<maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
+		<maven-war-plugin.version>2.6</maven-war-plugin.version>
+		<maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
+		<maven-checkstyle.version>2.17</maven-checkstyle.version>
+		<mybatis-generator-maven-plugin.version>1.3.7</mybatis-generator-maven-plugin.version>
+		<exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+
+		<sonar-maven-plugin.version>3.2</sonar-maven-plugin.version>
+
+
+        <!-- Sonar properties -->
+		<sonar.jacoco.itReportPath>${project.testresult.directory}/coverage/jacoco/jacoco-it.exec</sonar.jacoco.itReportPath>
+		<sonar.jacoco.reportPath>${project.testresult.directory}/coverage/jacoco/jacoco.exec</sonar.jacoco.reportPath>
+		<sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
+		<sonar.sources>${project.basedir}/src/main/</sonar.sources>
+		<sonar.surefire.reportsPath>${project.testresult.directory}/surefire-reports</sonar.surefire.reportsPath>
+		<sonar.tests>${project.basedir}/src/test/</sonar.tests>
+	</properties>
+
+	<modules>
+		<module>donkey-lite-core</module>
+		<module>donkey-lite-data</module>
+		<module>donkey-lite-factory</module>
+		<module>donkey-lite-poi</module>
+		<module>donkey-lite-interface</module>
+		<module>donkey-lite-generator</module>
+		<module>donkey-lite-oss</module>
+	</modules>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+            <!--json-->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ow2.asm</groupId>
+				<artifactId>asm</artifactId>
+				<version>7.1</version>
+			</dependency>
+
+            <!--commonline-->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-exec</artifactId>
+				<version>${commons-exec.version}</version>
+			</dependency>
+
+            <!--mybatis-->
+			<dependency>
+				<groupId>tk.mybatis</groupId>
+				<artifactId>mapper-spring-boot-starter</artifactId>
+				<version>${tk.mybatis.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.mybatis</groupId>
+						<artifactId>mybatis</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper</artifactId>
+                <version>${mapper.version}</version>
+            </dependency>
+			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>${mybatis-spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper-spring-boot-starter</artifactId>
+				<version>${pagehelper.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.mybatis.spring.boot</groupId>
+						<artifactId>mybatis-spring-boot-starter</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+            <!-- 阿里oss -->
+			<dependency>
+				<groupId>com.aliyun.oss</groupId>
+				<artifactId>aliyun-sdk-oss</artifactId>
+				<version>${aliyun-sdk-oss.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>com.aliyun</groupId>
+						<artifactId>aliyun-java-sdk-ecs</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>com.aliyun</groupId>
+						<artifactId>aliyun-java-sdk-ram</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+            <!-- 阿里短信 -->
+			<dependency>
+				<groupId>com.aliyun</groupId>
+				<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+				<version>${aliyun-java-sdk-dysmsapi.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>com.aliyun</groupId>
+						<artifactId>aliyun-java-sdk-ecs</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>com.aliyun</groupId>
+						<artifactId>aliyun-java-sdk-ram</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+            <!-- 数据源加密 -->
+			<dependency>
+				<groupId>com.github.ulisesbocchio</groupId>
+				<artifactId>jasypt-spring-boot-starter</artifactId>
+				<version>${jasypt.version}</version>
+			</dependency>
+
+            <!-- 处理java8 时间类 -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-typehandlers-jsr310</artifactId>
+				<version>1.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.xmlbeans</groupId>
+				<artifactId>xmlbeans</artifactId>
+				<version>${xmlbeans.version}</version>
+			</dependency>
+
+            <!--spring io-->
+			<dependency>
+				<groupId>io.spring.platform</groupId>
+				<artifactId>platform-bom</artifactId>
+				<version>Cairo-SR8</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.17</version>
+				<configuration>
+					<configLocation>google_checks.xml</configLocation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>${maven-release-plugin.version}</version>
+				<configuration>
+					<arguments>-DskipTests</arguments>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+                <!-- compiler config -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<annotationProcessorPaths>
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${lombok.version}</version>
+							</path>
+						</annotationProcessorPaths>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${jacoco-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>pre-unit-tests</id>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+							<configuration>
+                                <!-- Sets the path to the file which contains the execution data. -->
+								<destFile>${project.testresult.directory}/coverage/jacoco/jacoco.exec</destFile>
+							</configuration>
+						</execution>
+                        <!-- Ensures that the code coverage report for unit tests is created after unit tests have been run -->
+						<execution>
+							<id>post-unit-test</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+							<configuration>
+								<dataFile>${project.testresult.directory}/coverage/jacoco/jacoco.exec</dataFile>
+								<outputDirectory>${project.testresult.directory}/coverage/jacoco</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+
+                <!-- Source -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+                <!-- mybatis generator config -->
+				<plugin>
+					<groupId>org.mybatis.generator</groupId>
+					<artifactId>mybatis-generator-maven-plugin</artifactId>
+					<version>${mybatis-generator-maven-plugin.version}</version>
+					<configuration>
+						<configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml
+						</configurationFile>
+						<overwrite>true</overwrite>
+						<verbose>true</verbose>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>${mysql.version}</version>
+						</dependency>
+						<dependency>
+							<groupId>tk.mybatis</groupId>
+							<artifactId>mapper</artifactId>
+							<version>${mapper.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+
+                <!-- command line config -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>${exec-maven-plugin.version}</version>
+				</plugin>
+
+                <!-- javadoc config
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                -->
+			</plugins>
+		</pluginManagement>
+	</build>
+
+    <!--远程仓库-->
+	<repositories>
+		<repository>
+			<id>aliyun</id>
+			<name>aliyun maven</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+    <!-- 分发地址 -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+</project>

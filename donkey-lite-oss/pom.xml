@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.github.donkeycat</groupId>
+        <artifactId>donkey-lite</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>donkey-lite-oss</artifactId>
+    <packaging>pom</packaging>
+
+
+    <modules>
+        <module>donkey-lite-oss-aliyun</module>
+        <module>donkey-lite-oss-qiniu</module>
+    </modules>
+    
+</project>
