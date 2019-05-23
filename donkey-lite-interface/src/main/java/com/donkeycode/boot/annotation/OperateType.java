@@ -1,5 +1,9 @@
 package com.donkeycode.boot.annotation;
 
+/**
+ * 操作类型定义
+ *
+ */
 public enum OperateType {
 
     ADD(1), MODIFY(2), DELETE(3), DELETES(4);

@@ -50,11 +50,7 @@ public class LoadingCache<K, KK, V> {
             // Another thread is already loading an instance
             task = (FutureTask<V>) v;
         } else {
-            task = new FutureTask<V>(new Callable<V>() {
-                public V call() throws Exception {
-                    return loader.apply(key);
-                }
-            });
+            task = new FutureTask<>(() -> loader.apply(key));
             Object prevTask = map.putIfAbsent(cacheKey, task);
             if (prevTask == null) {
                 // creator does the load

@@ -22,3 +22,9 @@ mvn release:prepare
 # b.用tag上的代码，打一个release版的包
 # c.deploy上你的maven私服
 ```
+
+# 推送项目至 Maven 中央仓库
+
+```shell
+mvn clean deploy -Dmaven.test.skip=true  -Prelease -Dgpg.passphrase
+```

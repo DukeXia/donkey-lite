@@ -80,6 +80,8 @@ public class CollectionUtils {
     /**
      * 新建一个HashMap
      *
+     * @param <T>
+     * @param <K>
      * @return HashMap对象
      */
     public static <T, K> HashMap<T, K> newHashMap() {

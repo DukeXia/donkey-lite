@@ -11,6 +11,12 @@ import java.lang.annotation.Documented;
  */
 public class AnnotationUtils {
 
+    /**
+     * @param cls
+     * @param annotationClass
+     * @param <T>
+     * @return
+     */
     private static <T extends Annotation> T getAnnotation(Class<?> cls, Class<T> annotationClass) {
 
         if (cls == null || annotationClass == null) {
@@ -23,13 +29,21 @@ public class AnnotationUtils {
                     continue;
                 }
                 res = getAnnotation(annotation.annotationType(), annotationClass);
-                if (res != null)
+                if (res != null) {
                     break;
+                }
             }
         }
         return res;
     }
 
+    /**
+     * @param obj
+     * @param annotationClass
+     * @param <Obj>
+     * @param <T>
+     * @return
+     */
     public static <Obj, T extends Annotation> T getAnnotation(Obj obj, Class<T> annotationClass) {
         if (obj == null) {
             return null;
@@ -37,6 +51,11 @@ public class AnnotationUtils {
         return getAnnotation(AopProxyUtils.ultimateTargetClass(obj), annotationClass);
     }
 
+    /**
+     * @param obj
+     * @param <Obj>
+     * @return
+     */
     public static <Obj> String getResourceType(Obj obj) {
         if (obj == null) {
             return null;
@@ -45,6 +64,11 @@ public class AnnotationUtils {
         return info == null ? null : info.type();
     }
 
+    /**
+     * @param obj
+     * @param <Obj>
+     * @return
+     */
     public static <Obj> String getFunctionName(Obj obj) {
         if (obj == null) {
             return null;
