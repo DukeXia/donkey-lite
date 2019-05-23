@@ -1,7 +1,6 @@
 package com.donkeycode.boot;
 
 import com.donkeycode.boot.file.ExcelColumn;
-import com.donkeycode.core.date.DateCalcUtil;
 import com.donkeycode.core.utils.StringSuperUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -9,25 +8,28 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.time.DateUtils;
 
 @Slf4j
 public class ReflectUtils {
 
     public static <F> Method getGetMethod(Class<F> clazz, String fieldName) throws NoSuchMethodException {
 
-        Validate.notNull(clazz);
+        Objects.requireNonNull(clazz);
         Validate.notBlank(fieldName, "fieldName is null.");
 
         return clazz.getMethod("get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1));
     }
 
     public static <F, V> Method getSetMethod(Class<F> clazz, String fieldName, Class<V> filedValueType) throws NoSuchMethodException {
-        Validate.notNull(clazz);
+        Objects.requireNonNull(clazz);
         Validate.notBlank(fieldName, "fieldName is null.");
 
         return clazz.getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), filedValueType);
@@ -35,8 +37,8 @@ public class ReflectUtils {
 
     public static <O> Object getProperty(Class<O> clazz, O obj, Field field) throws Exception {
 
-        Validate.notNull(clazz);
-        Validate.notNull(field);
+        Objects.requireNonNull(clazz);
+        Objects.requireNonNull(field);
 
         try {
             return field.get(obj);
@@ -49,9 +51,9 @@ public class ReflectUtils {
 
     private static <O> void setProperty(Class<O> clazz, O obj, Field getField, Object value) throws Exception {
 
-        Validate.notNull(clazz);
-        Validate.notNull(obj);
-        Validate.notNull(getField);
+        Objects.requireNonNull(clazz);
+        Objects.requireNonNull(obj);
+        Objects.requireNonNull(getField);
 
         String name = getField.getName();
         try {
@@ -65,9 +67,9 @@ public class ReflectUtils {
 
     public static <F, S extends F> void fillSubtype(Class<F> clazz, F father, S son) {
 
-        Validate.notNull(clazz);
-        Validate.notNull(father);
-        Validate.notNull(son);
+        Objects.requireNonNull(clazz);
+        Objects.requireNonNull(father);
+        Objects.requireNonNull(son);
 
         for (Field field : clazz.getDeclaredFields()) {
             try {
@@ -81,9 +83,9 @@ public class ReflectUtils {
 
     public static <C1, C2> void fillFiled(Class<C1> clazz1, C1 src, Class<C2> clazz2, C2 tar) {
 
-        Validate.notNull(clazz1);
-        Validate.notNull(src);
-        Validate.notNull(clazz2);
+        Objects.requireNonNull(clazz1);
+        Objects.requireNonNull(src);
+        Objects.requireNonNull(clazz2);
 
         for (Field field : clazz1.getDeclaredFields()) {
             try {
@@ -123,10 +125,9 @@ public class ReflectUtils {
 
     public static Object getProperty2(Class<?> clazz, Object obj, Field field) throws Exception {
 
-        Validate.notNull(clazz);
-        Validate.notNull(obj);
-        Validate.notNull(field);
-
+        Objects.requireNonNull(clazz);
+        Objects.requireNonNull(obj);
+        Objects.requireNonNull(field);
 
         try {
             return field.get(obj);
@@ -155,6 +156,7 @@ public class ReflectUtils {
         if (map == null || obj == null) {
             return null;
         }
+
         Field[] fields = obj.getClass().getDeclaredFields();
         if (fields != null && fields.length > 0) {
             for (Field field : fields) {
@@ -192,9 +194,13 @@ public class ReflectUtils {
                         object = Boolean.parseBoolean(value);
                     } else if (type.equals("class java.util.Date")) {
                         if (o instanceof Long) {
-                            object = DateCalcUtil.getDateByLongDate((Long) o);
+                            object = new Date((Long) o);
                         } else {
-                            object = getDateObject(filedTypeMap, field, value);
+                            try {
+                                object = getDateObject(filedTypeMap, field, value);
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     } else {
                         object = value;
@@ -210,19 +216,19 @@ public class ReflectUtils {
         return obj;
     }
 
-    private static Date getDateObject(Map<String, Integer> filedTypeMap, Field field, String value) {
-        Date object;
+    private static Date getDateObject(Map<String, Integer> filedTypeMap, Field field, String value) throws ParseException {
+        Date object = null;
         if (filedTypeMap != null && !filedTypeMap.isEmpty()) {
             if (filedTypeMap.containsKey(field.getName())) {
                 Integer type = filedTypeMap.get(field.getName());
                 if (type == null) {
                     object = getDateObject(value);
                 } else if (type == ExcelColumn.DATE_6) {
-                    object = DateCalcUtil.getDateByString(value, "yyyy-MM");
+                    object = DateUtils.parseDate(value, "yyyy-MM");
                 } else if (type == ExcelColumn.DATE_16) {
-                    object = DateCalcUtil.getDateByString(value, "yyyy-MM-dd HH:mm:ss");
+                    object = DateUtils.parseDate(value, "yyyy-MM-dd HH:mm:ss");
                 } else {
-                    object = DateCalcUtil.getDateByString(value, "yyyy-MM-dd");
+                    object = DateUtils.parseDate(value, "yyyy-MM-dd");
                 }
             } else {
                 object = getDateObject(value);
@@ -233,14 +239,24 @@ public class ReflectUtils {
         return object;
     }
 
-    private static Date getDateObject(String value) {
-        Date object = new Date();
+
+    /**
+     * 字符串转换成 Date 对象
+     *
+     * @param value
+     * @return
+     * @throws ParseException
+     */
+    private static Date getDateObject(String value) throws ParseException {
+        Objects.requireNonNull(value, "date string is null.");
+
+        Date object = null;
         if (StringSuperUtils.filterNull(value).length() == 7) {
-            object = DateCalcUtil.getDateByString(value, "yyyy-MM");
+            object = DateUtils.parseDate(value, "yyyy-MM");
         } else if (StringSuperUtils.filterNull(value).length() > 7 && StringSuperUtils.filterNull(value).length() <= 10) {
-            object = DateCalcUtil.getDateByString(value, "yyyy-MM-dd");
+            object = DateUtils.parseDate(value, "yyyy-MM-dd");
         } else if (StringSuperUtils.filterNull(value).length() > 10) {
-            object = DateCalcUtil.getDateByString(value, "yyyy-MM-dd HH:mm:ss");
+            object = DateUtils.parseDate(value, "yyyy-MM-dd HH:mm:ss");
         }
         return object;
     }

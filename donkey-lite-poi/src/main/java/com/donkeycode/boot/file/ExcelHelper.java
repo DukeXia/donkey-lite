@@ -1,12 +1,11 @@
 package com.donkeycode.boot.file;
 
 import com.donkeycode.boot.ReflectUtils;
-import com.donkeycode.core.date.DateCalcUtil;
-import com.donkeycode.core.date.DateTime;
 import com.donkeycode.core.utils.StringSuperUtils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
@@ -16,16 +15,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
- *
  * Excel 操作
- *
  */
 @Slf4j
 public class ExcelHelper {
 
+    private static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static List<Object> importToObjectList(ExcelHead head, File file, Class<?> cls) {
@@ -58,7 +57,6 @@ public class ExcelHelper {
     }
 
     /**
-     *
      * @param head
      * @param dataList
      * @return
@@ -78,7 +76,6 @@ public class ExcelHelper {
     }
 
     /**
-     *
      * @param excelColumns
      * @param headName
      * @return
@@ -109,7 +106,6 @@ public class ExcelHelper {
     }
 
     /**
-     *
      * @param excelColumns
      * @return
      */
@@ -126,6 +122,13 @@ public class ExcelHelper {
 
     }
 
+    /**
+     * 构建 Sheet 中 Row 数据
+     *
+     * @param sheet
+     * @param head
+     * @param dataList
+     */
     private static void buildExcelData(Sheet sheet, ExcelHead head, List<?> dataList) {
 
         Objects.requireNonNull(head);
@@ -159,8 +162,7 @@ public class ExcelHelper {
                     } else if (valueObject instanceof String) {
                         cell.setCellValue((String) valueObject);
                     } else if (valueObject instanceof Date) {
-                        String dateByString = DateCalcUtil.getFormatDate((Date) valueObject, "");
-                        cell.setCellValue(dateByString);
+                        cell.setCellValue(DateFormatUtils.ISO_8601_EXTENDED_DATETIME_FORMAT.format((Date) valueObject));
                     } else {
                         cell.setCellValue(valueObject.toString());
                     }
@@ -202,7 +204,7 @@ public class ExcelHelper {
                         obj = cell.getRichStringCellValue().getString();
                         break;
                     case NUMERIC:
-                        obj = DateUtil.isCellDateFormatted(cell) ? new DateTime(cell.getDateCellValue()) : cell.getNumericCellValue();
+                        obj = DateUtil.isCellDateFormatted(cell) ? cell.getDateCellValue() : cell.getNumericCellValue();
                         break;
                     case BOOLEAN:
                         obj = cell.getBooleanCellValue();
