@@ -91,7 +91,7 @@ public class StructureConvertUtils {
         if (StringUtils.isNoneBlank(orderFieldName)) {
             nodes.sort((e1, e2) -> {
                 try {
-                    return FieldUtils.readField(e1, orderFieldName, true).toString().compareTo(FieldUtils.readField(e1, orderFieldName, true).toString());
+                    return Integer.parseInt(FieldUtils.readField(e1, orderFieldName, true).toString()) - (Integer.parseInt(FieldUtils.readField(e2, orderFieldName, true).toString()));
                 } catch (IllegalAccessException ex) {
                     log.warn("Read Field Value fail. {}", ex.getMessage());
                     return 0;
