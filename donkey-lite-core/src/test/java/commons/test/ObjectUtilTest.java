@@ -3,7 +3,7 @@ package commons.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
+import net.sf.cglib.beans.BeanCopier;
 
 import commons.test.entity.Bean2;
 import commons.test.entity.BeanA;
@@ -26,8 +26,10 @@ public class ObjectUtilTest {
         beanB.setName("xueyanjun2");
         list.add(beanB);
 
+        long startTime = System.currentTimeMillis();
         List<Bean2> serviceTrees = beanCopyPropertiesForList(list, Bean2.class);
         System.out.println(serviceTrees);
+        System.out.println(System.currentTimeMillis() - startTime);
     }
 
     /**
@@ -43,7 +45,6 @@ public class ObjectUtilTest {
         List<R> targetList = new ArrayList<R>();
         if (sourceList != null && !sourceList.isEmpty()) {
             for (T source : sourceList) {
-                System.out.println(source);
                 targetList.add(beanCopyProperties(source, targetCls));
             }
         }
@@ -59,10 +60,11 @@ public class ObjectUtilTest {
      */
     public static <R> R beanCopyProperties(Object source, Class<R> targetCls) {
         try {
+            BeanCopier copier = BeanCopier.create(source.getClass(), targetCls, false);
             R target = targetCls.getDeclaredConstructor().newInstance();
             if (source != null) {
-                BeanUtils.copyProperties(target, source);
-                System.out.println(target);
+                //BeanUtils.copyProperties(target, source);
+                copier.copy(source, target, null);
             }
             return target;
         } catch (Exception e) {
