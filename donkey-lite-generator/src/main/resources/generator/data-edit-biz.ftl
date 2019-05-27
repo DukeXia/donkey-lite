@@ -21,7 +21,7 @@ import java.util.List;
 public class ${ClassName}DataEdit implements IDataEditComponent{
 
     @Autowired
-    ${ClassName}Service ${EntityName}Service;
+    private ${ClassName}Service ${EntityName}Service;
 
 
     @Override

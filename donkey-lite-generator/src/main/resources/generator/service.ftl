@@ -27,7 +27,7 @@ public class ${ClassName}ServiceImpl extends BaseService<${ClassName}> implement
 
 
     @Autowired
-    ${ClassName}Mapper ${EntityName}Mapper;
+    private ${ClassName}Mapper ${EntityName}Mapper;
 
 
     @Override

@@ -23,7 +23,7 @@
         </jdbcConnection>
 
         <!-- generate Model -->
-        <javaModelGenerator targetPackage="com.donkeycode.data.domain" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.donkeycode.data.domain" targetProject="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
             <property name="rootClass" value="com.donkeycode.core.BaseEntity"/>
@@ -31,14 +31,14 @@
 
 
         <!-- generate xml -->
-        <sqlMapGenerator targetPackage="com.donkeycode.data.mapper" targetProject="src/main/java">
+        <sqlMapGenerator targetPackage="com.donkeycode.data.mapper" targetProject="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/main/java">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
         <!-- generate Mapper -->
         <javaClientGenerator type="ANNOTATEDMAPPER"
                              targetPackage="com.donkeycode.data.mapper"
-                             targetProject="src/main/java">
+                             targetProject="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="exampleMethodVisibility" value="public"/>
         </javaClientGenerator>

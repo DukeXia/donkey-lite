@@ -20,7 +20,7 @@ import java.util.List;
 public class ${ClassName}Controller {
 
     @Autowired
-    ${ClassName}Service ${EntityName}Service;
+    private ${ClassName}Service ${EntityName}Service;
 
     @RequestMapping(value = {"/list", ""}, method = RequestMethod.GET)
     public Object list() {

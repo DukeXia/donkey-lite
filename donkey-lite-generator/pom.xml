@@ -90,6 +90,12 @@
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>sqltool</artifactId>
+            <version>2.4.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

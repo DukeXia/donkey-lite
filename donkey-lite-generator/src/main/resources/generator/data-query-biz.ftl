@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ *
+ *
  * @author ${Author}
  * @since  ${Date}
  */
@@ -22,7 +24,7 @@ import java.util.Map;
 public class ${ClassName}Query implements IDataQueryComponent{
 
     @Autowired
-    ${ClassName}Service ${EntityName}Service;
+    private ${ClassName}Service ${EntityName}Service;
 
     @Override
     public PageQueryResult pageList(String operateType, Map<String, String> param, int pageNum, int pageSize) {

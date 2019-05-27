@@ -8,14 +8,16 @@ import com.github.pagehelper.PageInfo;
 import java.util.Map;
 
 /**
+ * 测试
+ *
  * @author ${Author}
  * @since  ${Date}
  */
 public interface ${ClassName}Service extends IBaseService<${ClassName}>{
 
-    List<${ClassName}> getList(Map<String, String> param);
+    List<${ClassName}> getList(Map<String, String> params);
 
-    PageInfo<${ClassName}> getPageList(Map<String, String> param, int pageNum, int pageSize);
+    PageInfo<${ClassName}> getPageList(Map<String, String> params, int pageNum, int pageSize);
 
     void deletes(List<Long> ids);
 }

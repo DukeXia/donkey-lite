@@ -18,7 +18,9 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 /**
- * @author ${Author}
+ *
+ *
+ * @author donkey-lite-generator
  * @since  ${Date}
  */
 @Setter
