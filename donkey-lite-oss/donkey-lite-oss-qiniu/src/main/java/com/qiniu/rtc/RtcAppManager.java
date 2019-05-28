@@ -57,7 +57,7 @@ public class RtcAppManager {
         params.put("noAutoKickUser", noAutoKickUser);
 
         String url = String.format("%s%s", host, "/v3/apps");
-        byte[] body =  JSON.toJSONString(params).getBytes(Constants.UTF_8);
+        byte[] body = JSON.toJSONString(params).getBytes(Constants.UTF_8);
         StringMap headers = auth.authorizationV2(url, "POST", body, Client.JsonMime);
         return client.post(url, body, headers, Client.JsonMime);
     }
@@ -95,7 +95,7 @@ public class RtcAppManager {
      * @throws QiniuException
      */
     public Response updateApp(String appId, String hub, String title, int maxUsers, boolean noAutoKickUser) throws
-            QiniuException {
+        QiniuException {
         if (hub != null) {
             params.put("hub", hub);
         }

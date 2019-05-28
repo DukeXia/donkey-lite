@@ -165,7 +165,7 @@ public final class StreamingManager {
      * @param other     文档中指定的其它参数
      */
     public String saveAs(String streamKey, String fileName, long start, long end, StringMap other)
-            throws QiniuException {
+        throws QiniuException {
         String path = encodeKey(streamKey) + "/saveas";
         StringMap param = other != null ? other : new StringMap();
         param.putNotEmpty("fname", fileName).put("start", start).put("end", end);

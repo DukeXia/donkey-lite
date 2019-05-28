@@ -12,7 +12,6 @@ public class ObjectFieldUtilTest {
     public static void main(String[] args) {
 
 
-
         BeanA beanA = new BeanA();
         beanA.setAge(1);
         beanA.setEmail("xueyanjun@163.com");
@@ -20,7 +19,7 @@ public class ObjectFieldUtilTest {
 
 
         try {
-            System.out.println(FieldUtils.readField(beanA, "email",true).toString());
+            System.out.println(FieldUtils.readField(beanA, "email", true).toString());
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }

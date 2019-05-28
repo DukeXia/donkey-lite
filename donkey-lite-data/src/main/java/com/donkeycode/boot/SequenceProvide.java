@@ -28,7 +28,6 @@ public class SequenceProvide {
 
     /**
      * 初始化业务编号生成规则
-     *
      */
     @PostConstruct
     public void initSequence() {

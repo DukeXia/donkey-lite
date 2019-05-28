@@ -41,7 +41,7 @@ public class MapperCommentGenerator implements CommentGenerator {
     //开始的分隔符，例如mysql为`，sqlserver为[
     private String beginningDelimiter = "";
     //结束的分隔符，例如mysql为`，sqlserver为]
-    private String endingDelimiter    = "";
+    private String endingDelimiter = "";
     //强制生成注解
     private boolean forceAnnotation;
 
@@ -159,8 +159,8 @@ public class MapperCommentGenerator implements CommentGenerator {
         String column = introspectedColumn.getActualColumnName();
         if (StringUtility.stringContainsSpace(column) || introspectedTable.getTableConfiguration().isAllColumnDelimitingEnabled()) {
             column = introspectedColumn.getContext().getBeginningDelimiter()
-                    + column
-                    + introspectedColumn.getContext().getEndingDelimiter();
+                + column
+                + introspectedColumn.getContext().getEndingDelimiter();
         }
         if (!column.equals(introspectedColumn.getJavaProperty())) {
             //@Column

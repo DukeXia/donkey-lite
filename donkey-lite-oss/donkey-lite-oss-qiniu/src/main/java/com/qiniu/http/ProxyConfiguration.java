@@ -48,8 +48,8 @@ public final class ProxyConfiguration {
             public okhttp3.Request authenticate(Route route, okhttp3.Response response) throws IOException {
                 String credential = Credentials.basic(user, password);
                 return response.request().newBuilder().
-                        header("Proxy-Authorization", credential).
-                        header("Proxy-Connection", "Keep-Alive").build();
+                    header("Proxy-Authorization", credential).
+                    header("Proxy-Connection", "Keep-Alive").build();
             }
         };
     }

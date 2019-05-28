@@ -365,7 +365,7 @@ public final class AutoZone extends Zone {
 
         public boolean equals(Object obj) {
             return obj == this || !(obj == null || !(obj instanceof ZoneIndex))
-                    && ((ZoneIndex) obj).accessKey.equals(accessKey) && ((ZoneIndex) obj).bucket.equals(bucket);
+                && ((ZoneIndex) obj).accessKey.equals(accessKey) && ((ZoneIndex) obj).bucket.equals(bucket);
         }
     }
 

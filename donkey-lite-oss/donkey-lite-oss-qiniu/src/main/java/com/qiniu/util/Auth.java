@@ -16,34 +16,34 @@ public final class Auth {
      * 参考文档：<a href="https://developer.qiniu.com/kodo/manual/put-policy">上传策略</a>
      */
     private static final String[] policyFields = new String[]{
-            "callbackUrl",
-            "callbackBody",
-            "callbackHost",
-            "callbackBodyType",
-            "callbackFetchKey",
+        "callbackUrl",
+        "callbackBody",
+        "callbackHost",
+        "callbackBodyType",
+        "callbackFetchKey",
 
-            "returnUrl",
-            "returnBody",
+        "returnUrl",
+        "returnBody",
 
-            "endUser",
-            "saveKey",
-            "insertOnly",
-            "isPrefixalScope",
+        "endUser",
+        "saveKey",
+        "insertOnly",
+        "isPrefixalScope",
 
-            "detectMime",
-            "mimeLimit",
-            "fsizeLimit",
-            "fsizeMin",
+        "detectMime",
+        "mimeLimit",
+        "fsizeLimit",
+        "fsizeMin",
 
-            "persistentOps",
-            "persistentNotifyUrl",
-            "persistentPipeline",
+        "persistentOps",
+        "persistentNotifyUrl",
+        "persistentPipeline",
 
-            "deleteAfterDays",
-            "fileType",
+        "deleteAfterDays",
+        "fileType",
     };
     private static final String[] deprecatedPolicyFields = new String[]{
-            "asyncOps",
+        "asyncOps",
     };
     public final String accessKey;
     private final SecretKeySpec secretKey;
@@ -309,7 +309,7 @@ public final class Auth {
         sb.append("\n\n");
         if (body != null && body.length > 0 && !StringUtils.isNullOrEmpty(contentType)) {
             if (contentType.equals(Client.FormMime)
-                    || contentType.equals(Client.JsonMime)) {
+                || contentType.equals(Client.JsonMime)) {
                 sb.append(new String(body));
             }
         }

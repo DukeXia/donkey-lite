@@ -127,7 +127,7 @@ public final class CdnManager {
         }
         HashMap<String, String[]> req = new HashMap<>();
         req.put("urls", urls);
-        byte[] body =  JSON.toJSONString(req).getBytes(Constants.UTF_8);
+        byte[] body = JSON.toJSONString(req).getBytes(Constants.UTF_8);
         String url = server + "/v2/tune/prefetch";
         StringMap headers = auth.authorizationV2(url, "POST", body, Client.JsonMime);
         Response response = client.post(url, body, headers, Client.JsonMime);
@@ -240,8 +240,8 @@ public final class CdnManager {
      * @return signedUrl     最终的带时间戳防盗链的url
      */
     public static String createTimestampAntiLeechUrl(
-            String host, String fileName, final StringMap queryStringMap, String encryptKey, long deadline)
-            throws QiniuException {
+        String host, String fileName, final StringMap queryStringMap, String encryptKey, long deadline)
+        throws QiniuException {
         URL urlObj = null;
         try {
             String urlToSign = null;

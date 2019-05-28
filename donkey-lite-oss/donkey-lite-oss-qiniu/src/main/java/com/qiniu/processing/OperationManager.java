@@ -104,7 +104,7 @@ public final class OperationManager {
      * @link http://developer.qiniu.com/dora/api/persistent-data-processing-pfop
      */
     public String pfop(String bucket, String key, String fops, String pipeline, String notifyURL)
-            throws QiniuException {
+        throws QiniuException {
         StringMap params = new StringMap().put("pipeline", pipeline).putNotEmpty("notifyURL", notifyURL);
         return pfop(bucket, key, fops, params);
     }
@@ -122,7 +122,7 @@ public final class OperationManager {
      * @link http://developer.qiniu.com/dora/api/persistent-data-processing-pfop
      */
     public String pfop(String bucket, String key, String fops, String pipeline, boolean force)
-            throws QiniuException {
+        throws QiniuException {
         StringMap params = new StringMap().put("pipeline", pipeline).putWhen("force", 1, force);
         return pfop(bucket, key, fops, params);
     }
@@ -141,9 +141,9 @@ public final class OperationManager {
      * @link http://developer.qiniu.com/dora/api/persistent-data-processing-pfop
      */
     public String pfop(String bucket, String key, String fops, String pipeline, String notifyURL, boolean force)
-            throws QiniuException {
+        throws QiniuException {
         StringMap params = new StringMap().put("pipeline", pipeline).
-                put("notifyURL", notifyURL).putWhen("force", 1, force);
+            put("notifyURL", notifyURL).putWhen("force", 1, force);
         return pfop(bucket, key, fops, params);
     }
 

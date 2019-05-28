@@ -78,7 +78,7 @@ public final class Response {
             try {
                 body = response.body().bytes();
                 if (response.code() >= 400 && !StringUtils.isNullOrEmpty(reqId) && body != null) {
-                    ErrorBody errorBody =  JSON.parseObject(new String(body), ErrorBody.class);
+                    ErrorBody errorBody = JSON.parseObject(new String(body), ErrorBody.class);
                     error = errorBody.error;
                 }
             } catch (Exception e) {
@@ -88,7 +88,7 @@ public final class Response {
             }
         }
         return new Response(response, code, reqId, response.header("X-Log"), via(response),
-                address, duration, error, body);
+            address, duration, error, body);
     }
 
     public static Response createError(okhttp3.Response response, String address, double duration, String error) {
@@ -115,7 +115,7 @@ public final class Response {
             }
         }
         return new Response(response, code, reqId, response.header("X-Log"), via(response),
-                address, duration, error, body);
+            address, duration, error, body);
     }
 
 
@@ -165,8 +165,8 @@ public final class Response {
 
     public String toString() {
         return String.format(Locale.ENGLISH,
-                "{ResponseInfo:%s,status:%d, reqId:%s, xlog:%s, xvia:%s, adress:%s, duration:%f s, error:%s}",
-                super.toString(), statusCode, reqId, xlog, xvia, address, duration, error);
+            "{ResponseInfo:%s,status:%d, reqId:%s, xlog:%s, xvia:%s, adress:%s, duration:%f s, error:%s}",
+            super.toString(), statusCode, reqId, xlog, xvia, address, duration, error);
     }
 
     public <T> T jsonToObject(Class<T> classOfT) throws QiniuException {
@@ -182,7 +182,7 @@ public final class Response {
             return null;
         }
         String b = bodyString();
-        return JSON.parseObject(b,Map.class);
+        return JSON.parseObject(b, Map.class);
     }
 
     public synchronized byte[] body() throws QiniuException {

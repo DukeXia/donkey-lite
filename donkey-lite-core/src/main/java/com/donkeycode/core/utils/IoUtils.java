@@ -64,6 +64,7 @@ public class IoUtils {
     public static long copy(Reader reader, Writer writer) throws IOException {
         return copy(reader, writer, DEFAULT_BUFFER_SIZE);
     }
+
     /**
      * 将Reader中的内容复制到Writer中
      *
@@ -76,7 +77,7 @@ public class IoUtils {
         char[] buffer = new char[bufferSize];
         long size = 0;
         int readSize;
-         
+
         while ((readSize = reader.read(buffer, 0, bufferSize)) != EOF) {
             writer.write(buffer, 0, readSize);
             size += readSize;
@@ -118,7 +119,7 @@ public class IoUtils {
 
         byte[] buffer = new byte[bufferSize];
         long size = 0;
-        
+
         for (int readSize = -1; (readSize = in.read(buffer)) != EOF; ) {
             out.write(buffer, 0, readSize);
             size += readSize;

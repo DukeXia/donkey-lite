@@ -99,7 +99,7 @@ public final class Configuration implements Cloneable {
             zone = Zone.autoZone();
         }
         return useHttpsDomains ? zone.getUpHttps(zoneReqInfo)
-                : zone.getUpHttp(zoneReqInfo);
+            : zone.getUpHttp(zoneReqInfo);
     }
 
     public String upHostBackup(String upToken) throws QiniuException {
@@ -108,7 +108,7 @@ public final class Configuration implements Cloneable {
             zone = Zone.autoZone();
         }
         return useHttpsDomains ? zone.getUpBackupHttps(zoneReqInfo)
-                : zone.getUpBackupHttp(zoneReqInfo);
+            : zone.getUpBackupHttp(zoneReqInfo);
     }
 
 
@@ -118,7 +118,7 @@ public final class Configuration implements Cloneable {
             zone = Zone.autoZone();
         }
         return useHttpsDomains ? zone.getIovipHttps(zoneReqInfo)
-                : zone.getIovipHttp(zoneReqInfo);
+            : zone.getIovipHttp(zoneReqInfo);
     }
 
     public String apiHost(String ak, String bucket) {
@@ -128,7 +128,7 @@ public final class Configuration implements Cloneable {
         }
 
         return useHttpsDomains ? zone.getApiHttps(zoneReqInfo)
-                : zone.getApiHttp(zoneReqInfo);
+            : zone.getApiHttp(zoneReqInfo);
     }
 
     public String rsHost() {
@@ -154,7 +154,7 @@ public final class Configuration implements Cloneable {
             zone = Zone.autoZone();
         }
         return useHttpsDomains ? zone.getRsHttps(zoneReqInfo)
-                : zone.getRsHttp(zoneReqInfo);
+            : zone.getRsHttp(zoneReqInfo);
     }
 
 
@@ -164,7 +164,7 @@ public final class Configuration implements Cloneable {
             zone = Zone.autoZone();
         }
         return useHttpsDomains ? zone.getRsfHttps(zoneReqInfo)
-                : zone.getRsfHttp(zoneReqInfo);
+            : zone.getRsfHttp(zoneReqInfo);
     }
 
     public String ucHost() {

@@ -432,7 +432,7 @@ public class EmitUtils {
                 hash_long(e);
                 break;
             default:
-                    break;
+                break;
         }
     }
 

@@ -85,7 +85,7 @@ public final class StringMap {
                 }
                 try {
                     b.append(URLEncoder.encode(key, "UTF-8")).append('=')
-                            .append(URLEncoder.encode(value.toString(), "UTF-8"));
+                        .append(URLEncoder.encode(value.toString(), "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
                     throw new AssertionError(e);
                 }

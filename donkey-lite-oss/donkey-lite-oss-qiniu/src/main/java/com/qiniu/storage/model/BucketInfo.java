@@ -5,17 +5,17 @@ import java.util.Map;
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class BucketInfo {
-	@JSONField(name ="source")
+    @JSONField(name = "source")
     private String imageSource;
-	@JSONField(name ="host")
+    @JSONField(name = "host")
     private String imageHost;
     // CHECKSTYLE:OFF
-	@JSONField(name ="protected")
+    @JSONField(name = "protected")
     private int _protected;
-	@JSONField(name ="private")
+    @JSONField(name = "private")
     private int _private;
     // CHECKSTYLE:ON
-	@JSONField(name ="no_index_page")
+    @JSONField(name = "no_index_page")
     private int noIndexPage;
     private int imgsft;
     private String separator;

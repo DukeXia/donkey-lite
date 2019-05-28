@@ -8,42 +8,38 @@ import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.page.PageResult;
 
 /**
- * 
  * @author yanjun.xue
  * @since 2019年5月19日
  */
 public interface DataQueryService {
 
-	String DEFAULT_MESSAGE_KEY = "未实现该功能.";
+    String DEFAULT_MESSAGE_KEY = "未实现该功能.";
 
-	/**
-	 *
-	 * @param operateType
-	 * @param params
-	 * @return
-	 */
-	default List<?> list(String operateType, Map<String, String> params) {
-		throw new FunctUnrealizedException(DEFAULT_MESSAGE_KEY);
-	}
+    /**
+     * @param operateType
+     * @param params
+     * @return
+     */
+    default List<?> list(String operateType, Map<String, String> params) {
+        throw new FunctUnrealizedException(DEFAULT_MESSAGE_KEY);
+    }
 
-	/**
-	 *
-	 * @param operateType
-	 * @param pageFilter
-	 * @return
-	 */
-	default PageResult<?> pageList(String operateType, PageFilter pageFilter) {
-		throw new FunctUnrealizedException(DEFAULT_MESSAGE_KEY);
-	}
+    /**
+     * @param operateType
+     * @param pageFilter
+     * @return
+     */
+    default PageResult<?> pageList(String operateType, PageFilter pageFilter) {
+        throw new FunctUnrealizedException(DEFAULT_MESSAGE_KEY);
+    }
 
-	/**
-	 *
-	 * @param operateType
-	 * @param key
-	 * @param params
-	 * @return
-	 */
-	default Object find(String operateType, String key, Map<String, String> params) {
-		throw new FunctUnrealizedException(DEFAULT_MESSAGE_KEY);
-	}
+    /**
+     * @param operateType
+     * @param key
+     * @param params
+     * @return
+     */
+    default Object find(String operateType, String key, Map<String, String> params) {
+        throw new FunctUnrealizedException(DEFAULT_MESSAGE_KEY);
+    }
 }

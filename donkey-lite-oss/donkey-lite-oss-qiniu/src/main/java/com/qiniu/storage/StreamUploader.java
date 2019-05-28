@@ -168,7 +168,7 @@ public final class StreamUploader {
 
     private String fileUrl() {
         String url = host + "/mkfile/" + size + "/mimeType/"
-                + UrlSafeBase64.encodeToString(mime);
+            + UrlSafeBase64.encodeToString(mime);
         final StringBuilder b = new StringBuilder(url);
         if (key != null) {
             b.append("/key/");
@@ -200,6 +200,6 @@ public final class StreamUploader {
 
     private Response post(String url, byte[] data, int offset, int size) throws QiniuException {
         return client.post(url, data, offset, size, new StringMap().put("Authorization", "UpToken " + upToken),
-                Client.DefaultMime);
+            Client.DefaultMime);
     }
 }

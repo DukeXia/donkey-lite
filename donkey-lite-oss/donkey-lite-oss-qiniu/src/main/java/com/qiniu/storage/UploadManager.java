@@ -178,7 +178,7 @@ public final class UploadManager {
         }
 
         ResumeUploader uploader = new ResumeUploader(client, token, key, file,
-                params, mime, recorder, configuration);
+            params, mime, recorder, configuration);
         return uploader.upload();
     }
 
@@ -224,7 +224,7 @@ public final class UploadManager {
             throw new IllegalArgumentException(message);
         }
         StreamUploader uploader = new StreamUploader(client, token, key, stream,
-                params, mime, configuration);
+            params, mime, configuration);
         return uploader.upload();
     }
 }
