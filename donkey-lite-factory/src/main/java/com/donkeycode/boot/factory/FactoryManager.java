@@ -162,9 +162,9 @@ public class FactoryManager {
     }
 
     @Autowired(required = false)
-    private void init(Map<String, SelfDefinedSearch> selfDefinedSearchMap) {
-        if (CollectionUtils.isNotEmpty(selfDefinedSearchMap)) {
-            for (Map.Entry<String, SelfDefinedSearch> entry : selfDefinedSearchMap.entrySet()) {
+    private void init(Map<String, SelfDefinedSearch> selfDefinedSearchs) {
+        if (CollectionUtils.isNotEmpty(selfDefinedSearchs)) {
+            for (Map.Entry<String, SelfDefinedSearch> entry : selfDefinedSearchs.entrySet()) {
                 SelfDefinedSearch selfDefinedSearch = entry.getValue();
                 String resourceType = getResourceType(selfDefinedSearch);
                 String functionName = getFunctionName(selfDefinedSearch, entry.getKey());

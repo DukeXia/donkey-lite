@@ -14,30 +14,40 @@ import com.donkeycode.core.page.PageResult;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 资源查询接口管理
+ *
+ * @author yanjun.xue
+ * @since 0.0.1
+ */
 @Slf4j
 @Service
 public class ResourceQueryManager {
 
-    static final String PARAM_MESSAGE = "参数不可为空";
-    static final String RESOURCETYPE_MESSAGE = "资源类别不可为空";
+    public static final String PARAM_MESSAGE = "参数不可为空";
+    public static final String RESOURCE_TYPE_MESSAGE = "资源类别不可为空";
 
     @Autowired
     FactoryManager factoryManager;
 
     /**
+     * 以列表的方式获取资源
+     *
      * @param resourceType
-     * @param param
+     * @param params
      * @return
      */
-    public List<?> list(String resourceType, String operateType, Map<String, String> param) {
-        Validate.notBlank(resourceType, RESOURCETYPE_MESSAGE);
-        Validate.notNull(param, PARAM_MESSAGE);
+    public List<?> list(String resourceType, String operateType, Map<String, String> params) {
+        Validate.notBlank(resourceType, RESOURCE_TYPE_MESSAGE);
+        Validate.notNull(params, PARAM_MESSAGE);
 
-        log.debug("ResourceManager.list  资源类别：" + resourceType + "  param:" + JSON.toJSONString(param));
-        return factoryManager.getDataQueryComponent(resourceType).list(operateType, param);
+        log.debug("ResourceManager.list  资源类别：" + resourceType + "  params:" + JSON.toJSONString(params));
+        return factoryManager.getDataQueryComponent(resourceType).list(operateType, params);
     }
 
     /**
+     * 通过分页方式获取资源
+     *
      * @param resourceType
      * @param operateType
      * @param pageFilter
@@ -50,30 +60,34 @@ public class ResourceQueryManager {
     }
 
     /**
+     * 通过Id获取资源
+     *
      * @param resourceType
      * @param id
-     * @param parameterMap
+     * @param params
      * @return
      */
-    public Object find(String resourceType, String operateType, String id, Map<String, String> parameterMap) {
+    public Object find(String resourceType, String operateType, String id, Map<String, String> params) {
 
         Validate.notBlank(resourceType, "resourceType is null.");
 
         log.debug("ResourceManager.find  资源类别：" + resourceType + "  ID:" + id);
-        return factoryManager.getDataQueryComponent(resourceType).find(operateType, id, parameterMap);
+        return factoryManager.getDataQueryComponent(resourceType).find(operateType, id, params);
     }
 
     /**
+     * 搜索资源
+     *
      * @param resourceType
      * @param functionName
-     * @param parameterMap
+     * @param params
      * @return
      */
     @SuppressWarnings("unchecked")
-    public Object search(String resourceType, String functionName, Map<String, String> parameterMap) {
+    public Object search(String resourceType, String functionName, Map<String, String> params) {
 
         Validate.notBlank(resourceType, "resourceType is null.");
 
-        return factoryManager.getSelfDefinedSearch(resourceType, functionName).search(parameterMap);
+        return factoryManager.getSelfDefinedSearch(resourceType, functionName).search(params);
     }
 }

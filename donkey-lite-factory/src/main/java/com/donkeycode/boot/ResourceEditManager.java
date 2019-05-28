@@ -18,12 +18,18 @@ import com.donkeycode.core.utils.StringJsonUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 修改资源接口管理
+ *
+ * @author yanjun.xue
+ * @since 0.0.1
+ */
 @Slf4j
 @Service
 public class ResourceEditManager {
 
     @Autowired
-    FactoryManager factoryManager;
+    private FactoryManager factoryManager;
 
     /**
      * @param resourceType

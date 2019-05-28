@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * SQL mapper工具
+ *
  * @author yanjun.xue
  * @since 2019年5月13日
  */
@@ -43,10 +45,12 @@ public class SqlMapper {
      * @return
      */
     private <T> T getOne(List<T> list) {
-        if (CollectionUtils.isEmpty(list))
+        if (CollectionUtils.isEmpty(list)) {
             return null;
-        if (list.size() == 1)
+        }
+        if (list.size() == 1) {
             return list.get(0);
+        }
         throw new TooManyResultsException("Expected one result (or null) to be returned by selectOne(), but found: " + list.size());
     }
 
@@ -57,8 +61,7 @@ public class SqlMapper {
      * @return
      */
     public Map<String, Object> selectOne(String sql) {
-        List<Map<String, Object>> list = selectList(sql);
-        return getOne(list);
+        return getOne(selectList(sql));
     }
 
     /**
@@ -69,8 +72,7 @@ public class SqlMapper {
      * @return
      */
     public Map<String, Object> selectOne(String sql, Object value) {
-        List<Map<String, Object>> list = selectList(sql, value);
-        return getOne(list);
+        return getOne(selectList(sql, value));
     }
 
     /**
@@ -82,8 +84,7 @@ public class SqlMapper {
      * @return
      */
     public <T> T selectOne(String sql, Class<T> resultType) {
-        List<T> list = selectList(sql, resultType);
-        return getOne(list);
+        return getOne(selectList(sql, resultType));
     }
 
     /**
@@ -96,8 +97,7 @@ public class SqlMapper {
      * @return
      */
     public <T> T selectOne(String sql, Object value, Class<T> resultType) {
-        List<T> list = selectList(sql, value, resultType);
-        return getOne(list);
+        return getOne(selectList(sql, value, resultType));
     }
 
     /**
@@ -234,7 +234,9 @@ public class SqlMapper {
         return sqlSession.delete(msId, value);
     }
 
+
     private class MSUtils {
+
         private Configuration configuration;
         private LanguageDriver languageDriver;
 

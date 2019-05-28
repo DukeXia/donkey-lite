@@ -31,6 +31,12 @@ public interface IBaseService<T> {
      */
     int insertSelective(T entity);
 
+    /**
+     * 批量插入多个PO
+     *
+     * @param entitys
+     * @return
+     */
     int insertList(List<T> entitys);
 
     /**
@@ -41,17 +47,60 @@ public interface IBaseService<T> {
      */
     int deleteByPrimaryKey(Object id);
 
+    /**
+     * 通过多个主键删除PO
+     *
+     * @param ids
+     * @return
+     */
     int deleteByPrimaryKeys(List<?> ids);
 
+    /**
+     * 通过多个主键获取PO
+     *
+     * @param ids
+     * @return
+     */
     List<T> selectByPrimaryKeys(List<String> ids);
 
+    /**
+     * 通过主键获取PO
+     *
+     * @param id
+     * @return
+     */
     T selectByPrimaryKey(Object id);
 
+    /**
+     * 通过主键更新有值的字段
+     *
+     * @param entity
+     * @return
+     */
     int updateByPrimaryKeySelective(T entity);
 
+    /**
+     * 通过主键更新所有字段
+     *
+     * @param entity
+     * @return
+     */
     int updateByPrimaryKey(T entity);
 
+    /**
+     * 通过example对象查询
+     *
+     * @param query
+     * @return
+     */
     PageResult<T> selectPageByExample(PageFilter query);
 
+    /**
+     * 通过sql查询数据
+     *
+     * @param sql
+     * @param query
+     * @return
+     */
     PageResult<Map<String, Object>> selectPageBySQL(String sql, PageFilter query);
 }
