@@ -14,5 +14,5 @@
         <module>donkey-lite-oss-aliyun</module>
         <module>donkey-lite-oss-qiniu</module>
     </modules>
-    
+
 </project>

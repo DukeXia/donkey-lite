@@ -1,7 +1,7 @@
 package com.donkeycode.boot.file;
 
 import com.donkeycode.boot.ReflectUtils;
-import com.donkeycode.core.utils.StringSuperUtils;
+import com.donkeycode.core.utils.StringEncaseUtils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.Validate;
@@ -93,7 +93,7 @@ public class ExcelHelper {
             boolean flag = false;
             String hName = (String) headName.get(index);
             for (ExcelColumn excelColumn : excelColumns) {
-                if (StringSuperUtils.filterNull(hName).equals(excelColumn.getFieldDispName().trim())) {
+                if (StringEncaseUtils.filterNull(hName).equals(excelColumn.getFieldDispName().trim())) {
                     flag = true;
                     excelHeadMap.put(index, excelColumn.getFieldName());
                 }

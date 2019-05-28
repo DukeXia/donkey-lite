@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author yanjun.xue
+ * @since 0.0.1
  */
 public class CharsetUtils {
 
@@ -45,7 +46,7 @@ public class CharsetUtils {
      * @return Charset
      */
     public static Charset charset(String charset) {
-        return StringSuperUtils.isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset);
+        return StringEncaseUtils.isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset);
     }
 
     /**
@@ -78,7 +79,7 @@ public class CharsetUtils {
             srcCharset = StandardCharsets.UTF_8;
         }
 
-        if (StringSuperUtils.isBlank(source) || srcCharset.equals(destCharset)) {
+        if (StringEncaseUtils.isBlank(source) || srcCharset.equals(destCharset)) {
             return source;
         }
         return new String(source.getBytes(srcCharset), destCharset);

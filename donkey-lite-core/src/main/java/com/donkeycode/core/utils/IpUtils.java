@@ -65,14 +65,26 @@ public final class IpUtils {
         return localIpAddress;
     }
 
+    /**
+     * @param ipAddress
+     * @return
+     */
     private static boolean isPublicIpAddress(final InetAddress ipAddress) {
         return !ipAddress.isSiteLocalAddress() && !ipAddress.isLoopbackAddress() && !isV6IpAddress(ipAddress);
     }
 
+    /**
+     * @param ipAddress
+     * @return
+     */
     private static boolean isLocalIpAddress(final InetAddress ipAddress) {
         return ipAddress.isSiteLocalAddress() && !ipAddress.isLoopbackAddress() && !isV6IpAddress(ipAddress);
     }
 
+    /**
+     * @param ipAddress
+     * @return
+     */
     private static boolean isV6IpAddress(final InetAddress ipAddress) {
         return ipAddress.getHostAddress().contains(":");
     }

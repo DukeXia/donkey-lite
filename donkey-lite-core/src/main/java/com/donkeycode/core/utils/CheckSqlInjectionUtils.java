@@ -17,7 +17,7 @@ public class CheckSqlInjectionUtils {
      * @return 如果存在sql的关键字返回true
      */
     public static boolean isSqlInjection(String value) {
-        return StringSuperUtils.isNotEmpty(value) ? isSqlInjection(value, injectionStr) : false;
+        return StringEncaseUtils.isNotEmpty(value) ? isSqlInjection(value, injectionStr) : false;
     }
 
     /**
@@ -28,7 +28,7 @@ public class CheckSqlInjectionUtils {
      * @return
      */
     public static boolean isSqlInjection(String value, String injectionString) {
-        if (StringSuperUtils.isNotEmpty(value) && StringSuperUtils.isNotEmpty(injectionString)) {
+        if (StringEncaseUtils.isNotEmpty(value) && StringEncaseUtils.isNotEmpty(injectionString)) {
             String[] injectionStrings = injectionString.split("\\|");
             for (String injection : injectionStrings) {
                 if (value.contains(injection + " ")) {

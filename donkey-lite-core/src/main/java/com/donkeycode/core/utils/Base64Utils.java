@@ -21,8 +21,9 @@ public class Base64Utils {
      * @return
      */
     public static String encodeBase64(String value) {
-        if (StringUtils.isBlank(value))
+        if (StringUtils.isBlank(value)) {
             return null;
+        }
         try {
             return Base64.encodeBase64String(value.getBytes(DECODE));
         } catch (UnsupportedEncodingException e) {
@@ -39,8 +40,9 @@ public class Base64Utils {
      */
     public static String decoderBase64(String value) {
 
-        if (StringUtils.isBlank(value))
+        if (StringUtils.isBlank(value)) {
             return null;
+        }
         try {
             return new String(Base64.decodeBase64(value), DECODE);
         } catch (Exception e) {
@@ -58,8 +60,9 @@ public class Base64Utils {
     public static boolean isBase64(String value) {
         String deCodevalue = decoderBase64(value);
         String encodeValue = encodeBase64(deCodevalue);
-        if (StringUtils.isBlank(deCodevalue) || StringUtils.isBlank(encodeValue))
+        if (StringUtils.isBlank(deCodevalue) || StringUtils.isBlank(encodeValue)) {
             return false;
+        }
         return encodeValue.equals(value) ? true : false;
     }
 }

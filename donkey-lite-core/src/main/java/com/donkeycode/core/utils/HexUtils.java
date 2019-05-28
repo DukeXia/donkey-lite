@@ -1,5 +1,6 @@
 package com.donkeycode.core.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,11 +11,16 @@ import java.io.IOException;
  *
  * @author LCX
  */
-public class StringHexUtils {
+@Slf4j
+public class HexUtils {
 
-    static final Logger logger = LoggerFactory.getLogger(StringHexUtils.class);
-
-    // 转化十六进制编码为字符串
+    /**
+     * 转化十六进制编码为字符串
+     *
+     * @param s
+     * @return
+     * @throws IOException
+     */
     public static String toStringHex(String s) throws IOException {
         byte[] baKeyword = new byte[s.length() / 2];
         for (int i = 0; i < baKeyword.length; i++) {

@@ -1,32 +1,23 @@
-package com.donkeycode.core.io;
+package com.donkeycode.core.utils;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.Closeable;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.Reader;
-import java.io.Serializable;
-import java.io.Writer;
+import java.io.*;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.Collection;
+import java.util.List;
 
-import com.donkeycode.core.utils.CharsetUtils;
-import com.donkeycode.core.utils.StringSuperUtils;
+import com.donkeycode.core.io.FastByteArrayOutputStream;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 
 /**
  * IO工具类
  *
  * @author xiaoleilu
+ * @since 0.0.1
  */
+@Slf4j
 public class IoUtils {
 
     /**
@@ -38,8 +29,30 @@ public class IoUtils {
      */
     public static final int EOF = -1;
 
+
     // --------------------------------------------------------------------------------------
     // Copy start
+
+    /**
+     * 拷贝文件
+     *
+     * @param resFilePath 源文件Path
+     * @param distFolder  目标文件Path
+     * @throws IOException 读取源文件异常
+     */
+    public static void copyFile(String resFilePath, String distFolder) throws IOException {
+        File resFile = new File(resFilePath);
+        File distFile = new File(distFolder);
+        // 目录时
+        if (resFile.isDirectory()) {
+            org.apache.commons.io.FileUtils.copyDirectoryToDirectory(resFile, distFile);
+            return;
+        }
+        // 文件时
+        if (resFile.isFile()) {
+            FileUtils.copyFileToDirectory(resFile, distFile);
+        }
+    }
 
     /**
      * 将Reader中的内容复制到Writer中 使用默认缓存大小
@@ -51,7 +64,6 @@ public class IoUtils {
     public static long copy(Reader reader, Writer writer) throws IOException {
         return copy(reader, writer, DEFAULT_BUFFER_SIZE);
     }
-
     /**
      * 将Reader中的内容复制到Writer中
      *
@@ -61,34 +73,14 @@ public class IoUtils {
      * @return 传输的byte数
      */
     public static long copy(Reader reader, Writer writer, int bufferSize) throws IOException {
-        return copy(reader, writer, bufferSize, null);
-    }
-
-    /**
-     * 将Reader中的内容复制到Writer中
-     *
-     * @param reader     Reader
-     * @param writer     Writer
-     * @param bufferSize 缓存大小
-     * @return 传输的byte数
-     */
-    public static long copy(Reader reader, Writer writer, int bufferSize, StreamProgress streamProgress) throws IOException {
         char[] buffer = new char[bufferSize];
         long size = 0;
         int readSize;
-        if (null != streamProgress) {
-            streamProgress.start();
-        }
+         
         while ((readSize = reader.read(buffer, 0, bufferSize)) != EOF) {
             writer.write(buffer, 0, readSize);
             size += readSize;
             writer.flush();
-            if (null != streamProgress) {
-                streamProgress.progress(size);
-            }
-        }
-        if (null != streamProgress) {
-            streamProgress.finish();
         }
         return size;
     }
@@ -107,25 +99,13 @@ public class IoUtils {
     /**
      * 拷贝流
      *
-     * @param in         输入流
-     * @param out        输出流
-     * @param bufferSize 缓存大小
-     * @return 传输的byte数
-     */
-    public static long copy(InputStream in, OutputStream out, int bufferSize) throws IOException {
-        return copy(in, out, bufferSize, null);
-    }
-
-    /**
-     * 拷贝流
-     *
      * @param in             输入流
      * @param out            输出流
      * @param bufferSize     缓存大小
      * @param streamProgress 进度条
      * @return 传输的byte数
      */
-    public static long copy(InputStream in, OutputStream out, int bufferSize, StreamProgress streamProgress) throws IOException {
+    public static long copy(InputStream in, OutputStream out, int bufferSize) throws IOException {
         if (null == in) {
             throw new NullPointerException("InputStream is null!");
         }
@@ -138,19 +118,11 @@ public class IoUtils {
 
         byte[] buffer = new byte[bufferSize];
         long size = 0;
-        if (null != streamProgress) {
-            streamProgress.start();
-        }
+        
         for (int readSize = -1; (readSize = in.read(buffer)) != EOF; ) {
             out.write(buffer, 0, readSize);
             size += readSize;
             out.flush();
-            if (null != streamProgress) {
-                streamProgress.progress(size);
-            }
-        }
-        if (null != streamProgress) {
-            streamProgress.finish();
         }
         return size;
     }
@@ -187,6 +159,27 @@ public class IoUtils {
      */
     public static BufferedReader getReader(InputStream in, String charsetName) throws IOException {
         return getReader(in, Charset.forName(charsetName));
+    }
+
+    /**
+     * 获取文件内容
+     *
+     * @param filePath 目标文件路径
+     * @return 文件内容
+     * @throws IOException
+     */
+    public static List<String> getContentFromFile(String filePath) throws IOException {
+        try {
+            if (!(new File(filePath).exists())) {
+                log.error("file not found! file:" + filePath);
+                throw new RuntimeException("file not found!");
+            }
+            return FileUtils.readLines(new File(filePath), Charset.defaultCharset().name());
+
+        } catch (IOException ioException) {
+            log.error("io error,error:" + ioException.getMessage(), ioException);
+            throw ioException;
+        }
     }
 
     /**
@@ -245,7 +238,7 @@ public class IoUtils {
      */
     public static String read(InputStream in, String charsetName) throws IOException {
         FastByteArrayOutputStream out = read(in);
-        return StringSuperUtils.isBlank(charsetName) ? out.toString() : out.toString(charsetName);
+        return StringEncaseUtils.isBlank(charsetName) ? out.toString() : out.toString(charsetName);
     }
 
     /**
@@ -300,7 +293,7 @@ public class IoUtils {
      * @return String
      */
     public static String read(Reader reader) throws IOException {
-        final StringBuilder builder = StringSuperUtils.builder();
+        final StringBuilder builder = StringEncaseUtils.builder();
         final CharBuffer buffer = CharBuffer.allocate(DEFAULT_BUFFER_SIZE);
         while (-1 != reader.read(buffer)) {
             builder.append(buffer.flip().toString());
@@ -317,7 +310,6 @@ public class IoUtils {
      * @return 内容
      */
     public static <T extends Collection<String>> T readLines(InputStream in, String charsetName, T collection) throws IOException {
-
         return readLines(in, CharsetUtils.charset(charsetName), collection);
     }
 
@@ -362,7 +354,7 @@ public class IoUtils {
         if (content == null) {
             return null;
         }
-        return new ByteArrayInputStream(StringSuperUtils.getBytes(content, charset));
+        return new ByteArrayInputStream(StringEncaseUtils.getBytes(content, charset));
     }
 
     /**
@@ -393,13 +385,31 @@ public class IoUtils {
     }
 
     /**
+     * 给指定文件追加内容
+     *
+     * @param filePath 目标文件Path
+     * @param contents append contents
+     * @throws IOException 文件为找到异常
+     */
+    public static void appendContent(String filePath, List<String> contents) throws IOException {
+        try {
+            FileUtils.writeLines(new File(filePath), contents);
+        } catch (IOException ioException) {
+            log.error("io error,error:" + ioException.getMessage(), ioException);
+            throw ioException;
+        }
+    }
+
+    /**
      * 关闭
      *
      * @param closeable 被关闭的对象
      */
+    @Deprecated
     public static void close(Closeable closeable) {
-        if (closeable == null)
+        if (closeable == null) {
             return;
+        }
         try {
             closeable.close();
         } catch (Exception e) {
@@ -412,9 +422,11 @@ public class IoUtils {
      * @param closeable 被关闭的对象
      * @since 1.7
      */
+    @Deprecated
     public static void close(AutoCloseable closeable) {
-        if (closeable == null)
+        if (closeable == null) {
             return;
+        }
         try {
             closeable.close();
         } catch (Exception e) {

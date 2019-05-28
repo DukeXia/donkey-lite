@@ -330,7 +330,8 @@ abstract public class AbstractClassGenerator<T> implements ClassGenerator {
             byte[] b = strategy.generate(this);
             String className = ClassNameReader.getClassName(new ClassReader(b));
             ProtectionDomain protectionDomain = getProtectionDomain();
-            synchronized (classLoader) { // just in case
+            // just in case
+            synchronized (classLoader) {
                 if (protectionDomain == null) {
                     gen = ReflectUtils.defineClass(className, b, classLoader);
                 } else {

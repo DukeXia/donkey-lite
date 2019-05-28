@@ -32,9 +32,10 @@ public class FilePathUtils {
      */
     public static <T> String getRootPath(Class<T> clazz) {
         URL ret = clazz.getResource("/");
-        if (ret == null)
+        if (ret == null) {
             return ".";
-        log.info(ret.getPath());
+        }
+        log.debug(ret.getPath());
         try {
             return Paths.get(ret.toURI()).toString();
         } catch (URISyntaxException e) {

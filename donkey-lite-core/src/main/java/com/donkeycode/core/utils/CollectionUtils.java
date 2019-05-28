@@ -1,4 +1,4 @@
-package com.donkeycode.core.collection;
+package com.donkeycode.core.utils;
 
 import java.lang.reflect.Array;
 import java.util.*;

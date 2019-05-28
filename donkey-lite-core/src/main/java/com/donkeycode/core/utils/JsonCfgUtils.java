@@ -65,8 +65,9 @@ public class JsonCfgUtils {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        if (configFile.isEmpty())
+        if (configFile.isEmpty()) {
             log.warn("该目录下没有文件");
+        }
         return configFile;
     }
 

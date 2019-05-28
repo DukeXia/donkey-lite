@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.donkeycode.core.collection.CollectionUtils;
+import com.donkeycode.core.utils.CollectionUtils;
 import com.donkeycode.core.utils.ColumnPropertyUtils;
 import lombok.Builder;
 import lombok.Getter;

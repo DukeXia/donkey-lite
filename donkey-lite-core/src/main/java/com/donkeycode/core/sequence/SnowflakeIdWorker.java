@@ -1,4 +1,4 @@
-package com.donkeycode.core.no;
+package com.donkeycode.core.sequence;
 
 /**
  * Twitter_Snowflake<br>

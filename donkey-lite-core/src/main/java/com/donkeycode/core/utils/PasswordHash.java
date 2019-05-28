@@ -60,6 +60,12 @@ public class PasswordHash {
         }
     }
 
+    /**
+     * @param password
+     * @param salt
+     * @return
+     * @throws Exception
+     */
     private static String saltedSha1Hash(String password, byte[] salt) throws Exception {
 
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, IterationCount, KeyLength);

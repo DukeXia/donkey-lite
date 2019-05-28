@@ -1,4 +1,4 @@
-package com.donkeycode.core.utils.url;
+package com.donkeycode.core.utils;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
@@ -9,7 +9,7 @@ import org.apache.commons.lang3.time.FastDateFormat;
  * @History:
  * @Date:2016年8月5日
  */
-public class DateFormatExtendUtils extends DateFormatUtils {
+public class ChinaDateFormatUtils extends DateFormatUtils {
 
     public static final FastDateFormat ISO_SIMPLIFY_TIME_FORMAT = FastDateFormat.getInstance("yyyyMMdd");
 

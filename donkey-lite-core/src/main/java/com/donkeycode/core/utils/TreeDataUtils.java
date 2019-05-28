@@ -2,26 +2,22 @@ package com.donkeycode.core.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
-import com.donkeycode.core.collection.CollectionUtils;
-
 import net.sf.cglib.beans.BeanMap;
 
 /**
- * 数据结构转换
+ * 数据转换成树形结构
  *
  * @author yanjun.xue
  * @since 0.0.1
  */
 @Slf4j
-public class StructureConvertUtils {
+public class TreeDataUtils {
 
     /**
      * 封装树
@@ -55,11 +51,11 @@ public class StructureConvertUtils {
                     buildTree(subNodes, originaNodes, keyName, pFieldName, subFieldName, orderFieldName);
                 }
             } catch (IllegalAccessException e) {
-                throw new RuntimeException("");
+                throw new RuntimeException(e);
             } catch (NoSuchMethodException e) {
-                throw new RuntimeException("");
+                throw new RuntimeException(e);
             } catch (InvocationTargetException e) {
-                throw new RuntimeException("");
+                throw new RuntimeException(e);
             }
         });
     }

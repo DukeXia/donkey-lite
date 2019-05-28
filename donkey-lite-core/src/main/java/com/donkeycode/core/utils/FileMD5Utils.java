@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FileMD5Utils {
 
-    static final String MD5 = "MD5";
+    public static final String MD5 = "MD5";
 
     /**
      * 获取byte MD5

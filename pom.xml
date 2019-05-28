@@ -5,7 +5,7 @@
     <version>0.0.1</version>
     <artifactId>donkey-lite</artifactId>
     <packaging>pom</packaging>
-    <name>donkey lite</name>
+    <name>Donkey Lite</name>
     <description>
         通过插件的方式实现快速开发Web项目功能。高度封装了数据持久化、OSS对象存储、通用接口定义和实现等功能。
     </description>
@@ -473,8 +473,8 @@
                         <artifactId>maven-source-plugin</artifactId>
                     </plugin>
                     <!--<plugin>-->
-                        <!--<groupId>org.apache.maven.plugins</groupId>-->
-                        <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+                    <!--<groupId>org.apache.maven.plugins</groupId>-->
+                    <!--<artifactId>maven-javadoc-plugin</artifactId>-->
                     <!--</plugin>-->
                 </plugins>
             </build>

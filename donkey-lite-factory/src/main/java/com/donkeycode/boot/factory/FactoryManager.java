@@ -19,7 +19,7 @@ import com.donkeycode.boot.pubinterface.DataQueryService;
 import com.donkeycode.boot.pubinterface.FileExportService;
 import com.donkeycode.boot.pubinterface.ImageExportService;
 import com.donkeycode.boot.pubinterface.SelfDefinedSearch;
-import com.donkeycode.core.collection.CollectionUtils;
+import com.donkeycode.core.utils.CollectionUtils;
 import com.donkeycode.core.exception.FactoryException;
 
 import lombok.extern.slf4j.Slf4j;

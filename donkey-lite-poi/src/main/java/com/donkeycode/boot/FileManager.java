@@ -16,7 +16,7 @@ import com.donkeycode.boot.pubinterface.DataQueryService;
 import com.donkeycode.boot.pubinterface.ExcelExportService;
 import com.donkeycode.boot.pubinterface.FileExportService;
 import com.donkeycode.boot.pubinterface.ImageExportService;
-import com.donkeycode.core.collection.CollectionUtils;
+import com.donkeycode.core.utils.CollectionUtils;
 
 /**
  * Excel 文件导入导出

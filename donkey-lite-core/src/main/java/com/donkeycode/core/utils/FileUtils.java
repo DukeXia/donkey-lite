@@ -1,4 +1,4 @@
-package com.donkeycode.core.io;
+package com.donkeycode.core.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -29,14 +29,11 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 
-import com.donkeycode.core.collection.CollectionUtils;
-import com.donkeycode.core.utils.CharsetUtils;
-import com.donkeycode.core.utils.StringSuperUtils;
-
 /**
  * 文件工具类
  *
  * @author xiaoleilu
+ * @since 0.0.1
  */
 public class FileUtils {
 
@@ -172,7 +169,7 @@ public class FileUtils {
      * @return File
      */
     public static File file(String parent, String path) {
-        if (StringSuperUtils.isBlank(path)) {
+        if (StringEncaseUtils.isBlank(path)) {
             throw new NullPointerException("File path is blank!");
         }
         return new File(parent, path);
@@ -186,7 +183,7 @@ public class FileUtils {
      * @return File
      */
     public static File file(File parent, String path) {
-        if (StringSuperUtils.isBlank(path)) {
+        if (StringEncaseUtils.isBlank(path)) {
             throw new NullPointerException("File path is blank!");
         }
         return new File(parent, path);
@@ -252,7 +249,6 @@ public class FileUtils {
         if (!exist(file)) {
             return null;
         }
-
         return new Date(file.lastModified());
     }
 
@@ -267,7 +263,6 @@ public class FileUtils {
         if (!exist(file)) {
             return null;
         }
-
         return new Date(file.lastModified());
     }
 
@@ -596,14 +591,14 @@ public class FileUtils {
      * @return 相对子路径
      */
     public static String subPath(String rootDir, File file) throws IOException {
-        if (StringSuperUtils.isEmpty(rootDir)) {
+        if (StringEncaseUtils.isEmpty(rootDir)) {
 
         }
 
         String subPath = null;
         subPath = file.getCanonicalPath();
 
-        if (StringSuperUtils.isNotEmpty(rootDir) && StringSuperUtils.isNotEmpty(subPath)) {
+        if (StringEncaseUtils.isNotEmpty(rootDir) && StringEncaseUtils.isNotEmpty(subPath)) {
             rootDir = normalize(rootDir);
             subPath = normalize(subPath);
 
@@ -638,10 +633,10 @@ public class FileUtils {
      */
     public static String mainName(String fileName) {
 
-        if (StringSuperUtils.isBlank(fileName) || false == fileName.contains(StringSuperUtils.DOT)) {
+        if (StringEncaseUtils.isBlank(fileName) || false == fileName.contains(StringEncaseUtils.DOT)) {
             return fileName;
         }
-        return StringSuperUtils.subPre(fileName, fileName.lastIndexOf(StringSuperUtils.DOT));
+        return StringEncaseUtils.subPre(fileName, fileName.lastIndexOf(StringEncaseUtils.DOT));
     }
 
     /**
@@ -670,13 +665,13 @@ public class FileUtils {
         if (fileName == null) {
             return null;
         }
-        int index = fileName.lastIndexOf(StringSuperUtils.DOT);
+        int index = fileName.lastIndexOf(StringEncaseUtils.DOT);
         if (index == -1) {
-            return StringSuperUtils.EMPTY;
+            return StringEncaseUtils.EMPTY;
         } else {
             String ext = fileName.substring(index + 1);
             // 扩展名中不能包含路径相关的符号
-            return (ext.contains(String.valueOf(UNIX_SEPARATOR)) || ext.contains(String.valueOf(WINDOWS_SEPARATOR))) ? StringSuperUtils.EMPTY : ext;
+            return (ext.contains(String.valueOf(UNIX_SEPARATOR)) || ext.contains(String.valueOf(WINDOWS_SEPARATOR))) ? StringEncaseUtils.EMPTY : ext;
         }
     }
 
@@ -721,7 +716,7 @@ public class FileUtils {
      * @param file    文件
      * @param charset 字符集
      * @return BufferedReader对象
-     * @throws IOException
+     * @throws IOException 获取文件异常
      */
     public static BufferedReader getReader(File file, Charset charset) throws IOException {
         return IoUtils.getReader(getInputStream(file), charset);
@@ -736,7 +731,7 @@ public class FileUtils {
      *
      * @param file 文件
      * @return 字节码
-     * @throws IOException
+     * @throws IOException 读取文件异常
      */
     public static byte[] readBytes(File file) throws IOException {
         // check
@@ -764,7 +759,7 @@ public class FileUtils {
      *
      * @param file 文件
      * @return 内容
-     * @throws IOException
+     * @throws IOException 读取文件异常
      */
     public static String readUtf8String(File file) throws IOException {
         return readString(file, CharsetUtils.UTF_8);
@@ -776,7 +771,7 @@ public class FileUtils {
      * @param file        文件
      * @param charsetName 字符集
      * @return 内容
-     * @throws IOException
+     * @throws IOException 读取文件异常
      */
     public static String readString(File file, String charsetName) throws IOException {
         return new String(readBytes(file), charsetName);
@@ -788,7 +783,7 @@ public class FileUtils {
      * @param file    文件
      * @param charset 字符集
      * @return 内容
-     * @throws IOException
+     * @throws IOException 读取文件异常
      */
     public static String readString(File file, Charset charset) throws IOException {
         return new String(readBytes(file), charset);

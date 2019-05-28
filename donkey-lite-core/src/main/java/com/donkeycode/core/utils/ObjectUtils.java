@@ -9,11 +9,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
+ * 对象操作工具类
+ *
  * @author yanjun.xue
  * @since 2019年5月12日
  */
@@ -144,7 +145,7 @@ public class ObjectUtils {
      * @return 是否为null
      */
     public static boolean isNull(Object obj) {
-        return null == obj;
+        return Objects.isNull(obj);
     }
 
     /**
@@ -208,10 +209,7 @@ public class ObjectUtils {
      */
     @SuppressWarnings("unchecked")
     public static <T> T unserialize(byte[] bytes) {
-        ObjectInputStream ois = null;
-        try {
-            ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            ois = new ObjectInputStream(bais);
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes); ObjectInputStream ois = new ObjectInputStream(bais)) {
             return (T) ois.readObject();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -258,27 +256,8 @@ public class ObjectUtils {
                 targetList.add(beanCopyProperties(source, targetCls));
             }
         }
-        return targetList;
-    }
 
-    /**
-     * 属性值拷贝
-     *
-     * @param source    源对象
-     * @param targetCls 目标对象类
-     * @return 拷贝目标类的实体
-     */
-    public static <R> R copyProperties(Object source, Class<R> targetCls) {
-        try {
-            R target = targetCls.getDeclaredConstructor().newInstance();
-            if (source != null) {
-                copyProperties(source, target, false);
-            }
-            return target;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return targetList;
     }
 
     /**
@@ -311,48 +290,4 @@ public class ObjectUtils {
             throw new RuntimeException("Target class No Such Method error.");
         }
     }
-
-    /**
-     * 将属性一样的两个类，进行属性值拷贝,值为空时，不进行拷贝
-     *
-     * @param source             源对象
-     * @param target             目标对象
-     * @param attributeCoverFlag 当为true时，属性值为空时也进行覆盖
-     */
-    public static void copyProperties(Object source, Object target, boolean attributeCoverFlag) {
-        if (source != null && target != null) {
-            Field[] sourceFields = source.getClass().getDeclaredFields();
-            Field[] targetFields = target.getClass().getDeclaredFields();
-            for (Field sourceField : sourceFields) {
-                for (Field targetField : targetFields) {
-                    if (sourceField.getName().equals(targetField.getName()) && sourceField.getType().equals(targetField.getType())) {
-                        sourceField.setAccessible(true);
-                        targetField.setAccessible(true);
-                        try {
-                            Object value = sourceField.get(source);
-                            if (attributeCoverFlag) {
-                                targetField.set(target, value);
-                            } else if (value != null) {
-                                targetField.set(target, value);
-                            }
-                        } catch (IllegalAccessException e) {
-                            log.error(target.getClass() + " 中 " + targetField.getName() + " 赋值错误");
-                            throw new RuntimeException(target.getClass() + " 中 " + targetField.getName() + " 赋值错误");
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * 将属性一样的两个类，进行属性值拷贝
-     *
-     * @param source 源对象
-     * @param target 目标对象
-     */
-    public static void copyProperties(Object source, Object target) {
-        copyProperties(source, target, true);
-    }
-
 }
