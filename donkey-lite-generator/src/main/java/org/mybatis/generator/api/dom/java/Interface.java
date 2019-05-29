@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2017 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api.dom.java;
 
@@ -30,113 +30,112 @@ import java.util.TreeSet;
  * @author Jeff Butler
  */
 public class Interface extends InnerInterface implements CompilationUnit {
-    
-    private Set<FullyQualifiedJavaType> importedTypes;
 
-    private Set<String> staticImports;
+	private Set<FullyQualifiedJavaType> importedTypes;
 
-    private List<String> fileCommentLines;
+	private Set<String> staticImports;
 
-    public Interface(FullyQualifiedJavaType type) {
-        super(type);
-        importedTypes = new TreeSet<FullyQualifiedJavaType>();
-        fileCommentLines = new ArrayList<String>();
-        staticImports = new TreeSet<String>();
-    }
+	private List<String> fileCommentLines;
 
-    public Interface(String type) {
-        this(new FullyQualifiedJavaType(type));
-    }
+	public Interface(FullyQualifiedJavaType type) {
+		super(type);
+		importedTypes = new TreeSet<FullyQualifiedJavaType>();
+		fileCommentLines = new ArrayList<String>();
+		staticImports = new TreeSet<String>();
+	}
 
-    @Override
-    public Set<FullyQualifiedJavaType> getImportedTypes() {
-        return importedTypes;
-    }
+	public Interface(String type) {
+		this(new FullyQualifiedJavaType(type));
+	}
 
-    @Override
-    public void addImportedType(FullyQualifiedJavaType importedType) {
-        if (importedType.isExplicitlyImported()
-                && !importedType.getPackageName().equals(getType().getPackageName())) {
-            importedTypes.add(importedType);
-        }
-    }
+	@Override
+	public Set<FullyQualifiedJavaType> getImportedTypes() {
+		return importedTypes;
+	}
 
-    @Override
-    public String getFormattedContent() {
+	@Override
+	public void addImportedType(FullyQualifiedJavaType importedType) {
+		if (importedType.isExplicitlyImported() && !importedType.getPackageName().equals(getType().getPackageName())) {
+			importedTypes.add(importedType);
+		}
+	}
 
-        return getFormattedContent(0, this);
-    }
+	@Override
+	public String getFormattedContent() {
 
-    @Override
-    public String getFormattedContent(int indentLevel, CompilationUnit compilationUnit) {
-        StringBuilder sb = new StringBuilder();
+		return getFormattedContent(0, this);
+	}
 
-        for (String commentLine : fileCommentLines) {
-            sb.append(commentLine);
-            newLine(sb);
-        }
+	@Override
+	public String getFormattedContent(int indentLevel, CompilationUnit compilationUnit) {
+		StringBuilder sb = new StringBuilder();
 
-        if (stringHasValue(getType().getPackageName())) {
-            sb.append("package "); //$NON-NLS-1$
-            sb.append(getType().getPackageName());
-            sb.append(';');
-            newLine(sb);
-            newLine(sb);
-        }
+		for (String commentLine : fileCommentLines) {
+			sb.append(commentLine);
+			newLine(sb);
+		}
 
-        for (String staticImport : staticImports) {
-            sb.append("import static "); //$NON-NLS-1$
-            sb.append(staticImport);
-            sb.append(';');
-            newLine(sb);
-        }
+		if (stringHasValue(getType().getPackageName())) {
+			sb.append("package "); //$NON-NLS-1$
+			sb.append(getType().getPackageName());
+			sb.append(';');
+			newLine(sb);
+			newLine(sb);
+		}
 
-        if (staticImports.size() > 0) {
-            newLine(sb);
-        }
+		for (String staticImport : staticImports) {
+			sb.append("import static "); //$NON-NLS-1$
+			sb.append(staticImport);
+			sb.append(';');
+			newLine(sb);
+		}
 
-        Set<String> importStrings = calculateImports(importedTypes);
-        for (String importString : importStrings) {
-            sb.append(importString);
-            newLine(sb);
-        }
+		if (staticImports.size() > 0) {
+			newLine(sb);
+		}
 
-        if (importStrings.size() > 0) {
-            newLine(sb);
-        }
+		Set<String> importStrings = calculateImports(importedTypes);
+		for (String importString : importStrings) {
+			sb.append(importString);
+			newLine(sb);
+		}
 
-        sb.append(super.getFormattedContent(0, this));
+		if (importStrings.size() > 0) {
+			newLine(sb);
+		}
 
-        return sb.toString();
-    }
+		sb.append(super.getFormattedContent(0, this));
 
-    @Override
-    public void addFileCommentLine(String commentLine) {
-        fileCommentLines.add(commentLine);
-    }
+		return sb.toString();
+	}
 
-    @Override
-    public List<String> getFileCommentLines() {
-        return fileCommentLines;
-    }
+	@Override
+	public void addFileCommentLine(String commentLine) {
+		fileCommentLines.add(commentLine);
+	}
 
-    @Override
-    public void addImportedTypes(Set<FullyQualifiedJavaType> importedTypes) {
-        this.importedTypes.addAll(importedTypes);
-    }
+	@Override
+	public List<String> getFileCommentLines() {
+		return fileCommentLines;
+	}
 
-    @Override
-    public Set<String> getStaticImports() {
-        return staticImports;
-    }
+	@Override
+	public void addImportedTypes(Set<FullyQualifiedJavaType> importedTypes) {
+		this.importedTypes.addAll(importedTypes);
+	}
 
-    @Override
-    public void addStaticImport(String staticImport) {
-        staticImports.add(staticImport);
-    }
+	@Override
+	public Set<String> getStaticImports() {
+		return staticImports;
+	}
 
-    @Override
-    public void addStaticImports(Set<String> staticImports) {
-        this.staticImports.addAll(staticImports);
-    }
+	@Override
+	public void addStaticImport(String staticImport) {
+		staticImports.add(staticImport);
+	}
+
+	@Override
+	public void addStaticImports(Set<String> staticImports) {
+		this.staticImports.addAll(staticImports);
+	}
 }

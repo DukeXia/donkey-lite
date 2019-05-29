@@ -1,26 +1,11 @@
-/**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
 package org.mybatis.generator.api;
 
 /**
  * This interface is used to supply names for DAO methods. Users can provide
  * different implementations if the supplied implementations aren't sufficient.
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public interface DAOMethodNameCalculator {
 
@@ -50,7 +35,7 @@ public interface DAOMethodNameCalculator {
      * @return the calculated name
      */
     String getUpdateByPrimaryKeyWithoutBLOBsMethodName(
-            IntrospectedTable introspectedTable);
+        IntrospectedTable introspectedTable);
 
     /**
      * Calculates and returns a name for the update by primary key with BLOBs method.
@@ -60,7 +45,7 @@ public interface DAOMethodNameCalculator {
      * @return the calculated name
      */
     String getUpdateByPrimaryKeyWithBLOBsMethodName(
-            IntrospectedTable introspectedTable);
+        IntrospectedTable introspectedTable);
 
     /**
      * Calculates and returns a name for the update by primary key selective method.
@@ -70,7 +55,7 @@ public interface DAOMethodNameCalculator {
      * @return the calculated name
      */
     String getUpdateByPrimaryKeySelectiveMethodName(
-            IntrospectedTable introspectedTable);
+        IntrospectedTable introspectedTable);
 
     /**
      * Calculates and returns a name for the select by primary key method.
@@ -89,7 +74,7 @@ public interface DAOMethodNameCalculator {
      * @return the calculated name
      */
     String getSelectByExampleWithoutBLOBsMethodName(
-            IntrospectedTable introspectedTable);
+        IntrospectedTable introspectedTable);
 
     /**
      * Calculates and returns a name for the select by example with BLOBs method. If the table
@@ -101,7 +86,7 @@ public interface DAOMethodNameCalculator {
      * @return the calculated name
      */
     String getSelectByExampleWithBLOBsMethodName(
-            IntrospectedTable introspectedTable);
+        IntrospectedTable introspectedTable);
 
     /**
      * Calculates and returns a name for the delete by primary key method.
@@ -138,7 +123,7 @@ public interface DAOMethodNameCalculator {
      * @return the calculated name
      */
     String getUpdateByExampleSelectiveMethodName(
-            IntrospectedTable introspectedTable);
+        IntrospectedTable introspectedTable);
 
     /**
      * Calculates and returns a name for the update by example with BLOBs method.
@@ -148,7 +133,7 @@ public interface DAOMethodNameCalculator {
      * @return the calculated name
      */
     String getUpdateByExampleWithBLOBsMethodName(
-            IntrospectedTable introspectedTable);
+        IntrospectedTable introspectedTable);
 
     /**
      * Calculates and returns a name for the update by example without BLOBs method.
@@ -158,5 +143,5 @@ public interface DAOMethodNameCalculator {
      * @return the calculated name
      */
     String getUpdateByExampleWithoutBLOBsMethodName(
-            IntrospectedTable introspectedTable);
+        IntrospectedTable introspectedTable);
 }

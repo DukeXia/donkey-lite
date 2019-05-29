@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2017 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.internal;
 
@@ -33,8 +33,6 @@ import org.mybatis.generator.api.Plugin;
 import org.mybatis.generator.api.XmlFormatter;
 import org.mybatis.generator.api.dom.DefaultJavaFormatter;
 import org.mybatis.generator.api.dom.DefaultXmlFormatter;
-import org.mybatis.generator.codegen.ibatis2.IntrospectedTableIbatis2Java2Impl;
-import org.mybatis.generator.codegen.ibatis2.IntrospectedTableIbatis2Java5Impl;
 import org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3Impl;
 import org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3SimpleImpl;
 import org.mybatis.generator.config.CommentGeneratorConfiguration;
@@ -72,7 +70,7 @@ public class ObjectFactory {
      * a generation run so that and change to the classloading configuration
      * will be reflected.  For example, if the eclipse launcher changes configuration
      * it might not be updated if eclipse hasn't been restarted.
-     * 
+     *
      */
     public static void reset() {
         externalClassLoaders.clear();
@@ -87,7 +85,7 @@ public class ObjectFactory {
      *            the class loader
      */
     public static synchronized void addExternalClassLoader(
-            ClassLoader classLoader) {
+        ClassLoader classLoader) {
         ObjectFactory.externalClassLoaders.add(classLoader);
     }
 
@@ -103,7 +101,7 @@ public class ObjectFactory {
      *             the class not found exception
      */
     public static Class<?> externalClassForName(String type)
-            throws ClassNotFoundException {
+        throws ClassNotFoundException {
 
         Class<?> clazz;
 
@@ -127,14 +125,14 @@ public class ObjectFactory {
             answer = clazz.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(getString(
-                    "RuntimeError.6", type), e); //$NON-NLS-1$
+                "RuntimeError.6", type), e); //$NON-NLS-1$
         }
 
         return answer;
     }
 
     public static Class<?> internalClassForName(String type)
-            throws ClassNotFoundException {
+        throws ClassNotFoundException {
         Class<?> clazz = null;
 
         try {
@@ -180,7 +178,7 @@ public class ObjectFactory {
             answer = clazz.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(getString(
-                    "RuntimeError.6", type), e); //$NON-NLS-1$
+                "RuntimeError.6", type), e); //$NON-NLS-1$
 
         }
 
@@ -188,9 +186,9 @@ public class ObjectFactory {
     }
 
     public static JavaTypeResolver createJavaTypeResolver(Context context,
-            List<String> warnings) {
+                                                          List<String> warnings) {
         JavaTypeResolverConfiguration config = context
-                .getJavaTypeResolverConfiguration();
+            .getJavaTypeResolverConfiguration();
         String type;
 
         if (config != null && config.getConfigurationType() != null) {
@@ -215,9 +213,9 @@ public class ObjectFactory {
     }
 
     public static Plugin createPlugin(Context context,
-            PluginConfiguration pluginConfiguration) {
+                                      PluginConfiguration pluginConfiguration) {
         Plugin plugin = (Plugin) createInternalObject(pluginConfiguration
-                .getConfigurationType());
+            .getConfigurationType());
         plugin.setContext(context);
         plugin.setProperties(pluginConfiguration.getProperties());
         return plugin;
@@ -226,7 +224,7 @@ public class ObjectFactory {
     public static CommentGenerator createCommentGenerator(Context context) {
 
         CommentGeneratorConfiguration config = context
-                .getCommentGeneratorConfiguration();
+            .getCommentGeneratorConfiguration();
         CommentGenerator answer;
 
         String type;
@@ -248,7 +246,7 @@ public class ObjectFactory {
     public static ConnectionFactory createConnectionFactory(Context context) {
 
         ConnectionFactoryConfiguration config = context
-                .getConnectionFactoryConfiguration();
+            .getConnectionFactoryConfiguration();
         ConnectionFactory answer;
 
         String type;
@@ -294,8 +292,8 @@ public class ObjectFactory {
     }
 
     public static IntrospectedTable createIntrospectedTable(
-            TableConfiguration tableConfiguration, FullyQualifiedTable table,
-            Context context) {
+        TableConfiguration tableConfiguration, FullyQualifiedTable table,
+        Context context) {
 
         IntrospectedTable answer = createIntrospectedTableForValidation(context);
         answer.setFullyQualifiedTable(table);
@@ -307,7 +305,7 @@ public class ObjectFactory {
     /**
      * Creates an introspected table implementation that is only usable for validation (i.e. for a context
      * to determine if the target is ibatis2 or mybatis3).
-     * 
+     *
      *
      * @param context
      *            the context
@@ -317,10 +315,6 @@ public class ObjectFactory {
         String type = context.getTargetRuntime();
         if (!stringHasValue(type)) {
             type = IntrospectedTableMyBatis3Impl.class.getName();
-        } else if ("Ibatis2Java2".equalsIgnoreCase(type)) { //$NON-NLS-1$
-            type = IntrospectedTableIbatis2Java2Impl.class.getName();
-        } else if ("Ibatis2Java5".equalsIgnoreCase(type)) { //$NON-NLS-1$
-            type = IntrospectedTableIbatis2Java5Impl.class.getName();
         } else if ("Ibatis3".equalsIgnoreCase(type)) { //$NON-NLS-1$
             type = IntrospectedTableMyBatis3Impl.class.getName();
         } else if ("MyBatis3".equalsIgnoreCase(type)) { //$NON-NLS-1$

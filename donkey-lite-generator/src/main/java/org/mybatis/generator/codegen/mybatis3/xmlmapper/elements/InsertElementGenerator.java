@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2017 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.codegen.mybatis3.xmlmapper.elements;
 
@@ -29,9 +29,9 @@ import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 import org.mybatis.generator.config.GeneratedKey;
 
 /**
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public class InsertElementGenerator extends AbstractXmlElementGenerator {
 
@@ -47,36 +47,36 @@ public class InsertElementGenerator extends AbstractXmlElementGenerator {
         XmlElement answer = new XmlElement("insert"); //$NON-NLS-1$
 
         answer.addAttribute(new Attribute(
-                "id", introspectedTable.getInsertStatementId())); //$NON-NLS-1$
+            "id", introspectedTable.getInsertStatementId())); //$NON-NLS-1$
 
         FullyQualifiedJavaType parameterType;
         if (isSimple) {
             parameterType = new FullyQualifiedJavaType(
-                    introspectedTable.getBaseRecordType());
+                introspectedTable.getBaseRecordType());
         } else {
             parameterType = introspectedTable.getRules()
-                    .calculateAllFieldsClass();
+                .calculateAllFieldsClass();
         }
 
         answer.addAttribute(new Attribute("parameterType", //$NON-NLS-1$
-                parameterType.getFullyQualifiedName()));
+            parameterType.getFullyQualifiedName()));
 
         context.getCommentGenerator().addComment(answer);
 
         GeneratedKey gk = introspectedTable.getGeneratedKey();
         if (gk != null) {
             IntrospectedColumn introspectedColumn = introspectedTable
-                    .getColumn(gk.getColumn());
+                .getColumn(gk.getColumn());
             // if the column is null, then it's a configuration error. The
             // warning has already been reported
             if (introspectedColumn != null) {
                 if (gk.isJdbcStandard()) {
                     answer.addAttribute(new Attribute(
-                            "useGeneratedKeys", "true")); //$NON-NLS-1$ //$NON-NLS-2$
+                        "useGeneratedKeys", "true")); //$NON-NLS-1$ //$NON-NLS-2$
                     answer.addAttribute(new Attribute(
-                            "keyProperty", introspectedColumn.getJavaProperty())); //$NON-NLS-1$
+                        "keyProperty", introspectedColumn.getJavaProperty())); //$NON-NLS-1$
                     answer.addAttribute(new Attribute(
-                            "keyColumn", introspectedColumn.getActualColumnName())); //$NON-NLS-1$
+                        "keyColumn", introspectedColumn.getActualColumnName())); //$NON-NLS-1$
                 } else {
                     answer.addElement(getSelectKey(introspectedColumn, gk));
                 }
@@ -87,7 +87,7 @@ public class InsertElementGenerator extends AbstractXmlElementGenerator {
 
         insertClause.append("insert into "); //$NON-NLS-1$
         insertClause.append(introspectedTable
-                .getFullyQualifiedTableNameAtRuntime());
+            .getFullyQualifiedTableNameAtRuntime());
         insertClause.append(" ("); //$NON-NLS-1$
 
         StringBuilder valuesClause = new StringBuilder();
@@ -99,9 +99,9 @@ public class InsertElementGenerator extends AbstractXmlElementGenerator {
             IntrospectedColumn introspectedColumn = columns.get(i);
 
             insertClause.append(MyBatis3FormattingUtilities
-                    .getEscapedColumnName(introspectedColumn));
+                .getEscapedColumnName(introspectedColumn));
             valuesClause.append(MyBatis3FormattingUtilities
-                    .getParameterClause(introspectedColumn));
+                .getParameterClause(introspectedColumn));
             if (i + 1 < columns.size()) {
                 insertClause.append(", "); //$NON-NLS-1$
                 valuesClause.append(", "); //$NON-NLS-1$
@@ -129,7 +129,7 @@ public class InsertElementGenerator extends AbstractXmlElementGenerator {
         }
 
         if (context.getPlugins().sqlMapInsertElementGenerated(answer,
-                introspectedTable)) {
+            introspectedTable)) {
             parentElement.addElement(answer);
         }
     }

@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2017 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.runtime.dynamic.sql;
 
@@ -40,9 +40,9 @@ import org.mybatis.generator.codegen.RootClassInfo;
 /**
  * This model generator builds a flat model qith default constructor and getters/setters.
  * It does not support the immutable model, or constructor based attributes.
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public class DynamicSqlModelGenerator extends AbstractJavaGenerator {
 
@@ -58,7 +58,7 @@ public class DynamicSqlModelGenerator extends AbstractJavaGenerator {
         CommentGenerator commentGenerator = context.getCommentGenerator();
 
         FullyQualifiedJavaType type = new FullyQualifiedJavaType(
-                introspectedTable.getBaseRecordType());
+            introspectedTable.getBaseRecordType());
         TopLevelClass topLevelClass = new TopLevelClass(type);
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addJavaFileComment(topLevelClass);
@@ -87,7 +87,7 @@ public class DynamicSqlModelGenerator extends AbstractJavaGenerator {
         String rootClass = getRootClass();
         for (IntrospectedColumn introspectedColumn : introspectedColumns) {
             if (RootClassInfo.getInstance(rootClass, warnings)
-                    .containsProperty(introspectedColumn)) {
+                .containsProperty(introspectedColumn)) {
                 continue;
             }
 
@@ -95,8 +95,8 @@ public class DynamicSqlModelGenerator extends AbstractJavaGenerator {
             field.getJavaDocLines().clear();
             commentGenerator.addFieldAnnotation(field, introspectedTable, introspectedColumn, topLevelClass.getImportedTypes());
             if (plugins.modelFieldGenerated(field, topLevelClass,
-                    introspectedColumn, introspectedTable,
-                    Plugin.ModelClassType.BASE_RECORD)) {
+                introspectedColumn, introspectedTable,
+                Plugin.ModelClassType.BASE_RECORD)) {
                 topLevelClass.addField(field);
                 topLevelClass.addImportedType(field.getType());
             }
@@ -105,8 +105,8 @@ public class DynamicSqlModelGenerator extends AbstractJavaGenerator {
             method.getJavaDocLines().clear();
             commentGenerator.addGeneralMethodAnnotation(method, introspectedTable, introspectedColumn, topLevelClass.getImportedTypes());
             if (plugins.modelGetterMethodGenerated(method, topLevelClass,
-                    introspectedColumn, introspectedTable,
-                    Plugin.ModelClassType.BASE_RECORD)) {
+                introspectedColumn, introspectedTable,
+                Plugin.ModelClassType.BASE_RECORD)) {
                 topLevelClass.addMethod(method);
             }
 
@@ -115,8 +115,8 @@ public class DynamicSqlModelGenerator extends AbstractJavaGenerator {
                 method.getJavaDocLines().clear();
                 commentGenerator.addGeneralMethodAnnotation(method, introspectedTable, introspectedColumn, topLevelClass.getImportedTypes());
                 if (plugins.modelSetterMethodGenerated(method, topLevelClass,
-                        introspectedColumn, introspectedTable,
-                        Plugin.ModelClassType.BASE_RECORD)) {
+                    introspectedColumn, introspectedTable,
+                    Plugin.ModelClassType.BASE_RECORD)) {
                     topLevelClass.addMethod(method);
                 }
             }
@@ -124,7 +124,7 @@ public class DynamicSqlModelGenerator extends AbstractJavaGenerator {
 
         List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
         if (context.getPlugins().modelBaseRecordClassGenerated(topLevelClass,
-                introspectedTable)) {
+            introspectedTable)) {
             answer.add(topLevelClass);
         }
         return answer;
@@ -148,17 +148,17 @@ public class DynamicSqlModelGenerator extends AbstractJavaGenerator {
         method.setConstructor(true);
         method.setName(topLevelClass.getType().getShortName());
         context.getCommentGenerator().addGeneralMethodComment(method,
-                introspectedTable);
+            introspectedTable);
         method.getJavaDocLines().clear();
         commentGenerator.addGeneralMethodAnnotation(method, introspectedTable, topLevelClass.getImportedTypes());
 
         List<IntrospectedColumn> constructorColumns = introspectedTable
-                .getAllColumns();
+            .getAllColumns();
 
         for (IntrospectedColumn introspectedColumn : constructorColumns) {
             method.addParameter(new Parameter(introspectedColumn
-                    .getFullyQualifiedJavaType(), introspectedColumn
-                    .getJavaProperty()));
+                .getFullyQualifiedJavaType(), introspectedColumn
+                .getJavaProperty()));
         }
 
         StringBuilder sb = new StringBuilder();

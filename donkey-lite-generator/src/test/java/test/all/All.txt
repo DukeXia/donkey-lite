@@ -1,0 +1,305 @@
+目标package: test.all
+
+<!-- http://freemarker.apache.org/docs/ref_builtins_date.html -->
+当前时间：
+2019-5-29
+14:08:15
+2019-05-29 14:08:15
+
+所有配置的属性信息:
+targetPackage - test.all
+templatePath - generator/test-all.ftl
+singleMode - false
+targetProject - D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java
+fileName - All.txt
+
+****************************************************************************************
+实体和表的信息：
+表名：USER_INFO
+变量名：userInfo
+小写名：userinfo
+类名：UserInfo
+全名：test.model.UserInfo
+包名：test.model
+
+列的信息：
+=====================================
+    主键：
+        -------------------------------------
+        列名：ID
+        列类型：INTEGER
+        字段名：id
+        类型包名：java.lang
+        类型短名：Integer
+        类型全名：java.lang.Integer
+        是否主键：true
+        是否可空：false
+        是否为BLOB列：false
+        是否为String列：false
+        是否为字符串列：false
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：32
+        列精度：0
+
+    基础列：
+        -------------------------------------
+        列名：USERNAME
+        列类型：VARCHAR
+        字段名：username
+        类型包名：java.lang
+        类型短名：String
+        类型全名：java.lang.String
+        是否主键：false
+        是否可空：false
+        是否为BLOB列：false
+        是否为String列：true
+        是否为字符串列：true
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：32
+        列精度：0
+        -------------------------------------
+        列名：PASSWORD
+        列类型：VARCHAR
+        字段名：password
+        类型包名：java.lang
+        类型短名：String
+        类型全名：java.lang.String
+        是否主键：false
+        是否可空：true
+        是否为BLOB列：false
+        是否为String列：true
+        是否为字符串列：true
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：32
+        列精度：0
+        -------------------------------------
+        列名：USERTYPE
+        列类型：VARCHAR
+        字段名：usertype
+        类型包名：java.lang
+        类型短名：String
+        类型全名：java.lang.String
+        是否主键：false
+        是否可空：true
+        是否为BLOB列：false
+        是否为String列：true
+        是否为字符串列：true
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：2
+        列精度：0
+        -------------------------------------
+        列名：ENABLED
+        列类型：INTEGER
+        字段名：enabled
+        类型包名：java.lang
+        类型短名：Integer
+        类型全名：java.lang.Integer
+        是否主键：false
+        是否可空：true
+        是否为BLOB列：false
+        是否为String列：false
+        是否为字符串列：false
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：32
+        列精度：0
+        -------------------------------------
+        列名：REALNAME
+        列类型：VARCHAR
+        字段名：realname
+        类型包名：java.lang
+        类型短名：String
+        类型全名：java.lang.String
+        是否主键：false
+        是否可空：true
+        是否为BLOB列：false
+        是否为String列：true
+        是否为字符串列：true
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：50
+        列精度：0
+        -------------------------------------
+        列名：QQ
+        列类型：VARCHAR
+        字段名：qq
+        类型包名：java.lang
+        类型短名：String
+        类型全名：java.lang.String
+        是否主键：false
+        是否可空：true
+        是否为BLOB列：false
+        是否为String列：true
+        是否为字符串列：true
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：12
+        列精度：0
+        -------------------------------------
+        列名：EMAIL
+        列类型：VARCHAR
+        字段名：email
+        类型包名：java.lang
+        类型短名：String
+        类型全名：java.lang.String
+        是否主键：false
+        是否可空：true
+        是否为BLOB列：false
+        是否为String列：true
+        是否为字符串列：true
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：100
+        列精度：0
+        -------------------------------------
+        列名：ADDRESS
+        列类型：VARCHAR
+        字段名：address
+        类型包名：java.lang
+        类型短名：String
+        类型全名：java.lang.String
+        是否主键：false
+        是否可空：true
+        是否为BLOB列：false
+        是否为String列：true
+        是否为字符串列：true
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：200
+        列精度：0
+        -------------------------------------
+        列名：TEL
+        列类型：VARCHAR
+        字段名：tel
+        类型包名：java.lang
+        类型短名：String
+        类型全名：java.lang.String
+        是否主键：false
+        是否可空：true
+        是否为BLOB列：false
+        是否为String列：true
+        是否为字符串列：true
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：30
+        列精度：0
+
+    Blob列：
+=====================================
+全部列：
+    列名 - 字段名
+        ID - id
+        USERNAME - username
+        PASSWORD - password
+        USERTYPE - usertype
+        ENABLED - enabled
+        REALNAME - realname
+        QQ - qq
+        EMAIL - email
+        ADDRESS - address
+        TEL - tel
+****************************************************************************************
+实体和表的信息：
+表名：COUNTRY
+变量名：country
+小写名：country
+类名：Country
+全名：test.model.Country
+包名：test.model
+
+列的信息：
+=====================================
+    主键：
+        -------------------------------------
+        列名：ID
+        列类型：INTEGER
+        字段名：id
+        类型包名：java.lang
+        类型短名：Integer
+        类型全名：java.lang.Integer
+        是否主键：true
+        是否可空：false
+        是否为BLOB列：false
+        是否为String列：false
+        是否为字符串列：false
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：32
+        列精度：0
+
+    基础列：
+        -------------------------------------
+        列名：COUNTRYNAME
+        列类型：VARCHAR
+        字段名：countryname
+        类型包名：java.lang
+        类型短名：String
+        类型全名：java.lang.String
+        是否主键：false
+        是否可空：true
+        是否为BLOB列：false
+        是否为String列：true
+        是否为字符串列：true
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：32
+        列精度：0
+        -------------------------------------
+        列名：COUNTRYCODE
+        列类型：VARCHAR
+        字段名：countrycode
+        类型包名：java.lang
+        类型短名：String
+        类型全名：java.lang.String
+        是否主键：false
+        是否可空：true
+        是否为BLOB列：false
+        是否为String列：true
+        是否为字符串列：true
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：2
+        列精度：0
+        -------------------------------------
+        列名：VERSION
+        列类型：INTEGER
+        字段名：version
+        类型包名：java.lang
+        类型短名：Integer
+        类型全名：java.lang.Integer
+        是否主键：false
+        是否可空：false
+        是否为BLOB列：false
+        是否为String列：false
+        是否为字符串列：false
+        是否为日期列：false
+        是否为时间列：false
+        是否为序列列：false
+        列长度：32
+        列精度：0
+
+    Blob列：
+=====================================
+全部列：
+    列名 - 字段名
+        ID - id
+        COUNTRYNAME - countryname
+        COUNTRYCODE - countrycode
+        VERSION - version

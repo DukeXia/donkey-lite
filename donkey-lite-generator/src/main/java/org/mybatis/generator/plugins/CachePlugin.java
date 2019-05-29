@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2017 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.plugins;
 
@@ -28,7 +28,7 @@ import org.mybatis.generator.internal.util.StringUtility;
  * This plugin adds a cache element to generated sqlMaps.  This plugin
  * is for MyBatis3 targeted runtimes only.  The plugin accepts the
  * following properties (all are optional):
- * 
+ *
  * <ul>
  *   <li>cache_eviction</li>
  *   <li>cache_flushInterval</li>
@@ -36,13 +36,13 @@ import org.mybatis.generator.internal.util.StringUtility;
  *   <li>cache_readOnly</li>
  *   <li>cache_type</li>
  * </ul>
- * 
+ *
  * <p>All properties correspond to properties of the MyBatis cache element and
  * are passed "as is" to the corresponding properties of the generated cache
  * element.  All properties can be specified at the table level, or on the
  * plugin element.  The property on the table element will override any
  * property on the plugin element.
- * 
+ *
  * @author Jason Bennett
  * @author Jeff Butler
  */
@@ -95,8 +95,7 @@ public class CachePlugin extends PluginAdapter {
         return true;
     }
 
-    private void addAttributeIfExists(XmlElement element, IntrospectedTable introspectedTable,
-            CacheProperty cacheProperty) {
+    private void addAttributeIfExists(XmlElement element, IntrospectedTable introspectedTable, CacheProperty cacheProperty) {
         String property = introspectedTable.getTableConfigurationProperty(cacheProperty.getPropertyName());
         if (property == null) {
             property = properties.getProperty(cacheProperty.getPropertyName());

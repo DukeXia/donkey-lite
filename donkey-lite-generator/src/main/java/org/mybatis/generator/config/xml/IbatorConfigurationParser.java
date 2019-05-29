@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.config.xml;
 
@@ -32,7 +32,7 @@ import org.w3c.dom.NodeList;
 /**
  * This class parses old Ibator configuration files into the new Configuration
  * API
- * 
+ *
  * @author Jeff Butler
  */
 public class IbatorConfigurationParser extends MyBatisGeneratorConfigurationParser {
@@ -42,7 +42,7 @@ public class IbatorConfigurationParser extends MyBatisGeneratorConfigurationPars
     }
 
     public Configuration parseIbatorConfiguration(Element rootNode)
-            throws XMLParserException {
+        throws XMLParserException {
 
         Configuration configuration = new Configuration();
 
@@ -72,11 +72,11 @@ public class IbatorConfigurationParser extends MyBatisGeneratorConfigurationPars
         String defaultModelType = attributes.getProperty("defaultModelType"); //$NON-NLS-1$
         String targetRuntime = attributes.getProperty("targetRuntime"); //$NON-NLS-1$
         String introspectedColumnImpl = attributes
-                .getProperty("introspectedColumnImpl"); //$NON-NLS-1$
+            .getProperty("introspectedColumnImpl"); //$NON-NLS-1$
         String id = attributes.getProperty("id"); //$NON-NLS-1$
 
         ModelType mt = defaultModelType == null ? null : ModelType
-                .getModelType(defaultModelType);
+            .getModelType(defaultModelType);
 
         Context context = new Context(mt);
         context.setId(id);
@@ -153,13 +153,13 @@ public class IbatorConfigurationParser extends MyBatisGeneratorConfigurationPars
         String targetPackage = attributes.getProperty("targetPackage"); //$NON-NLS-1$
         String targetProject = attributes.getProperty("targetProject"); //$NON-NLS-1$
         String implementationPackage = attributes
-                .getProperty("implementationPackage"); //$NON-NLS-1$
+            .getProperty("implementationPackage"); //$NON-NLS-1$
 
         javaClientGeneratorConfiguration.setConfigurationType(type);
         javaClientGeneratorConfiguration.setTargetPackage(targetPackage);
         javaClientGeneratorConfiguration.setTargetProject(targetProject);
         javaClientGeneratorConfiguration
-                .setImplementationPackage(implementationPackage);
+            .setImplementationPackage(implementationPackage);
 
         NodeList nodeList = node.getChildNodes();
         for (int i = 0; i < nodeList.getLength(); i++) {

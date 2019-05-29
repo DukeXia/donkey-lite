@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2017 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.codegen.mybatis3.javamapper.elements;
 
@@ -26,19 +26,19 @@ import org.mybatis.generator.codegen.AbstractGenerator;
 import org.mybatis.generator.config.GeneratedKey;
 
 /**
- * 
+ *
  * @author Jeff Butler
  */
 public abstract class AbstractJavaMapperMethodGenerator extends
-        AbstractGenerator {
+    AbstractGenerator {
     public abstract void addInterfaceElements(Interface interfaze);
 
     public AbstractJavaMapperMethodGenerator() {
         super();
     }
-    
+
     protected String getResultAnnotation(Interface interfaze, IntrospectedColumn introspectedColumn,
-            boolean idColumn, boolean constructorBased) {
+                                         boolean idColumn, boolean constructorBased) {
         StringBuilder sb = new StringBuilder();
         if (constructorBased) {
             interfaze.addImportedType(introspectedColumn.getFullyQualifiedJavaType());
@@ -57,7 +57,7 @@ public abstract class AbstractJavaMapperMethodGenerator extends
 
         if (stringHasValue(introspectedColumn.getTypeHandler())) {
             FullyQualifiedJavaType fqjt =
-                    new FullyQualifiedJavaType(introspectedColumn.getTypeHandler());
+                new FullyQualifiedJavaType(introspectedColumn.getTypeHandler());
             interfaze.addImportedType(fqjt);
             sb.append(", typeHandler="); //$NON-NLS-1$
             sb.append(fqjt.getShortName());
@@ -104,10 +104,10 @@ public abstract class AbstractJavaMapperMethodGenerator extends
         if (introspectedColumn != null) {
             if (gk.isJdbcStandard()) {
                 interfaze.addImportedType(
-                        new FullyQualifiedJavaType("org.apache.ibatis.annotations.Options")); //$NON-NLS-1$
+                    new FullyQualifiedJavaType("org.apache.ibatis.annotations.Options")); //$NON-NLS-1$
             } else {
                 interfaze.addImportedType(
-                        new FullyQualifiedJavaType("org.apache.ibatis.annotations.SelectKey")); //$NON-NLS-1$
+                    new FullyQualifiedJavaType("org.apache.ibatis.annotations.SelectKey")); //$NON-NLS-1$
                 FullyQualifiedJavaType fqjt = introspectedColumn.getFullyQualifiedJavaType();
                 interfaze.addImportedType(fqjt);
             }

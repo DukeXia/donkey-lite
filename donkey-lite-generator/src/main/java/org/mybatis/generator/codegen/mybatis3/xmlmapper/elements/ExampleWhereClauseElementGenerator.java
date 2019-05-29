@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.codegen.mybatis3.xmlmapper.elements;
 
@@ -23,12 +23,12 @@ import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 
 /**
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public class ExampleWhereClauseElementGenerator extends
-        AbstractXmlElementGenerator {
+    AbstractXmlElementGenerator {
 
     private boolean isForUpdateByExample;
 
@@ -43,11 +43,11 @@ public class ExampleWhereClauseElementGenerator extends
 
         if (isForUpdateByExample) {
             answer
-                    .addAttribute(new Attribute(
-                            "id", introspectedTable.getMyBatis3UpdateByExampleWhereClauseId())); //$NON-NLS-1$
+                .addAttribute(new Attribute(
+                    "id", introspectedTable.getMyBatis3UpdateByExampleWhereClauseId())); //$NON-NLS-1$
         } else {
             answer.addAttribute(new Attribute(
-                    "id", introspectedTable.getExampleWhereClauseId())); //$NON-NLS-1$
+                "id", introspectedTable.getExampleWhereClauseId())); //$NON-NLS-1$
         }
 
         context.getCommentGenerator().addComment(answer);
@@ -58,10 +58,10 @@ public class ExampleWhereClauseElementGenerator extends
         XmlElement outerForEachElement = new XmlElement("foreach"); //$NON-NLS-1$
         if (isForUpdateByExample) {
             outerForEachElement.addAttribute(new Attribute(
-                    "collection", "example.oredCriteria")); //$NON-NLS-1$ //$NON-NLS-2$
+                "collection", "example.oredCriteria")); //$NON-NLS-1$ //$NON-NLS-2$
         } else {
             outerForEachElement.addAttribute(new Attribute(
-                    "collection", "oredCriteria")); //$NON-NLS-1$ //$NON-NLS-2$
+                "collection", "oredCriteria")); //$NON-NLS-1$ //$NON-NLS-2$
         }
         outerForEachElement.addAttribute(new Attribute("item", "criteria")); //$NON-NLS-1$ //$NON-NLS-2$
         outerForEachElement.addAttribute(new Attribute("separator", "or")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -81,23 +81,23 @@ public class ExampleWhereClauseElementGenerator extends
         trimElement.addElement(getMiddleForEachElement(null));
 
         for (IntrospectedColumn introspectedColumn : introspectedTable
-                .getNonBLOBColumns()) {
+            .getNonBLOBColumns()) {
             if (stringHasValue(introspectedColumn
-                    .getTypeHandler())) {
+                .getTypeHandler())) {
                 trimElement
-                        .addElement(getMiddleForEachElement(introspectedColumn));
+                    .addElement(getMiddleForEachElement(introspectedColumn));
             }
         }
 
         if (context.getPlugins()
-                .sqlMapExampleWhereClauseElementGenerated(answer,
-                        introspectedTable)) {
+            .sqlMapExampleWhereClauseElementGenerated(answer,
+                introspectedTable)) {
             parentElement.addElement(answer);
         }
     }
 
     private XmlElement getMiddleForEachElement(
-            IntrospectedColumn introspectedColumn) {
+        IntrospectedColumn introspectedColumn) {
         StringBuilder sb = new StringBuilder();
         String criteriaAttribute;
         boolean typeHandled;
@@ -123,7 +123,7 @@ public class ExampleWhereClauseElementGenerator extends
 
         XmlElement middleForEachElement = new XmlElement("foreach"); //$NON-NLS-1$
         middleForEachElement.addAttribute(new Attribute(
-                "collection", criteriaAttribute)); //$NON-NLS-1$
+            "collection", criteriaAttribute)); //$NON-NLS-1$
         middleForEachElement.addAttribute(new Attribute("item", "criterion")); //$NON-NLS-1$ //$NON-NLS-2$
 
         XmlElement chooseElement = new XmlElement("choose"); //$NON-NLS-1$
@@ -165,7 +165,7 @@ public class ExampleWhereClauseElementGenerator extends
         when.addElement(new TextElement("and ${criterion.condition}")); //$NON-NLS-1$
         XmlElement innerForEach = new XmlElement("foreach"); //$NON-NLS-1$
         innerForEach
-                .addAttribute(new Attribute("collection", "criterion.value")); //$NON-NLS-1$ //$NON-NLS-2$
+            .addAttribute(new Attribute("collection", "criterion.value")); //$NON-NLS-1$ //$NON-NLS-2$
         innerForEach.addAttribute(new Attribute("item", "listItem")); //$NON-NLS-1$ //$NON-NLS-2$
         innerForEach.addAttribute(new Attribute("open", "(")); //$NON-NLS-1$ //$NON-NLS-2$
         innerForEach.addAttribute(new Attribute("close", ")")); //$NON-NLS-1$ //$NON-NLS-2$

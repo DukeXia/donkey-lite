@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.codegen.mybatis3.xmlmapper.elements;
 
@@ -26,12 +26,12 @@ import org.mybatis.generator.codegen.mybatis3.ListUtilities;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
 /**
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
-        AbstractXmlElementGenerator {
+    AbstractXmlElementGenerator {
 
     public UpdateByPrimaryKeyWithBLOBsElementGenerator() {
         super();
@@ -42,8 +42,8 @@ public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
         XmlElement answer = new XmlElement("update"); //$NON-NLS-1$
 
         answer
-                .addAttribute(new Attribute(
-                        "id", introspectedTable.getUpdateByPrimaryKeyWithBLOBsStatementId())); //$NON-NLS-1$
+            .addAttribute(new Attribute(
+                "id", introspectedTable.getUpdateByPrimaryKeyWithBLOBsStatementId())); //$NON-NLS-1$
 
         String parameterType;
         if (introspectedTable.getRules().generateRecordWithBLOBsClass()) {
@@ -53,7 +53,7 @@ public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
         }
 
         answer.addAttribute(new Attribute("parameterType", //$NON-NLS-1$
-                parameterType));
+            parameterType));
 
         context.getCommentGenerator().addComment(answer);
 
@@ -68,15 +68,15 @@ public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
         sb.append("set "); //$NON-NLS-1$
 
         Iterator<IntrospectedColumn> iter = ListUtilities.removeGeneratedAlwaysColumns(introspectedTable
-                .getNonPrimaryKeyColumns()).iterator();
+            .getNonPrimaryKeyColumns()).iterator();
         while (iter.hasNext()) {
             IntrospectedColumn introspectedColumn = iter.next();
 
             sb.append(MyBatis3FormattingUtilities
-                    .getEscapedColumnName(introspectedColumn));
+                .getEscapedColumnName(introspectedColumn));
             sb.append(" = "); //$NON-NLS-1$
             sb.append(MyBatis3FormattingUtilities
-                    .getParameterClause(introspectedColumn));
+                .getParameterClause(introspectedColumn));
 
             if (iter.hasNext()) {
                 sb.append(',');
@@ -93,7 +93,7 @@ public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
 
         boolean and = false;
         for (IntrospectedColumn introspectedColumn : introspectedTable
-                .getPrimaryKeyColumns()) {
+            .getPrimaryKeyColumns()) {
             sb.setLength(0);
             if (and) {
                 sb.append("  and "); //$NON-NLS-1$
@@ -103,16 +103,16 @@ public class UpdateByPrimaryKeyWithBLOBsElementGenerator extends
             }
 
             sb.append(MyBatis3FormattingUtilities
-                    .getEscapedColumnName(introspectedColumn));
+                .getEscapedColumnName(introspectedColumn));
             sb.append(" = "); //$NON-NLS-1$
             sb.append(MyBatis3FormattingUtilities
-                    .getParameterClause(introspectedColumn));
+                .getParameterClause(introspectedColumn));
             answer.addElement(new TextElement(sb.toString()));
         }
 
         if (context.getPlugins()
-                .sqlMapUpdateByPrimaryKeyWithBLOBsElementGenerated(answer,
-                        introspectedTable)) {
+            .sqlMapUpdateByPrimaryKeyWithBLOBsElementGenerated(answer,
+                introspectedTable)) {
             parentElement.addElement(answer);
         }
     }

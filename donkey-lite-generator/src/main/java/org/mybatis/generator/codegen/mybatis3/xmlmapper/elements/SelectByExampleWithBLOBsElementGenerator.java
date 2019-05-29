@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.codegen.mybatis3.xmlmapper.elements;
 
@@ -22,12 +22,12 @@ import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 
 /**
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public class SelectByExampleWithBLOBsElementGenerator extends
-        AbstractXmlElementGenerator {
+    AbstractXmlElementGenerator {
 
     public SelectByExampleWithBLOBsElementGenerator() {
         super();
@@ -39,10 +39,10 @@ public class SelectByExampleWithBLOBsElementGenerator extends
 
         XmlElement answer = new XmlElement("select"); //$NON-NLS-1$
         answer
-                .addAttribute(new Attribute(
-                        "id", introspectedTable.getSelectByExampleWithBLOBsStatementId())); //$NON-NLS-1$
+            .addAttribute(new Attribute(
+                "id", introspectedTable.getSelectByExampleWithBLOBsStatementId())); //$NON-NLS-1$
         answer.addAttribute(new Attribute(
-                "resultMap", introspectedTable.getResultMapWithBLOBsId())); //$NON-NLS-1$
+            "resultMap", introspectedTable.getResultMapWithBLOBsId())); //$NON-NLS-1$
         answer.addAttribute(new Attribute("parameterType", fqjt)); //$NON-NLS-1$
 
         context.getCommentGenerator().addComment(answer);
@@ -55,7 +55,7 @@ public class SelectByExampleWithBLOBsElementGenerator extends
 
         StringBuilder sb = new StringBuilder();
         if (stringHasValue(introspectedTable
-                .getSelectByExampleQueryId())) {
+            .getSelectByExampleQueryId())) {
             sb.append('\'');
             sb.append(introspectedTable.getSelectByExampleQueryId());
             sb.append("' as QUERYID,"); //$NON-NLS-1$
@@ -69,7 +69,7 @@ public class SelectByExampleWithBLOBsElementGenerator extends
         sb.setLength(0);
         sb.append("from "); //$NON-NLS-1$
         sb.append(introspectedTable
-                .getAliasedFullyQualifiedTableNameAtRuntime());
+            .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
         answer.addElement(getExampleIncludeElement());
 
@@ -79,8 +79,8 @@ public class SelectByExampleWithBLOBsElementGenerator extends
         answer.addElement(ifElement);
 
         if (context.getPlugins()
-                .sqlMapSelectByExampleWithBLOBsElementGenerated(answer,
-                        introspectedTable)) {
+            .sqlMapSelectByExampleWithBLOBsElementGenerated(answer,
+                introspectedTable)) {
             parentElement.addElement(answer);
         }
     }
