@@ -5,7 +5,7 @@ create table country (
   countryname varchar(32),
   countrycode VARCHAR(2) DEFAULT 'HH',
   version     INTEGER DEFAULT 1 NOT NULL
-);
+) ;
 
 drop table user_info if exists;
 
@@ -22,6 +22,7 @@ create table user_info (
   address varchar(200),
   tel varchar(30)
 );
+
 
 insert into user_info (id,username,password,usertype) values (1,'test1','12345678','1');
 insert into user_info (id,username,password,usertype) values (2,'test2','aaaa','2');

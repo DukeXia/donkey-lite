@@ -29,6 +29,7 @@ import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import tk.mybatis.mapper.generator.model.TableClass;
 
 import java.io.StringWriter;
@@ -80,6 +81,8 @@ public class FreemarkerTemplateFormatter implements TemplateFormatter, ListTempl
         params.put("props", properties);
         params.put("package", targetPackage);
         params.put("tableClass", tableClass);
+        params.put("author", "donkey generator");
+        params.put("date", DateFormatUtils.ISO_8601_EXTENDED_DATE_FORMAT.format(new Date()));
         return process(properties.getProperty("templatePath"), templateContent, params);
     }
 
@@ -92,6 +95,8 @@ public class FreemarkerTemplateFormatter implements TemplateFormatter, ListTempl
         params.put("props", properties);
         params.put("package", targetPackage);
         params.put("tableClassSet", tableClassSet);
+        params.put("author", "donkey generator");
+        params.put("date", DateFormatUtils.ISO_8601_EXTENDED_DATE_FORMAT.format(new Date()));
         return process(properties.getProperty("templatePath"), templateContent, params);
     }
 }

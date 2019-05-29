@@ -22,39 +22,21 @@
  * THE SOFTWARE.
  */
 
-package tk.mybatis.mapper.generator.model;
+package org.mybatis.generator.plugins;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-
-import java.io.Serializable;
 import java.util.List;
 
+import org.mybatis.generator.api.PluginAdapter;
+
 /**
+ * 禁用大多数方法
+ *
  * @author liuzh
- * @since 3.4.5
  */
-@Setter
-@Getter
-public class TableClass implements Serializable {
-    private static final long serialVersionUID = -746251813735169289L;
+public class FalseMethodPlugin extends PluginAdapter {
 
-    private IntrospectedTable introspectedTable;
-
-    private String tableName;
-    private String variableName;
-    private String lowerCaseName;
-    private String shortClassName;
-    private String fullClassName;
-    private String packageName;
-    private FullyQualifiedJavaType type;
-    private String description;
-    private String upperCase;
-
-    private List<ColumnField> pkFields;
-    private List<ColumnField> baseFields;
-    private List<ColumnField> blobFields;
-    private List<ColumnField> allFields;
+    @Override
+    public boolean validate(List<String> warnings) {
+        return true;
+    }
 }

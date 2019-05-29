@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package tk.mybatis.mapper.generator;
+package org.mybatis.generator.plugins;
 
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -30,6 +30,8 @@ import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.config.CommentGeneratorConfiguration;
 import org.mybatis.generator.config.Context;
 import org.mybatis.generator.internal.util.StringUtility;
+
+import tk.mybatis.mapper.generator.MapperCommentGenerator;
 
 import java.util.HashSet;
 import java.util.Properties;
@@ -41,6 +43,7 @@ import java.util.Set;
  * @author liuzh
  */
 public class MapperPlugin extends FalseMethodPlugin {
+	
     private Set<String> mappers = new HashSet<String>();
     private boolean caseSensitive = false;
     private boolean useMapperCommentGenerator = true;

@@ -60,6 +60,10 @@ public class TableColumnBuilder {
         tableClass.setFullClassName(type.getFullyQualifiedName());
         tableClass.setPackageName(type.getPackageName());
 
+        // todo 变量初始化
+        tableClass.setUpperCase(type.getShortName().toUpperCase());
+        tableClass.setDescription(type.getShortName().toUpperCase());
+
         List<ColumnField> pkFields = new ArrayList<ColumnField>();
         List<ColumnField> baseFields = new ArrayList<ColumnField>();
         List<ColumnField> blobFields = new ArrayList<ColumnField>();

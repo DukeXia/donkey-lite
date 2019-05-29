@@ -1,13 +1,12 @@
-package ${BasePackageName}.${ServicePackageName};
+package ${package};
 
-import ${BasePackageName}.${DaoPackageName}.${ClassName}Mapper;
-import ${BasePackageName}.${EntityPackageName}.${ClassName};
-${InterfaceImport}
+import ${mapperPackage}.${tableClass.shortClassName}Mapper;
+import ${tableClass.fullClassName};
+
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageHelper;
-import com.donkeycode.core.collection.CollectionUtils;
-import com.donkeycode.core.utils.SortUtils;
-import com.donkeycode.boot.data.base.BaseService;
+import com.donkeycode.core.utils.CollectionUtils;
+import com.donkeycode.boot.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;
@@ -19,19 +18,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author ${Author}
- * @since  ${Date}
+ * @author donkey lite
+ * @since  0.0.1
  */
 @Service
-public class ${ClassName}ServiceImpl extends BaseService<${ClassName}> implements ${ClassName}Service{
+public class ${tableClass.shortClassName}ServiceImpl extends BaseService<${tableClass.shortClassName}> implements ${tableClass.shortClassName}Service{
 
 
     @Autowired
-    private ${ClassName}Mapper ${EntityName}Mapper;
+    private ${tableClass.shortClassName}Mapper ${tableClass.lowerCaseName}Mapper;
 
 
     @Override
-    public PageInfo<${ClassName}> getPageList(Map<String, String> params, int pageNum, int pageSize) {
+    public PageInfo<${tableClass.shortClassName}> getPageList(Map<String, String> params, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize, true);
         return new PageInfo<>(getList(params));
     }
@@ -44,16 +43,16 @@ public class ${ClassName}ServiceImpl extends BaseService<${ClassName}> implement
     }
 
     @Override
-    public List<${ClassName}> getList(Map<String, String> param) {
-        Weekend<${ClassName}> weekend = new Weekend<>(${ClassName}.class);
-        WeekendCriteria<${ClassName}, Object> criteria = weekend.weekendCriteria();
+    public List<${tableClass.shortClassName}> getList(Map<String, String> param) {
+        Weekend<${tableClass.shortClassName}> weekend = new Weekend<>(${tableClass.shortClassName}.class);
+        WeekendCriteria<${tableClass.shortClassName}, Object> criteria = weekend.weekendCriteria();
         if (null != param) {
-            //criteria.andEqualTo(${ClassName}::getEffStatus, StatusEnum.ENABLE.getCode());
-            String order = SortUtils.getOrderString(param.get(SortUtils.SORT_FIELDS));
+            //criteria.andEqualTo(${tableClass.shortClassName}::getEffStatus, StatusEnum.ENABLE.getCode());
+            //String order = SortUtils.getOrderString(param.get(SortUtils.SORT_FIELDS));
 
-            if (StringUtils.isNotEmpty(order)) {
-                weekend.setOrderByClause(order);
-            }
+            //if (StringUtils.isNotEmpty(order)) {
+              //  weekend.setOrderByClause(order);
+            //}
         }
         return mapper.selectByExample(weekend);
     }

@@ -1,12 +1,16 @@
-package ${BasePackageName}.${CommBizPackageName};
+package ${package};
 
-import ${BasePackageName}.${EntityPackageName}.${ClassName};
-import ${BasePackageName}.${ServicePackageName}.${ClassName}Service;
-import com.donkeycode.boot.interfaces.annotation.ResourceInfo;
-import com.donkeycode.boot.interfaces.pubinterface.IDataQueryComponent;
+import ${tableClass.fullClassName};
+
+import ${servicePackage}.${tableClass.shortClassName}Service;
+import com.donkeycode.boot.annotation.ResourceInfo;
+import com.donkeycode.boot.pubinterface.DataQueryService;
+import com.donkeycode.consts.Constants;
+import com.donkeycode.consts.ResourceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
-import ${BasePackageName}.constants.ResourceConstants;
-import com.donkeycode.boot.interfaces.pubinterface.info.PageQueryResult;
+
+import com.donkeycode.core.page.PageFilter;
+import com.donkeycode.core.page.PageResult;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
@@ -17,31 +21,32 @@ import java.util.Map;
 /**
  *
  *
- * @author ${Author}
- * @since  ${Date}
+ * @author ${author}
+ * @since  ${date}
  */
-@ResourceInfo(type = ResourceConstants.RESOURCE_TYPE_${ClassNameUpperCase}, description = "${EntityDescription}查询接口")
-public class ${ClassName}Query implements IDataQueryComponent{
+@ResourceInfo(type = ResourceConstants.RESOURCE_TYPE_${tableClass.upperCase}, description = "${tableClass.description}查询接口")
+public class ${tableClass.shortClassName}Query implements DataQueryService{
 
     @Autowired
-    private ${ClassName}Service ${EntityName}Service;
+    private ${tableClass.shortClassName}Service ${tableClass.lowerCaseName}Service;
 
     @Override
-    public PageQueryResult pageList(String operateType, Map<String, String> param, int pageNum, int pageSize) {
-        PageInfo<${ClassName}> pageInfo = ${EntityName}Service.getPageList(param, pageNum, pageSize);
-        return new PageQueryResult(pageInfo.getTotal(), pageInfo.getList());
+    public PageResult<?> pageList(String operateType, PageFilter pageFilter) {
+        PageInfo<${tableClass.shortClassName}> pageInfo = ${tableClass.lowerCaseName}Service.getPageList(pageFilter);
+        return new PageResult<${tableClass.shortClassName}>(pageInfo.getTotal(), pageInfo.getList());
     }
+
 
     @Override
 	public List<?> list(String operateType, Map<String, String> param) {
-        return ${EntityName}Service.getList(param);
+        return ${tableClass.lowerCaseName}Service.getList(param);
 	}
 
 
     @Override
     public Object find(String operateType, String key, Map<String, String> params) {
         Assert.notNull(StringUtils.isNotEmpty(key), "AgentQuery find 参数不能为空");
-        return ${EntityName}Service.selectByPrimaryKey(Long.parseLong(key));
+        return ${tableClass.lowerCaseName}Service.selectByPrimaryKey(Long.parseLong(key));
     }
 
 }

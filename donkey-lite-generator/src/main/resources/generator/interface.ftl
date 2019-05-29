@@ -1,23 +1,36 @@
-package ${BasePackageName}.${InterfacePackageName};
+package ${package};
 
-import com.donkeycode.boot.data.base.IBaseService;
-import ${BasePackageName}.${EntityPackageName}.${ClassName};
+import com.donkeycode.boot.IBaseService;
+import ${tableClass.fullClassName};
 
 import java.util.List;
 import com.github.pagehelper.PageInfo;
 import java.util.Map;
 
 /**
- * 测试
+ * 通用模版
  *
- * @author ${Author}
- * @since  ${Date}
+ * @author xueyanjun
+ * @since  0.0.1
  */
-public interface ${ClassName}Service extends IBaseService<${ClassName}>{
+public interface ${tableClass.shortClassName}Service extends IBaseService<${tableClass.shortClassName}>{
 
-    List<${ClassName}> getList(Map<String, String> params);
+    /**
+     * @param params
+     * @return
+     */
+    List<${tableClass.shortClassName}> getList(Map<String, String> params);
 
-    PageInfo<${ClassName}> getPageList(Map<String, String> params, int pageNum, int pageSize);
+    /**
+     * @param params
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageInfo<${tableClass.shortClassName}> getPageList(Map<String, String> params, int pageNum, int pageSize);
 
+    /**
+     * @param ids
+     */
     void deletes(List<Long> ids);
 }

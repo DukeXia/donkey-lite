@@ -43,7 +43,6 @@ import org.mybatis.generator.config.PluginConfiguration;
 import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl;
-import org.mybatis.generator.runtime.dynamic.sql.IntrospectedTableMyBatis3DynamicSqlImpl;
 
 /**
  * This class creates the different objects needed by the generator.
@@ -315,14 +314,10 @@ public class ObjectFactory {
         String type = context.getTargetRuntime();
         if (!stringHasValue(type)) {
             type = IntrospectedTableMyBatis3Impl.class.getName();
-        } else if ("Ibatis3".equalsIgnoreCase(type)) { //$NON-NLS-1$
-            type = IntrospectedTableMyBatis3Impl.class.getName();
         } else if ("MyBatis3".equalsIgnoreCase(type)) { //$NON-NLS-1$
             type = IntrospectedTableMyBatis3Impl.class.getName();
         } else if ("MyBatis3Simple".equalsIgnoreCase(type)) { //$NON-NLS-1$
             type = IntrospectedTableMyBatis3SimpleImpl.class.getName();
-        } else if ("MyBatis3DynamicSql".equalsIgnoreCase(type)) { //$NON-NLS-1$
-            type = IntrospectedTableMyBatis3DynamicSqlImpl.class.getName();
         }
 
         IntrospectedTable answer = (IntrospectedTable) createInternalObject(type);
