@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * 返回前端信息
+ *
  * @author yanjun.xue
  */
 @Setter
@@ -34,6 +36,11 @@ public class LinkedInfo extends BaseEntity {
      * 提醒消息
      */
     public String message;
+
+    /**
+     * 返回Code码
+     */
+    public int code = 200;
 
     /**
      * @param resourceType

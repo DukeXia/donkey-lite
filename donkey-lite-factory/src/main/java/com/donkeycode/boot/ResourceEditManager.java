@@ -32,12 +32,14 @@ public class ResourceEditManager {
     private FactoryManager factoryManager;
 
     /**
+     * 新增资源
+     *
      * @param resourceType
      * @param beanJson
      * @param operateType
      * @return
      */
-    public String add(String resourceType, String beanJson, String operateType) {
+    public LinkedInfo add(String resourceType, String beanJson, String operateType) {
 
         Validate.notBlank(resourceType, "resourceType is null.");
 
@@ -52,10 +54,13 @@ public class ResourceEditManager {
 
         linkedHandler(linkedInfo);
         recordLog(linkedInfo);
-        return linkedInfo.getMasterId();
+        return linkedInfo;
     }
 
     /**
+     *
+     * 记录日志
+     *
      * @param linkedInfo
      */
     private void recordLog(LinkedInfo linkedInfo) {
@@ -64,12 +69,14 @@ public class ResourceEditManager {
     }
 
     /**
+     * 通过JSON对象修改资源
+     *
      * @param resourceType
      * @param beanJson
      * @param operateType
      * @return
      */
-    public String modify(String resourceType, String beanJson, String operateType) {
+    public LinkedInfo modify(String resourceType, String beanJson, String operateType) {
         Validate.notBlank(resourceType, "resourceType is null.");
 
         if (!JsonUtils.isJson(beanJson)) {
@@ -84,31 +91,32 @@ public class ResourceEditManager {
 
         linkedHandler(linkedInfo);
         recordLog(linkedInfo);
-        return linkedInfo.getMasterId();
+        return linkedInfo;
     }
 
     /**
+     * 通过主键删除资源
+     *
      * @param resourceType
      * @param idsJson
-     * @param userId
      * @param operateType
      * @return
      */
-    public String delete(String resourceType, String idsJson, String userId, String operateType) {
+    public LinkedInfo delete(String resourceType, String idsJson, String operateType) {
         Validate.notBlank(resourceType, "resourceType is null.");
 
         if (!JsonUtils.isJson(idsJson)) {
             throw new IllegalArgumentException("接口参数idsJson非法数据格式，合法为Json格式的数据.");
         }
         log.debug("ResourceManager.deletes  资源类别：" + resourceType + "  IDS:" + idsJson);
-        LinkedInfo linked = factoryManager.getDataEditComponent(resourceType).delete(new DataEditInfo(userId, idsJson, operateType));
+        LinkedInfo linked = factoryManager.getDataEditComponent(resourceType).delete(new DataEditInfo(idsJson, operateType));
         linked.setResourceType(resourceType);
         linked.setOperateType(operateType);
 
         linkedHandler(linked);
 
         recordLog(linked);
-        return linked.message;
+        return linked;
     }
 
     /**

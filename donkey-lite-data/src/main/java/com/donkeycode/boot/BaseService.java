@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import tk.mybatis.mapper.entity.Example;
  * @author yanjun.xue
  * @since 2019年5月13日
  */
+@Slf4j
 @Service
 public abstract class BaseService<T> implements IBaseService<T> {
 
@@ -62,9 +64,9 @@ public abstract class BaseService<T> implements IBaseService<T> {
 
     @Override
     public int deleteByPrimaryKeys(List<?> ids) {
-        List<String> idlist = new ArrayList<>(ids.size());
-        ids.stream().parallel().forEach(id -> idlist.add(ids.toString()));
-        return mapper.deleteByIds(idlist.stream().collect(Collectors.joining(",")));
+        String joinId = ids.stream().map(id -> id.toString()).collect(Collectors.joining(","));
+        log.debug("delete resouce ids:{}", joinId);
+        return mapper.deleteByIds(joinId);
     }
 
     @Override
