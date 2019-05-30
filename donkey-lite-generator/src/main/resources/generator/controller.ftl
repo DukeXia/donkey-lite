@@ -19,15 +19,18 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 /**
- * @author donkey generator
- * @since  0.0.1
+ * 资源Web接口
+ *
+ *
+ * @author ${author}
+ * @since  ${date}
  */
 @RestController
 @RequestMapping(value = "/api/${tableClass.lowerCaseName}")
 public class ${tableClass.shortClassName}Controller {
 
     @Autowired
-    private ${tableClass.shortClassName}Service ${tableClass.lowerCaseName}Service;
+    ${tableClass.shortClassName}Service ${tableClass.lowerCaseName}Service;
 
     @RequestMapping(value = {"/list", ""}, method = RequestMethod.GET)
     public Object list() {
@@ -41,7 +44,21 @@ public class ${tableClass.shortClassName}Controller {
         return ${tableClass.lowerCaseName};
     }
 
-    @PostMapping(value = "/insert")
+
+    /**
+     * @param resourceType
+     * @param beanJson
+     * @param operateType
+     * @return
+     */
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<ResponseCode> modifResource(@RequestBody String beanJson) {
+                         ${tableClass.lowerCaseName}Service.insert(${tableClass.lowerCaseName});
+        LinkedInfo linkedInfo = dataEditManager.modify(resourceType, beanJson, operateType);
+        return  new ResponseEntity(ResponseCode.returnResponse(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/save")
     public String insert(@RequestBody ${tableClass.shortClassName} ${tableClass.lowerCaseName}) {
         if (${tableClass.lowerCaseName}Service.insert(${tableClass.lowerCaseName}) > 0) {
             return "success";

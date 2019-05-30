@@ -69,20 +69,20 @@ public class ConfigurationParser {
      * an additional property set.  Typically this property set will be Ant or Maven properties
      * specified in the build.xml file or the POM.
      *
-     * <p>If there are name collisions between the different property sets, they will be 
+     * <p>If there are name collisions between the different property sets, they will be
      * resolved in this order:
      *
      * <ol>
-     *   <li>System properties take highest precedence</li>
-     *   <li>Properties specified in the &lt;properties&gt; configuration
-     *       element are next</li>
-     *   <li>Properties specified in this "extra" property set are
-     *       lowest precedence.</li>
+     * <li>System properties take highest precedence</li>
+     * <li>Properties specified in the &lt;properties&gt; configuration
+     * element are next</li>
+     * <li>Properties specified in this "extra" property set are
+     * lowest precedence.</li>
      * </ol>
      *
      * @param extraProperties an (optional) set of properties used to resolve property
-     *     references in the configuration file
-     * @param warnings any warnings are added to this array
+     *                        references in the configuration file
+     * @param warnings        any warnings are added to this array
      */
     public ConfigurationParser(Properties extraProperties, List<String> warnings) {
         super();
@@ -131,8 +131,7 @@ public class ConfigurationParser {
             DocumentBuilder builder = factory.newDocumentBuilder();
             builder.setEntityResolver(new ParserEntityResolver());
 
-            ParserErrorHandler handler = new ParserErrorHandler(warnings,
-                parseErrors);
+            ParserErrorHandler handler = new ParserErrorHandler(warnings, parseErrors);
             builder.setErrorHandler(handler);
 
             Document document = null;

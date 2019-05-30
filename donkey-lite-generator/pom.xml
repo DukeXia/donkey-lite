@@ -27,6 +27,11 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.donkeycat</groupId>
+			<artifactId>donkey-lite-web</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.donkeycat</groupId>
 			<artifactId>donkey-lite-data</artifactId>
 			<version>${project.version}</version>
 		</dependency>

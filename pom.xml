@@ -96,6 +96,7 @@
 
     <modules>
         <module>donkey-lite-core</module>
+        <module>donkey-lite-web</module>
         <module>donkey-lite-data</module>
         <module>donkey-lite-factory</module>
         <module>donkey-lite-poi</module>

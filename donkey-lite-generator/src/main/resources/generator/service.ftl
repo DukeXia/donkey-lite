@@ -10,6 +10,7 @@ import com.donkeycode.boot.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;
+import com.donkeycode.core.validation.ValidateUtils;
 
 import tk.mybatis.mapper.weekend.Weekend;
 import tk.mybatis.mapper.weekend.WeekendCriteria;
@@ -18,35 +19,44 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author donkey lite
- * @since  0.0.1
+ * 资源服务接口
+ *
+ * @author ${author}
+ * @since  ${date}
  */
 @Service
 public class ${tableClass.shortClassName}ServiceImpl extends BaseService<${tableClass.shortClassName}> implements ${tableClass.shortClassName}Service{
 
 
     @Autowired
-    private ${tableClass.shortClassName}Mapper ${tableClass.lowerCaseName}Mapper;
-
+    ${tableClass.shortClassName}Mapper ${tableClass.lowerCaseName}Mapper;
 
     @Override
-    public PageInfo<${tableClass.shortClassName}> getPageList(Map<String, String> params, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize, true);
-        return new PageInfo<>(getList(params));
+    public boolean save(${tableClass.shortClassName} entity) {
+        return mapper.insertSelective(entity)>0 ? true: false;
     }
 
     @Override
-    public void deletes(List<Long> ids) {
-        if (CollectionUtils.isNotEmpty(ids)) {
-            deleteByPrimaryKeys(ids);
+    public PageInfo<${tableClass.shortClassName}> getPageList(PageFilter pageFilter) {
+        PageHelper.startPage(pageFilter.getPageNum(), pageFilter.getPageSize(), true);
+        return new PageInfo<>(getList(pageFilter.getQueryParams()));
+    }
+
+    @Override
+    public void deletes(List<String> ids) {
+        ValidateUtils.isTrue(CollectionUtils.isNotEmpty(codes),"Delete resouces Id is null.");
+
+        int updateNum = deleteByPrimaryKeys(codes);
+        if (updateNum <= 0) {
+            throw new ResourceNotFoundException("资源已不存在，请重新获取再次操作.");
         }
     }
 
     @Override
-    public List<${tableClass.shortClassName}> getList(Map<String, String> param) {
+    public List<${tableClass.shortClassName}> getList(Map<String, String> params) {
         Weekend<${tableClass.shortClassName}> weekend = new Weekend<>(${tableClass.shortClassName}.class);
         WeekendCriteria<${tableClass.shortClassName}, Object> criteria = weekend.weekendCriteria();
-        if (null != param) {
+        if (CollectionUtils.isNotEmpty(params)) {
             //criteria.andEqualTo(${tableClass.shortClassName}::getEffStatus, StatusEnum.ENABLE.getCode());
             //String order = SortUtils.getOrderString(param.get(SortUtils.SORT_FIELDS));
 
