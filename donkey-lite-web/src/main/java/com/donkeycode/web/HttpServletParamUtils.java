@@ -1,5 +1,7 @@
 package com.donkeycode.web;
 
+import com.donkeycode.core.page.PageFilter;
+import com.donkeycode.core.page.PageFilterHelper;
 import com.donkeycode.core.utils.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -76,5 +78,19 @@ public class HttpServletParamUtils {
         }
         int pageIndex = Integer.parseInt(params.get(WebConstants.PAGE_INDEX));
         return pageIndex <= 0 ? 0 : pageIndex;
+    }
+
+
+    /**
+     * 根据预订的规则获取分页参数
+     *
+     * @param request
+     * @return
+     */
+    public static PageFilter pageFilter(@NotBlank HttpServletRequest request) {
+    	 Map<String, String> params = HttpServletParamUtils.requestToMap(request);
+         int pageNum = HttpServletParamUtils.pageIndex(params);
+         int pageSize = HttpServletParamUtils.pageSize(params);
+         return PageFilterHelper.builder().pageNum(pageNum).pageSize(pageSize).queryParams(params).build();
     }
 }

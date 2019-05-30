@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.donkeycode.core.page.PageFilter;
-import com.donkeycode.core.page.PageFilterHelper;
 import com.donkeycode.core.utils.ObjectUtils;
 import com.donkeycode.core.validation.ValidateUtils;
 import com.donkeycode.web.HttpCode;
@@ -56,20 +55,15 @@ public class ${tableClass.shortClassName}Controller {
      */
     @GetMapping(value = "/page")
     public ResponseEntity<Object> page(HttpServletRequest request) {
-        Map<String, String> params = HttpServletParamUtils.requestToMap(request);
-        int pageNum = HttpServletParamUtils.pageIndex(params);
-        int pageSize = HttpServletParamUtils.pageSize(params);
-
-        PageFilter pageFilter = PageFilterHelper.builder().pageNum(pageNum).pageSize(pageSize).queryParams(params).build();
-
+        
+        PageFilter pageFilter = HttpServletParamUtils.pageFilter(request);
         PageInfo<${tableClass.shortClassName}> page = ${tableClass.lowerCaseName}Service.getPageList(pageFilter);
-        Map<String, Object> retMap = new HashMap<>();
-
-        retMap.put(WebConstants.PAGE_TOTAL, ObjectUtils.isNotNull(page) ? page.getTotal() : 0);
-        retMap.put(WebConstants.PAGE_DATA, ObjectUtils.isNotNull(page) ? page.getList() : Collections.emptyList());
-        retMap.put(WebConstants.PAGE_SIZE, pageSize);
-        retMap.put(WebConstants.PAGE_INDEX, pageNum);
-        return ResponseEntity.ok(retMap);
+        Map<String, Object> pageVm = new HashMap<>();
+        pageVm.put(WebConstants.PAGE_TOTAL, ObjectUtils.isNotNull(page) ? page.getTotal() : 0);
+        pageVm.put(WebConstants.PAGE_DATA, ObjectUtils.isNotNull(page) ? page.getList() : Collections.emptyList());
+        pageVm.put(WebConstants.PAGE_SIZE, pageFilter.getPageSize());
+        pageVm.put(WebConstants.PAGE_INDEX, pageFilter.getPageNum());
+        return ResponseEntity.ok(pageVm);
     }
 
     /**
