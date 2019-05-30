@@ -46,8 +46,8 @@
             <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java"/>
             <property name="targetPackage" value="test.demo.service.imp"/>
             <property name="mapperPackage" value="test.demo.mappers"/>
+            <property name="interfacePackage" value="test.demo.service"/>
             <property name="templatePath" value="generator/service.ftl"/>
-            <property name="interfaceTemplatePath" value="generator/interface.ftl"/>
             <property name="serviceSuffix" value="ServiceImpl"/>
             <property name="fileName" value="${tableClass.shortClassName}${serviceSuffix}.java"/>
         </plugin>

@@ -1,13 +1,16 @@
 package ${package};
 
 import ${mapperPackage}.${tableClass.shortClassName}Mapper;
+import ${interfacePackage}.${tableClass.shortClassName}Service;
 import ${tableClass.fullClassName};
 
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageHelper;
+import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.utils.CollectionUtils;
 import com.donkeycode.boot.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.donkeycode.core.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;
 import com.donkeycode.core.validation.ValidateUtils;
@@ -44,9 +47,9 @@ public class ${tableClass.shortClassName}ServiceImpl extends BaseService<${table
 
     @Override
     public void deletes(List<String> ids) {
-        ValidateUtils.isTrue(CollectionUtils.isNotEmpty(codes),"Delete resouces Id is null.");
+        ValidateUtils.isTrue(CollectionUtils.isNotEmpty(ids),"Delete resouces Id is null.");
 
-        int updateNum = deleteByPrimaryKeys(codes);
+        int updateNum = deleteByPrimaryKeys(ids);
         if (updateNum <= 0) {
             throw new ResourceNotFoundException("资源已不存在，请重新获取再次操作.");
         }

@@ -37,7 +37,7 @@ public interface ${tableClass.shortClassName}Service extends IBaseService<${tabl
      *
      * @param ids
      */
-    void deletes(List<Long> ids);
+    void deletes(List<String> ids);
 
     /**
      * 新增资源

@@ -5,7 +5,6 @@ import ${tableClass.fullClassName};
 import ${servicePackage}.${tableClass.shortClassName}Service;
 import com.donkeycode.boot.annotation.ResourceInfo;
 import com.donkeycode.boot.pubinterface.DataQueryService;
-import com.donkeycode.consts.Constants;
 import com.donkeycode.consts.ResourceConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 
