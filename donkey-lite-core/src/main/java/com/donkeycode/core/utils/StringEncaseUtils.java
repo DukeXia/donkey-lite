@@ -9,6 +9,8 @@ import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 扩展 Apache 字符串工具类
  *
@@ -77,7 +79,7 @@ public class StringEncaseUtils extends StringUtils {
      * @return bytes
      */
     public static byte[] getBytes(String str, Charset charset) {
-        if (null == str) {
+        if (str.isBlank()) {
             return null;
         }
         return null == charset ? str.getBytes() : str.getBytes(charset);
@@ -170,7 +172,7 @@ public class StringEncaseUtils extends StringUtils {
      * @param delimiter 分隔符
      * @return 字符串
      */
-    public static String[] split(String str, String delimiter) {
+    public static String[] split(@NotNull String str, String delimiter) {
         if (str == null) {
             return null;
         }
