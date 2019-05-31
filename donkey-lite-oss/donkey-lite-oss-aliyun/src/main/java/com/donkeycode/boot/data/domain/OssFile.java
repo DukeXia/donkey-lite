@@ -2,7 +2,7 @@ package com.donkeycode.boot.data.domain;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.donkeycode.core.BaseEntity;
 
 import lombok.AllArgsConstructor;
@@ -31,17 +31,17 @@ public class OssFile extends BaseEntity {
 
     private String fileId;
     private String name;
-    @JsonIgnore
+    @JSONField(serialize=false)
     private String ossKey;
     private String fileType;
-    @JsonIgnore
+    @JSONField(serialize=false)
     private String fileMD5;
     private Long fileSize;
-    @JsonIgnore
+    @JSONField(serialize=false)
     private String meta;
-    @JsonIgnore
+    @JSONField(serialize=false)
     private String status;
-    @JsonIgnore
+    @JSONField(serialize=false)
     private String localPath;
     private String cdnPath;
     private Date createTime;
