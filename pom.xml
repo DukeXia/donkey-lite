@@ -104,6 +104,7 @@
         <module>donkey-lite-interface</module>
         <module>donkey-lite-generator</module>
         <module>donkey-lite-oss</module>
+        <module>donkey-lite-sequence</module>
     </modules>
 
 

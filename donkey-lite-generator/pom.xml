@@ -9,7 +9,6 @@
 	</parent>
 
 	<artifactId>donkey-lite-generator</artifactId>
-	<name>donkey code generator</name>
 	<description>
         Donkey Code Generator Teampldate.
     </description>
