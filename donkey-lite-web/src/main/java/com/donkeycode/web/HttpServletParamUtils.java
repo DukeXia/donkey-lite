@@ -87,6 +87,9 @@ public class HttpServletParamUtils {
 
     /**
      * 根据预订的规则获取分页参数
+     * eg:
+     *  http://localhost:9020/api/role/page?pageNo=1&amp;pageSize=10&amp;sortField=roleName&amp;sortOrder=descend&amp;orderBys[]=roleName:descend
+     *
      *
      * @param request
      * @return

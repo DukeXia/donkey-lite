@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.text.StringEscapeUtils;
 
 import javax.validation.constraints.NotNull;
 
@@ -281,5 +282,39 @@ public class StringEncaseUtils extends StringUtils {
     public static String subPre(String string, int toIndex) {
         return sub(string, 0, toIndex);
     }
+
+    /**
+     * 字符串转html内容
+     *
+     * @param html
+     * @return
+     */
+    public static String unescapeHtml4(String html) {
+        return StringEscapeUtils.unescapeHtml4(html);
+    }
+
+    /**
+     * 字符串转html内容
+     * <p>Escapes the characters in a {@code String} using HTML entities.</p>
+     *
+     * <p>
+     * For example:
+     * </p>
+     * <p><code>"bread" &amp; "butter"</code></p>
+     * becomes:
+     * <p>
+     * <code>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</code>.
+     * </p>
+     *
+     * <p>Supports all known HTML 4.0 entities, including funky accents.
+     * Note that the commonly used apostrophe escape character (&amp;apos;)
+     * is not a legal entity and so is not supported). </p>
+     * @param input
+     * @return
+     */
+    public static String escapeHtml4(String input) {
+        return StringEscapeUtils.escapeHtml4(input);
+    }
+
 
 }
