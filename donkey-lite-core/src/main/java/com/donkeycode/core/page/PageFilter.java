@@ -1,5 +1,6 @@
 package com.donkeycode.core.page;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +25,13 @@ public interface PageFilter {
      * @param notQueryTotalNum
      */
     void setNotQueryTotalNum(Boolean notQueryTotalNum);
+    
+    
+    /**
+     * 设置是否查询总数量
+     *
+     */
+    boolean isQueryTotalNum();
 
     /**
      * 获取每页中多少条
@@ -38,6 +46,13 @@ public interface PageFilter {
      * @return
      */
     String getOrderBy();
+
+    /**
+     * 获取排序字符串
+     *
+     * @return
+     */
+    void setOrderBys(List<String> orderBys);
 
     /**
      * 获取查询参数

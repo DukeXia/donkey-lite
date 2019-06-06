@@ -1,8 +1,10 @@
 package com.donkeycode.web;
 
+import com.donkeycode.core.collections.SetList;
 import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.page.PageFilterHelper;
 import com.donkeycode.core.utils.CollectionUtils;
+import com.donkeycode.core.utils.StringEncaseUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,8 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.nio.charset.StandardCharsets.ISO_8859_1;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -88,9 +92,21 @@ public class HttpServletParamUtils {
      * @return
      */
     public static PageFilter pageFilter(@NotBlank HttpServletRequest request) {
-    	 Map<String, String> params = HttpServletParamUtils.requestToMap(request);
-         int pageNum = HttpServletParamUtils.pageIndex(params);
-         int pageSize = HttpServletParamUtils.pageSize(params);
-         return PageFilterHelper.builder().pageNum(pageNum).pageSize(pageSize).queryParams(params).build();
+        Map<String, String> params = HttpServletParamUtils.requestToMap(request);
+        int pageNum = HttpServletParamUtils.pageIndex(params);
+        int pageSize = HttpServletParamUtils.pageSize(params);
+        PageFilter pageFilter = PageFilterHelper.builder().pageNum(pageNum).pageSize(pageSize).queryParams(params).build();
+
+        if (StringEncaseUtils.isNotBlank(params.get("orderBys[]"))) {
+            String[] orderBys = request.getParameterValues("orderBys[]");
+            if (CollectionUtils.isNotEmpty(orderBys)) {
+                SetList<String> orderBySet = new SetList();
+                Stream.of(orderBys).forEach(item -> {
+                    orderBySet.add(item.replace(" ", ""));
+                });
+                pageFilter.setOrderBys(orderBySet.stream().collect(Collectors.toList()));
+            }
+        }
+        return pageFilter;
     }
 }

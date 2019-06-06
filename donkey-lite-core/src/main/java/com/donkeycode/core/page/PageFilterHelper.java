@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.donkeycode.core.utils.CollectionUtils;
 import com.donkeycode.core.utils.ColumnPropertyUtils;
+import com.donkeycode.core.utils.StringEncaseUtils;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -73,21 +74,34 @@ public class PageFilterHelper implements PageFilter {
         if (CollectionUtils.isEmpty(orderBys)) {
             return "";
         }
-        return orderBys.stream().map(s -> {
-            if (StringUtils.isBlank(s)) {
+        return orderBys.stream().map(item -> {
+            if (StringUtils.isBlank(item)) {
                 return "";
             }
-            String[] singleOrder = s.split(":");
-            return ColumnPropertyUtils.propertyToColumn(singleOrder[0]) + " " + (
-                (singleOrder.length >= 2 &&
-                    (ORDER_DESC.equalsIgnoreCase(singleOrder[1].trim()) || ORDER_ASC.equalsIgnoreCase(singleOrder[1].trim()))
-                ) ? (singleOrder[1]) : (ORDER_ASC));
-        }).collect(Collectors.joining());
+            String[] singleOrderBy = item.trim().split(":");
+
+            if (StringUtils.isBlank(singleOrderBy[0])) {
+                return "";
+            }
+
+            String orderBy = singleOrderBy.length >= 2 ? singleOrderBy[1].trim().toLowerCase() : "";
+            if (StringEncaseUtils.isNotBlank(orderBy) && (orderBy.startsWith(ORDER_DESC) || orderBy.startsWith(ORDER_ASC))) {
+                orderBy = orderBy.startsWith(ORDER_DESC) ? ORDER_DESC : ORDER_ASC;
+            } else {
+                orderBy = ORDER_ASC;
+            }
+            return ColumnPropertyUtils.propertyToColumn(singleOrderBy[0]) + " " + orderBy;
+        }).collect(Collectors.joining(", "));
     }
 
     @Override
     public void setNotQueryTotalNum(Boolean notQueryTotalNum) {
         this.notQueryTotalNum = notQueryTotalNum;
+    }
+
+    @Override
+    public boolean isQueryTotalNum() {
+        return !notQueryTotalNum;
     }
 
 }
