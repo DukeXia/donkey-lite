@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Validate;
 
+import net.sf.cglib.beans.BeanMap;
+
 /**
  * 集合处理工具类
  *
@@ -715,6 +717,23 @@ public class CollectionUtils {
         for (Entry<T, K> entry : entryCollection) {
             map.put(entry.getKey(), entry.getValue());
         }
+        return map;
+    }
+    
+    /**
+     * 将Entry集合转换为HashMap
+     *
+     * @param bean bean对象
+     * @return Map
+     */
+    @SuppressWarnings("unchecked")
+	public static Map toMap(Object bean) {
+        Objects.requireNonNull(bean, "Param bean is null");
+        BeanMap beanMap = BeanMap.create(bean);
+        Map map = new HashMap(beanMap.size());
+        beanMap.keySet().forEach(key -> {
+            map.put(key, beanMap.get(key));
+        });
         return map;
     }
 
