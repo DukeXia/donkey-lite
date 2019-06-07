@@ -6,19 +6,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.text.StringEscapeUtils;
 
 import javax.validation.constraints.NotNull;
 
 /**
- * 扩展 Apache 字符串工具类
+ * 扩展 Apache 字符串工具类（StringUtils）
  *
  * @author yanjun.xue
  * @since 2018年12月31日
  */
-public class StringEncaseUtils extends StringUtils {
+public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     public static final String DOT = ".";
     public static final String EMPTY = "";

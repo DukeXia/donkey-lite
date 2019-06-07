@@ -4,8 +4,7 @@ import com.donkeycode.core.collections.SetList;
 import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.page.PageFilterHelper;
 import com.donkeycode.core.utils.CollectionUtils;
-import com.donkeycode.core.utils.StringEncaseUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.donkeycode.core.utils.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
@@ -100,7 +99,7 @@ public class HttpServletParamUtils {
         int pageSize = HttpServletParamUtils.pageSize(params);
         PageFilter pageFilter = PageFilterHelper.builder().pageNum(pageNum).pageSize(pageSize).queryParams(params).build();
 
-        if (StringEncaseUtils.isNotBlank(params.get("orderBys[]"))) {
+        if (StringUtils.isNotBlank(params.get("orderBys[]"))) {
             String[] orderBys = request.getParameterValues("orderBys[]");
             if (CollectionUtils.isNotEmpty(orderBys)) {
                 SetList<String> orderBySet = new SetList();

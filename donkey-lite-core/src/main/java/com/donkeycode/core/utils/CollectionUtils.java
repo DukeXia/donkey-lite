@@ -1,8 +1,21 @@
 package com.donkeycode.core.utils;
 
 import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Set;
+import java.util.Stack;
+import java.util.TreeSet;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -12,16 +25,12 @@ import org.springframework.cglib.beans.BeanMap;
 
 
 /**
- * 集合处理工具类
+ * Java 集合处理工具类，继承了Spring 的 CollectionUtils
  *
  * @author yanjun.xue
  * @since 2018年12月31日
  */
-public class CollectionUtils {
-
-    private CollectionUtils() {
-        // 静态类不可实例化
-    }
+public final class CollectionUtils extends org.springframework.util.CollectionUtils{
 
     /**
      * 以 delimiter 为分隔符将集合转换为字符串
@@ -33,7 +42,6 @@ public class CollectionUtils {
     public static String join(Collection<String> collection, String delimiter) {
         Validate.notEmpty(collection);
         Validate.notBlank(delimiter, "delimiter is null.");
-
         return collection.stream().collect(Collectors.joining(delimiter));
     }
 

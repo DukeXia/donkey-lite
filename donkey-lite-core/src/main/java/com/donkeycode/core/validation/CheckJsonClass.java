@@ -4,7 +4,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import com.donkeycode.core.utils.JsonUtils;
-import com.donkeycode.core.utils.StringEncaseUtils;
+import com.donkeycode.core.utils.StringUtils;
 
 public class CheckJsonClass implements ConstraintValidator<CheckJson, String> {
 
@@ -15,7 +15,7 @@ public class CheckJsonClass implements ConstraintValidator<CheckJson, String> {
 
     @Override
     public boolean isValid(String json, ConstraintValidatorContext constraintValidatorContext) {
-        if (StringEncaseUtils.isNoneBlank(json) && JsonUtils.isJson(json)) {
+        if (StringUtils.isNoneBlank(json) && JsonUtils.isJson(json)) {
             return true;
         }
         return false;

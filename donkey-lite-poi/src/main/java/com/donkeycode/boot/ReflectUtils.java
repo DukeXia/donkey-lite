@@ -1,7 +1,7 @@
 package com.donkeycode.boot;
 
 import com.donkeycode.boot.file.ExcelColumn;
-import com.donkeycode.core.utils.StringEncaseUtils;
+import com.donkeycode.core.utils.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -172,7 +172,7 @@ public class ReflectUtils {
                         continue;
                     }
                     String value = o.toString();
-                    if (StringEncaseUtils.isEmpty(value)) {
+                    if (StringUtils.isEmpty(value)) {
                         continue;
                     }
                     if (type.equals("class java.lang.String")) {
@@ -251,11 +251,11 @@ public class ReflectUtils {
         Objects.requireNonNull(value, "date string is null.");
 
         Date object = null;
-        if (StringEncaseUtils.filterNull(value).length() == 7) {
+        if (StringUtils.filterNull(value).length() == 7) {
             object = DateUtils.parseDate(value, "yyyy-MM");
-        } else if (StringEncaseUtils.filterNull(value).length() > 7 && StringEncaseUtils.filterNull(value).length() <= 10) {
+        } else if (StringUtils.filterNull(value).length() > 7 && StringUtils.filterNull(value).length() <= 10) {
             object = DateUtils.parseDate(value, "yyyy-MM-dd");
-        } else if (StringEncaseUtils.filterNull(value).length() > 10) {
+        } else if (StringUtils.filterNull(value).length() > 10) {
             object = DateUtils.parseDate(value, "yyyy-MM-dd HH:mm:ss");
         }
         return object;

@@ -46,7 +46,7 @@ public class CharsetUtils {
      * @return Charset
      */
     public static Charset charset(String charset) {
-        return StringEncaseUtils.isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset);
+        return StringUtils.isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset);
     }
 
     /**
@@ -79,7 +79,7 @@ public class CharsetUtils {
             srcCharset = StandardCharsets.UTF_8;
         }
 
-        if (StringEncaseUtils.isBlank(source) || srcCharset.equals(destCharset)) {
+        if (StringUtils.isBlank(source) || srcCharset.equals(destCharset)) {
             return source;
         }
         return new String(source.getBytes(srcCharset), destCharset);

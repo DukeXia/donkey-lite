@@ -15,7 +15,7 @@ public class FileNameUtils {
      * @return Suffix 后缀
      */
     public static String getFileSuffix(String filePath) {
-        if (StringEncaseUtils.isEmpty(filePath)) {
+        if (StringUtils.isEmpty(filePath)) {
             return "";
         }
         int index = filePath.lastIndexOf(".");
@@ -30,7 +30,7 @@ public class FileNameUtils {
      * @return Suffix 后缀
      */
     public static String getFileName(String filePath) {
-        if (StringEncaseUtils.isEmpty(filePath)) {
+        if (StringUtils.isEmpty(filePath)) {
             return "";
         }
         int index = filePath.lastIndexOf(".");

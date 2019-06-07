@@ -17,7 +17,7 @@ public class ColumnPropertyUtils {
     public static String columnToProperty(String column) {
         StringBuilder result = new StringBuilder();
         // 快速检查
-        if (StringEncaseUtils.isEmpty(column)) {
+        if (StringUtils.isEmpty(column)) {
             // 没必要转换
             return "";
         } else if (!column.contains("_")) {
@@ -28,7 +28,7 @@ public class ColumnPropertyUtils {
             String[] columns = column.split("_");
             for (String columnSplit : columns) {
                 // 跳过原始字符串中开头、结尾的下换线或双重下划线
-                if (StringEncaseUtils.isEmpty(columnSplit)) {
+                if (StringUtils.isEmpty(columnSplit)) {
                     continue;
                 }
                 // 处理真正的驼峰片段
@@ -52,7 +52,7 @@ public class ColumnPropertyUtils {
      * @return
      */
     public static String propertyToColumn(String property) {
-        if (StringEncaseUtils.isEmpty(property)) {
+        if (StringUtils.isEmpty(property)) {
             return "";
         }
         StringBuilder column = new StringBuilder();

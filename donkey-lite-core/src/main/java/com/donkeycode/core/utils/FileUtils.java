@@ -169,7 +169,7 @@ public class FileUtils {
      * @return File
      */
     public static File file(String parent, String path) {
-        if (StringEncaseUtils.isBlank(path)) {
+        if (StringUtils.isBlank(path)) {
             throw new NullPointerException("File path is blank!");
         }
         return new File(parent, path);
@@ -183,7 +183,7 @@ public class FileUtils {
      * @return File
      */
     public static File file(File parent, String path) {
-        if (StringEncaseUtils.isBlank(path)) {
+        if (StringUtils.isBlank(path)) {
             throw new NullPointerException("File path is blank!");
         }
         return new File(parent, path);
@@ -591,14 +591,14 @@ public class FileUtils {
      * @return 相对子路径
      */
     public static String subPath(String rootDir, File file) throws IOException {
-        if (StringEncaseUtils.isEmpty(rootDir)) {
+        if (StringUtils.isEmpty(rootDir)) {
 
         }
 
         String subPath = null;
         subPath = file.getCanonicalPath();
 
-        if (StringEncaseUtils.isNotEmpty(rootDir) && StringEncaseUtils.isNotEmpty(subPath)) {
+        if (StringUtils.isNotEmpty(rootDir) && StringUtils.isNotEmpty(subPath)) {
             rootDir = normalize(rootDir);
             subPath = normalize(subPath);
 
@@ -633,10 +633,10 @@ public class FileUtils {
      */
     public static String mainName(String fileName) {
 
-        if (StringEncaseUtils.isBlank(fileName) || false == fileName.contains(StringEncaseUtils.DOT)) {
+        if (StringUtils.isBlank(fileName) || false == fileName.contains(StringUtils.DOT)) {
             return fileName;
         }
-        return StringEncaseUtils.subPre(fileName, fileName.lastIndexOf(StringEncaseUtils.DOT));
+        return StringUtils.subPre(fileName, fileName.lastIndexOf(StringUtils.DOT));
     }
 
     /**
@@ -665,13 +665,13 @@ public class FileUtils {
         if (fileName == null) {
             return null;
         }
-        int index = fileName.lastIndexOf(StringEncaseUtils.DOT);
+        int index = fileName.lastIndexOf(StringUtils.DOT);
         if (index == -1) {
-            return StringEncaseUtils.EMPTY;
+            return StringUtils.EMPTY;
         } else {
             String ext = fileName.substring(index + 1);
             // 扩展名中不能包含路径相关的符号
-            return (ext.contains(String.valueOf(UNIX_SEPARATOR)) || ext.contains(String.valueOf(WINDOWS_SEPARATOR))) ? StringEncaseUtils.EMPTY : ext;
+            return (ext.contains(String.valueOf(UNIX_SEPARATOR)) || ext.contains(String.valueOf(WINDOWS_SEPARATOR))) ? StringUtils.EMPTY : ext;
         }
     }
 

@@ -6,11 +6,10 @@ import java.util.stream.Collectors;
 
 import com.donkeycode.core.utils.CollectionUtils;
 import com.donkeycode.core.utils.ColumnPropertyUtils;
-import com.donkeycode.core.utils.StringEncaseUtils;
+import com.donkeycode.core.utils.StringUtils;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * 分页插件实现
@@ -85,7 +84,7 @@ public class PageFilterHelper implements PageFilter {
             }
 
             String orderBy = singleOrderBy.length >= 2 ? singleOrderBy[1].trim().toLowerCase() : "";
-            if (StringEncaseUtils.isNotBlank(orderBy) && (orderBy.startsWith(ORDER_DESC) || orderBy.startsWith(ORDER_ASC))) {
+            if (StringUtils.isNotBlank(orderBy) && (orderBy.startsWith(ORDER_DESC) || orderBy.startsWith(ORDER_ASC))) {
                 orderBy = orderBy.startsWith(ORDER_DESC) ? ORDER_DESC : ORDER_ASC;
             } else {
                 orderBy = ORDER_ASC;

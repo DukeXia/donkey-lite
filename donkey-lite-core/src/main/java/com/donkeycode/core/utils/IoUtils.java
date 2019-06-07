@@ -239,7 +239,7 @@ public class IoUtils {
      */
     public static String read(InputStream in, String charsetName) throws IOException {
         FastByteArrayOutputStream out = read(in);
-        return StringEncaseUtils.isBlank(charsetName) ? out.toString() : out.toString(charsetName);
+        return StringUtils.isBlank(charsetName) ? out.toString() : out.toString(charsetName);
     }
 
     /**
@@ -294,7 +294,7 @@ public class IoUtils {
      * @return String
      */
     public static String read(Reader reader) throws IOException {
-        final StringBuilder builder = StringEncaseUtils.builder();
+        final StringBuilder builder = StringUtils.builder();
         final CharBuffer buffer = CharBuffer.allocate(DEFAULT_BUFFER_SIZE);
         while (-1 != reader.read(buffer)) {
             builder.append(buffer.flip().toString());
@@ -355,7 +355,7 @@ public class IoUtils {
         if (content == null) {
             return null;
         }
-        return new ByteArrayInputStream(StringEncaseUtils.getBytes(content, charset));
+        return new ByteArrayInputStream(StringUtils.getBytes(content, charset));
     }
 
     /**
