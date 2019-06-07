@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.Validate;
+import org.springframework.cglib.beans.BeanMap;
 
-import net.sf.cglib.beans.BeanMap;
 
 /**
  * 集合处理工具类

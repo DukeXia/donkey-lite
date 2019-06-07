@@ -48,8 +48,8 @@
         <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
         <spring-boot-starter-redis.version>1.4.7.RELEASE</spring-boot-starter-redis.version>
         <javax.mail.version>1.6.0</javax.mail.version>
-        <poi.version>4.0.1</poi.version>
-        <xmlbeans.version>3.0.2</xmlbeans.version>
+        <poi.version>4.1.0</poi.version>
+        <xmlbeans.version>3.1.0</xmlbeans.version>
         <fastjson.version>1.2.58</fastjson.version>
         <aliyun-java-sdk-dysmsapi.version>1.1.0</aliyun-java-sdk-dysmsapi.version>
         <aliyun-sdk-oss.version>3.4.2</aliyun-sdk-oss.version>

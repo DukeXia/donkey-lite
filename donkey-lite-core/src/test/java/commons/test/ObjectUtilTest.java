@@ -3,7 +3,7 @@ package commons.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.cglib.beans.BeanCopier;
+import org.springframework.cglib.beans.BeanCopier;
 
 import commons.test.entity.Bean2;
 import commons.test.entity.BeanA;

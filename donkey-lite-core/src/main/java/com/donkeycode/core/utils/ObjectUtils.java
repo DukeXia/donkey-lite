@@ -1,7 +1,6 @@
 package com.donkeycode.core.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import net.sf.cglib.beans.BeanCopier;
 
 import com.donkeycode.core.io.FastByteArrayOutputStream;
 
@@ -11,6 +10,8 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+
+import org.springframework.cglib.beans.BeanCopier;
 
 /**
  * 对象操作工具类

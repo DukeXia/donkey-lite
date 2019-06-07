@@ -1,12 +1,8 @@
 package commons.test;
 
-import commons.test.entity.Bean2;
-import commons.test.entity.BeanA;
-import net.sf.cglib.beans.BeanCopier;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import commons.test.entity.BeanA;
 
 public class ObjectFieldUtilTest {
     public static void main(String[] args) {
