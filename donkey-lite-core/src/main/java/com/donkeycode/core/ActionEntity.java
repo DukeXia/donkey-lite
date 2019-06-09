@@ -1,6 +1,6 @@
 package com.donkeycode.core;
 
-import java.time.Instant;
+import java.util.Date;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,9 +11,9 @@ public abstract class ActionEntity extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private Instant createTime;
+    private Date createTime;
     private Long createUserId;
-    private Instant lastUpdateTime;
+    private Date lastUpdateTime;
     private Long lastUpdateUserId;
 
 }
