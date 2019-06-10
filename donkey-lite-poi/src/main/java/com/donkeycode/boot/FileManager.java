@@ -15,7 +15,6 @@ import com.donkeycode.boot.file.ExcelHelper;
 import com.donkeycode.boot.pubinterface.DataQueryService;
 import com.donkeycode.boot.pubinterface.ExcelExportService;
 import com.donkeycode.boot.pubinterface.FileExportService;
-import com.donkeycode.boot.pubinterface.ImageExportService;
 import com.donkeycode.core.utils.CollectionUtils;
 
 /**
@@ -66,20 +65,4 @@ public class FileManager {
         }
         return null;
     }
-
-    /**
-     * @param resourceType
-     * @return
-     */
-    public InputStream exportImage(String resourceType, Map<String, String> params) {
-
-        Objects.requireNonNull(resourceType, "resourceType is null.");
-
-        ImageExportService fileComponent = factoryManager.exportImageFile(resourceType);
-        if (fileComponent instanceof ImageExportService) {
-            return fileComponent.exportImage(params);
-        }
-        return null;
-    }
-
 }

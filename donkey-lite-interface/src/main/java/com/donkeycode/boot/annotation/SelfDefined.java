@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-public @interface SelfDefinedSearch {
+public @interface SelfDefined {
 
     String functionName() default "";
 }

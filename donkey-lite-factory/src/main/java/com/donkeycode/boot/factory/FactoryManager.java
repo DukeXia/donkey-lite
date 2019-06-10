@@ -17,7 +17,6 @@ import com.donkeycode.boot.pubinterface.DataEditService;
 import com.donkeycode.boot.pubinterface.DataLinkedHandle;
 import com.donkeycode.boot.pubinterface.DataQueryService;
 import com.donkeycode.boot.pubinterface.FileExportService;
-import com.donkeycode.boot.pubinterface.ImageExportService;
 import com.donkeycode.boot.pubinterface.SelfDefinedSearch;
 import com.donkeycode.core.utils.CollectionUtils;
 import com.donkeycode.core.exception.FactoryException;
@@ -34,7 +33,7 @@ public class FactoryManager {
     private final Map<String, Map<String, List<DataLinkedHandle>>> linkedHandleMap;
     private final Map<String, Map<String, SelfDefinedSearch>> selfDefinedSearchMap;
     private final Map<String, FileExportService> exportFileMap;
-    private final Map<String, ImageExportService> exportImageFileMap;
+    //private final Map<String, ImageExportService> exportImageFileMap;
     private final Map<String, String> nameDescriptionMap;
 
     public FactoryManager() {
@@ -44,7 +43,7 @@ public class FactoryManager {
         this.selfDefinedSearchMap = new HashMap<>();
         this.linkedHandleMap = new HashMap<>();
         this.exportFileMap = new HashMap<>();
-        this.exportImageFileMap = new HashMap<>();
+        //this.exportImageFileMap = new HashMap<>();
     }
 
     /**
@@ -60,24 +59,6 @@ public class FactoryManager {
                 if (info != null) {
                     initResourceInfo(exportFileMap, info);
                     exportFileMap.put(info.type(), fileDownloadComponent);
-                }
-            }
-        }
-    }
-
-    /**
-     * 初始化 数据修改 IDataEditComponent 实现类
-     *
-     * @param fileComponents 接口实现
-     */
-    @Autowired(required = false)
-    private void init(ImageExportService[] fileComponents) {
-        if (CollectionUtils.isNotEmpty(fileComponents)) {
-            for (ImageExportService fileComponent : fileComponents) {
-                ResourceInfo info = AnnotationUtils.getAnnotation(fileComponent, ResourceInfo.class);
-                if (info != null) {
-                    initResourceInfo(exportImageFileMap, info);
-                    exportImageFileMap.put(info.type(), fileComponent);
                 }
             }
         }
@@ -309,17 +290,6 @@ public class FactoryManager {
         return exportFileMap.get(resourceType);
     }
 
-    /**
-     * @param resourceType
-     * @return
-     */
-    public ImageExportService exportImageFile(String resourceType) {
-        if (!exportImageFileMap.containsKey(resourceType)) {
-            throw new FactoryException("资源:" + resourceType + "不存在 数据修改接口 实现");
-        }
-        log.debug("获取资源：" + resourceType + "数据修改接口");
-        return exportImageFileMap.get(resourceType);
-    }
 
     /**
      * @param resourceType

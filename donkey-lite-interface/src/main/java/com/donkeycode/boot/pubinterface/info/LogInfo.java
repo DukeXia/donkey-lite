@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
+ * 操作日志
+ *
  * @author yanjun.xue
+ * @since 0.0.1
  */
 @SuppressWarnings("serial")
 @NoArgsConstructor

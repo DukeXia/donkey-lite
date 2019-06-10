@@ -73,7 +73,7 @@ public class AnnotationUtils {
         if (obj == null) {
             return null;
         }
-        SelfDefinedSearch definedSearch = getAnnotation(obj, SelfDefinedSearch.class);
+        SelfDefined definedSearch = getAnnotation(obj, SelfDefined.class);
         return definedSearch == null ? null : definedSearch.functionName();
     }
 }

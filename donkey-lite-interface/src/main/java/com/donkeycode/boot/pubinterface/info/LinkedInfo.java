@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 返回前端信息
+ * 操作返回前端数据Message
  *
  * @author yanjun.xue
+ * @since 0.0.1
  */
 @Setter
 @Getter
