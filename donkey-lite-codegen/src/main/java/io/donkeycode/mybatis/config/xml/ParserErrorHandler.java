@@ -30,59 +30,53 @@ import org.xml.sax.SAXParseException;
  */
 public class ParserErrorHandler implements ErrorHandler {
 
-    /** The warnings. */
-    private List<String> warnings;
+	/** The warnings. */
+	private List<String> warnings;
 
-    /** The errors. */
-    private List<String> errors;
+	/** The errors. */
+	private List<String> errors;
 
-    /**
-     * Instantiates a new parser error handler.
-     *
-     * @param warnings
-     *            the warnings
-     * @param errors
-     *            the errors
-     */
-    public ParserErrorHandler(List<String> warnings, List<String> errors) {
-        super();
-        this.warnings = warnings;
-        this.errors = errors;
-    }
+	/**
+	 * Instantiates a new parser error handler.
+	 *
+	 * @param warnings
+	 *            the warnings
+	 * @param errors
+	 *            the errors
+	 */
+	public ParserErrorHandler(List<String> warnings, List<String> errors) {
+		super();
+		this.warnings = warnings;
+		this.errors = errors;
+	}
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.xml.sax.ErrorHandler#warning(org.xml.sax.SAXParseException)
-     */
-    @Override
-    public void warning(SAXParseException exception) throws SAXException {
-        warnings.add(getString("Warning.7", //$NON-NLS-1$
-            Integer.toString(exception.getLineNumber()), exception
-                .getMessage()));
-    }
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.xml.sax.ErrorHandler#warning(org.xml.sax.SAXParseException)
+	 */
+	@Override
+	public void warning(SAXParseException exception) throws SAXException {
+		warnings.add(getString("Warning.7", Integer.toString(exception.getLineNumber()), exception.getMessage()));
+	}
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
-     */
-    @Override
-    public void error(SAXParseException exception) throws SAXException {
-        errors.add(getString("RuntimeError.4", //$NON-NLS-1$
-            Integer.toString(exception.getLineNumber()), exception
-                .getMessage()));
-    }
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
+	 */
+	@Override
+	public void error(SAXParseException exception) throws SAXException {
+		errors.add(getString("RuntimeError.4", Integer.toString(exception.getLineNumber()), exception.getMessage()));
+	}
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.xml.sax.ErrorHandler#fatalError(org.xml.sax.SAXParseException)
-     */
-    @Override
-    public void fatalError(SAXParseException exception) throws SAXException {
-        errors.add(getString("RuntimeError.4", //$NON-NLS-1$
-            Integer.toString(exception.getLineNumber()), exception
-                .getMessage()));
-    }
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.xml.sax.ErrorHandler#fatalError(org.xml.sax.SAXParseException)
+	 */
+	@Override
+	public void fatalError(SAXParseException exception) throws SAXException {
+		errors.add(getString("RuntimeError.4", Integer.toString(exception.getLineNumber()), exception.getMessage()));
+	}
 }

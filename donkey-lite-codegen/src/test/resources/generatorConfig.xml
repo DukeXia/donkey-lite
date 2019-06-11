@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE generatorConfiguration  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!DOCTYPE generatorConfiguration PUBLIC
+    "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
     <properties resource="generator/config.properties"/>
@@ -18,7 +20,7 @@
         <!--通用代码生成器插件-->
         <!--mapper接口-->
         <plugin type="io.donkeycode.mybatis.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java"/>
+            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.mappers"/>
             <property name="templatePath" value="generator/mapper.ftl"/>
             <property name="mapperSuffix" value="Mapper"/>
@@ -27,7 +29,7 @@
 
         <!--mapper.xml-->
         <plugin type="io.donkeycode.mybatis.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java"/>
+            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.mappers"/>
             <property name="mapperPackage" value="test.demo.mappers"/>
             <property name="templatePath" value="generator/mapperXml.ftl"/>
@@ -38,7 +40,7 @@
 
         <!--service  -->
         <plugin type="io.donkeycode.mybatis.plugins.ServiceTemplatePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java"/>
+            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.service.imp"/>
             <property name="mapperPackage" value="test.demo.mappers"/>
             <property name="interfacePackage" value="test.demo.service"/>
@@ -47,10 +49,10 @@
             <property name="fileName" value="${tableClass.shortClassName}${serviceSuffix}.java"/>
         </plugin>
 
-        
-         <!--interface -->
+
+        <!--interface -->
         <plugin type="io.donkeycode.mybatis.plugins.ServiceTemplatePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java"/>
+            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.service"/>
             <property name="templatePath" value="generator/service.ftl"/>
             <property name="templatePath" value="generator/interface.ftl"/>
@@ -60,7 +62,7 @@
 
         <!-- controller -->
         <plugin type="io.donkeycode.mybatis.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java"/>
+            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.controller"/>
             <property name="servicePackage" value="test.demo.service"/>
             <property name="templatePath" value="generator/controller.ftl"/>
@@ -71,7 +73,7 @@
 
         <!-- data edit biz -->
         <plugin type="io.donkeycode.mybatis.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java"/>
+            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.biz"/>
             <property name="servicePackage" value="test.demo.service"/>
             <property name="templatePath" value="generator/data-edit-biz.ftl"/>
@@ -81,7 +83,7 @@
 
         <!-- data query biz -->
         <plugin type="io.donkeycode.mybatis.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java"/>
+            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.biz"/>
             <property name="servicePackage" value="test.demo.service"/>
             <property name="templatePath" value="generator/data-query-biz.ftl"/>
@@ -89,12 +91,10 @@
             <property name="fileName" value="${tableClass.shortClassName}${controllerSuffix}.java"/>
         </plugin>
 
-        
-        
 
         <!--测试输出单个文件，每个表都会生成一个对应的文件
         <plugin type="org.mybatis.generator.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java"/>
+            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.one"/>
             <property name="templatePath" value="generator/test-one.ftl"/>
             <property name="fileName" value="${tableClass.shortClassName}Test.txt"/>
@@ -107,7 +107,7 @@
         <!--测试输出整个文件，所有表都可用，一次只生成一个文件，用于聚合所有表使用
         <plugin type="org.mybatis.generator.plugins.TemplateFilePlugin">
             <property name="singleMode" value="false"/>
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java"/>
+            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.all"/>
             <property name="templatePath" value="generator/test-all.ftl"/>
             <property name="fileName" value="All.txt"/>
@@ -121,13 +121,13 @@
         </jdbcConnection>
 
         <!--MyBatis 生成器只需要生成 Model-->
-        <javaModelGenerator targetPackage="test.demo.model" targetProject="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/test/java"/>
+        <javaModelGenerator targetPackage="test.demo.model" targetProject="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
 
-        <table tableName="goods">
-            <generatedKey column="id" sqlStatement="JDBC"/>
+        <table tableName="goods" catalog="course">
+            <generatedKey column="goods_id" sqlStatement="JDBC"/>
         </table>
-        <table tableName="question">
-            <generatedKey column="id" sqlStatement="JDBC"/>
+        <table tableName="question" catalog="course">
+            <generatedKey column="question_id" sqlStatement="JDBC"/>
         </table>
     </context>
 </generatorConfiguration>

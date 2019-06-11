@@ -36,32 +36,13 @@ public class ParserEntityResolver implements EntityResolver {
         super();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String,
-     * java.lang.String)
-     */
     @Override
-    public InputSource resolveEntity(String publicId, String systemId)
-        throws SAXException, IOException {
-        if (XmlConstants.IBATOR_CONFIG_PUBLIC_ID.equalsIgnoreCase(publicId)) {
-            InputStream is = getClass().getClassLoader().getResourceAsStream(
-                "org/mybatis/generator/config/xml/ibator-config_1_0.dtd"); //$NON-NLS-1$
-            InputSource ins = new InputSource(is);
+    public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
 
-            return ins;
-        } else if (XmlConstants.MYBATIS_GENERATOR_CONFIG_PUBLIC_ID
-            .equalsIgnoreCase(publicId)) {
-            InputStream is = getClass()
-                .getClassLoader()
-                .getResourceAsStream(
-                    "org/mybatis/generator/config/xml/mybatis-generator-config_1_0.dtd"); //$NON-NLS-1$
-            InputSource ins = new InputSource(is);
-
-            return ins;
-        } else {
-            return null;
+        if (XmlConstants.MYBATIS_GENERATOR_CONFIG_PUBLIC_ID.equalsIgnoreCase(publicId)) {
+            InputStream is = getClass().getClassLoader().getResourceAsStream("io/donkeycode/mybatis/config/xml/mybatis-generator-config_1_0.dtd");
+            return new InputSource(is);
         }
+        return null;
     }
 }

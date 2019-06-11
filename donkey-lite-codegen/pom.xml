@@ -60,7 +60,7 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 		</dependency>
-       
+
         <!-- 使用JavaParser获得Java代码中的类名、方法形参列表中的参数名以及统计总的文件个数与不能解析的文件个数 -->
         <!--https://blog.csdn.net/w980994974/article/details/76904587-->
 		<dependency>
@@ -87,6 +87,24 @@
     </dependencies>
 
 	<build>
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.dtd</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+        </resources>
+
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

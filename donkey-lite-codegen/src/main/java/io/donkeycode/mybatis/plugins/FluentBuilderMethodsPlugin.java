@@ -50,7 +50,7 @@ public class FluentBuilderMethodsPlugin extends PluginAdapter {
         Method fluentMethod = new Method();
         fluentMethod.setVisibility(JavaVisibility.PUBLIC);
         fluentMethod.setReturnType(topLevelClass.getType());
-        fluentMethod.setName("with" + method.getName().substring(3)); //$NON-NLS-1$
+        fluentMethod.setName("with" + method.getName().substring(3));
         fluentMethod.getParameters().addAll(method.getParameters());
 
         if (introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3_DSQL) {
@@ -59,10 +59,10 @@ public class FluentBuilderMethodsPlugin extends PluginAdapter {
             context.getCommentGenerator().addGeneralMethodComment(fluentMethod, introspectedTable);
         }
 
-        StringBuilder sb = new StringBuilder().append("this.") //$NON-NLS-1$
-            .append(method.getName()).append('(').append(introspectedColumn.getJavaProperty()).append(");"); //$NON-NLS-1$
-        fluentMethod.addBodyLine(sb.toString()); //$NON-NLS-1$
-        fluentMethod.addBodyLine("return this;"); //$NON-NLS-1$
+        StringBuilder sb = new StringBuilder().append("this.")
+            .append(method.getName()).append('(').append(introspectedColumn.getJavaProperty()).append(");");
+        fluentMethod.addBodyLine(sb.toString());
+        fluentMethod.addBodyLine("return this;");
 
         topLevelClass.addMethod(fluentMethod);
 

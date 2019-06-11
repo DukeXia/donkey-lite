@@ -93,7 +93,8 @@ public class HttpServletParamUtils {
      * @param request
      * @return
      */
-    public static PageFilter pageFilter(@NotBlank HttpServletRequest request) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static PageFilter pageFilter(@NotBlank HttpServletRequest request) {
         Map<String, String> params = HttpServletParamUtils.requestToMap(request);
         int pageNum = HttpServletParamUtils.pageIndex(params);
         int pageSize = HttpServletParamUtils.pageSize(params);

@@ -31,6 +31,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.*;
 
+import com.donkeycode.core.utils.StringUtils;
 import io.donkeycode.codegen.file.GenerateByListTemplateFile;
 import io.donkeycode.codegen.file.GenerateByTemplateFile;
 import io.donkeycode.codegen.formatter.ListTemplateFormatter;
@@ -67,7 +68,7 @@ public class TemplateFilePlugin extends PluginAdapter {
     /**
      * 默认的模板格式化类
      */
-    public static final String DEFAULT_TEMPLATEFORMATTER = "io.donkeycode.generator.formatter.FreemarkerTemplateFormatter";
+    public static final String DEFAULT_TEMPLATEFORMATTER = "io.donkeycode.codegen.formatter.FreemarkerTemplateFormatter";
     /**
      * 单个文件模式
      */
@@ -156,7 +157,7 @@ public class TemplateFilePlugin extends PluginAdapter {
                 } catch (Exception e) {
                     warnings.add("本地加载\"templatePath\" 模板路径失败，尝试 URL 方式获取!");
                 }
-                if (resourceUrl == null) {
+                if (Objects.isNull(resourceUrl)) {
                     resourceUrl = new URL(templatePath);
                 }
                 InputStream inputStream = resourceUrl.openConnection().getInputStream();

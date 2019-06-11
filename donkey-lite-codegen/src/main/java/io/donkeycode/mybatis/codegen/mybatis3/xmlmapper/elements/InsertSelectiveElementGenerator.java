@@ -36,13 +36,13 @@ public class InsertSelectiveElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("insert"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("insert");
 
-        answer.addAttribute(new Attribute("id", introspectedTable.getInsertSelectiveStatementId())); //$NON-NLS-1$
+        answer.addAttribute(new Attribute("id", introspectedTable.getInsertSelectiveStatementId()));
 
         FullyQualifiedJavaType parameterType = introspectedTable.getRules().calculateAllFieldsClass();
 
-        answer.addAttribute(new Attribute("parameterType", //$NON-NLS-1$
+        answer.addAttribute(new Attribute("parameterType",
             parameterType.getFullyQualifiedName()));
 
         context.getCommentGenerator().addComment(answer);
@@ -55,9 +55,9 @@ public class InsertSelectiveElementGenerator extends
             // warning has already been reported
             if (introspectedColumn != null) {
                 if (gk.isJdbcStandard()) {
-                    answer.addAttribute(new Attribute("useGeneratedKeys", "true")); //$NON-NLS-1$ //$NON-NLS-2$
-                    answer.addAttribute(new Attribute("keyProperty", introspectedColumn.getJavaProperty())); //$NON-NLS-1$
-                    answer.addAttribute(new Attribute("keyColumn", introspectedColumn.getActualColumnName())); //$NON-NLS-1$
+                    answer.addAttribute(new Attribute("useGeneratedKeys", "true"));  //$NON-NLS-2$
+                    answer.addAttribute(new Attribute("keyProperty", introspectedColumn.getJavaProperty()));
+                    answer.addAttribute(new Attribute("keyColumn", introspectedColumn.getActualColumnName()));
                 } else {
                     answer.addElement(getSelectKey(introspectedColumn, gk));
                 }
@@ -66,20 +66,20 @@ public class InsertSelectiveElementGenerator extends
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("insert into "); //$NON-NLS-1$
+        sb.append("insert into ");
         sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
-        XmlElement insertTrimElement = new XmlElement("trim"); //$NON-NLS-1$
-        insertTrimElement.addAttribute(new Attribute("prefix", "(")); //$NON-NLS-1$ //$NON-NLS-2$
-        insertTrimElement.addAttribute(new Attribute("suffix", ")")); //$NON-NLS-1$ //$NON-NLS-2$
-        insertTrimElement.addAttribute(new Attribute("suffixOverrides", ",")); //$NON-NLS-1$ //$NON-NLS-2$
+        XmlElement insertTrimElement = new XmlElement("trim");
+        insertTrimElement.addAttribute(new Attribute("prefix", "("));  //$NON-NLS-2$
+        insertTrimElement.addAttribute(new Attribute("suffix", ")"));  //$NON-NLS-2$
+        insertTrimElement.addAttribute(new Attribute("suffixOverrides", ","));  //$NON-NLS-2$
         answer.addElement(insertTrimElement);
 
-        XmlElement valuesTrimElement = new XmlElement("trim"); //$NON-NLS-1$
-        valuesTrimElement.addAttribute(new Attribute("prefix", "values (")); //$NON-NLS-1$ //$NON-NLS-2$
-        valuesTrimElement.addAttribute(new Attribute("suffix", ")")); //$NON-NLS-1$ //$NON-NLS-2$
-        valuesTrimElement.addAttribute(new Attribute("suffixOverrides", ",")); //$NON-NLS-1$ //$NON-NLS-2$
+        XmlElement valuesTrimElement = new XmlElement("trim");
+        valuesTrimElement.addAttribute(new Attribute("prefix", "values ("));  //$NON-NLS-2$
+        valuesTrimElement.addAttribute(new Attribute("suffix", ")"));  //$NON-NLS-2$
+        valuesTrimElement.addAttribute(new Attribute("suffixOverrides", ","));  //$NON-NLS-2$
         answer.addElement(valuesTrimElement);
 
         for (IntrospectedColumn introspectedColumn : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable
@@ -109,10 +109,10 @@ public class InsertSelectiveElementGenerator extends
 
             sb.setLength(0);
             sb.append(introspectedColumn.getJavaProperty());
-            sb.append(" != null"); //$NON-NLS-1$
-            XmlElement insertNotNullElement = new XmlElement("if"); //$NON-NLS-1$
+            sb.append(" != null");
+            XmlElement insertNotNullElement = new XmlElement("if");
             insertNotNullElement.addAttribute(new Attribute(
-                "test", sb.toString())); //$NON-NLS-1$
+                "test", sb.toString()));
 
             sb.setLength(0);
             sb.append(MyBatis3FormattingUtilities
@@ -123,10 +123,10 @@ public class InsertSelectiveElementGenerator extends
 
             sb.setLength(0);
             sb.append(introspectedColumn.getJavaProperty());
-            sb.append(" != null"); //$NON-NLS-1$
-            XmlElement valuesNotNullElement = new XmlElement("if"); //$NON-NLS-1$
+            sb.append(" != null");
+            XmlElement valuesNotNullElement = new XmlElement("if");
             valuesNotNullElement.addAttribute(new Attribute(
-                "test", sb.toString())); //$NON-NLS-1$
+                "test", sb.toString()));
 
             sb.setLength(0);
             sb.append(MyBatis3FormattingUtilities

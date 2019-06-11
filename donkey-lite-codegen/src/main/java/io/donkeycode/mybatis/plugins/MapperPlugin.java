@@ -158,8 +158,8 @@ public class MapperPlugin extends FalseMethodPlugin {
                 field.setVisibility(JavaVisibility.PUBLIC);
                 field.setStatic(true);
                 field.setFinal(true);
-                field.setName(introspectedColumn.getActualColumnName().toUpperCase()); //$NON-NLS-1$
-                field.setType(new FullyQualifiedJavaType(String.class.getName())); //$NON-NLS-1$
+                field.setName(introspectedColumn.getActualColumnName().toUpperCase());
+                field.setType(new FullyQualifiedJavaType(String.class.getName()));
                 field.setInitializationString("\"" + introspectedColumn.getJavaProperty() + "\"");
                 context.getCommentGenerator().addClassComment(topLevelClass, introspectedTable);
                 topLevelClass.addField(field);

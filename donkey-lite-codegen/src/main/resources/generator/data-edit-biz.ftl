@@ -34,7 +34,7 @@ public class ${tableClass.shortClassName}DataEdit implements DataEditService{
 		ValidationUtils.validate(${tableClass.lowerCaseName});
 
         ${tableClass.lowerCaseName}Service.insertSelective(${tableClass.lowerCaseName});
-		return new LinkedInfo(${tableClass.lowerCaseName}.get${tableClass.pkFields[0].fieldName ? cap_first }() + "", dataEditInfo.editInfo);
+		return new LinkedInfo(${tableClass.lowerCaseName}.get${tableClass.pkFields[0].fieldName?cap_first}() + "", dataEditInfo.editInfo);
 	}
 
 	@Override
@@ -44,12 +44,11 @@ public class ${tableClass.shortClassName}DataEdit implements DataEditService{
 
         ValidationUtils.validate(${tableClass.lowerCaseName});
         ${tableClass.lowerCaseName}Service.updateByPrimaryKey(${tableClass.lowerCaseName});
-		return new LinkedInfo(${tableClass.lowerCaseName}.get${tableClass.pkFields[0].fieldName ? cap_first }() + "", dataEditInfo.editInfo);
+		return new LinkedInfo(${tableClass.lowerCaseName}.get${tableClass.pkFields[0].fieldName?cap_first }() + "", dataEditInfo.editInfo);
 	}
 
 	@Override
 	public LinkedInfo delete(DataEditInfo dataEditInfo) {
-
 		List<Long> ids = JSON.parseArray(dataEditInfo.editInfo, Long.class);
         ${tableClass.lowerCaseName}Service.deletes(ids);
         return new LinkedInfo(dataEditInfo.editInfo, dataEditInfo.editInfo);

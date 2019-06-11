@@ -32,10 +32,10 @@ public class TkMyBatis3SimpleImpl extends IntrospectedTableMyBatis3SimpleImpl {
             }
             //支持mapperName = "{0}Dao" 等用法
             sb.append(MessageFormat.format(mapperName, fullyQualifiedTable.getDomainObjectName()));
-            sb.append(".xml"); //$NON-NLS-1$
+            sb.append(".xml");
         } else {
             sb.append(fullyQualifiedTable.getDomainObjectName());
-            sb.append("Mapper.xml"); //$NON-NLS-1$
+            sb.append("Mapper.xml");
         }
         return sb.toString();
     }
@@ -50,14 +50,14 @@ public class TkMyBatis3SimpleImpl extends IntrospectedTableMyBatis3SimpleImpl {
         sb.append(calculateJavaClientImplementationPackage());
         sb.append('.');
         sb.append(fullyQualifiedTable.getDomainObjectName());
-        sb.append("DAOImpl"); //$NON-NLS-1$
+        sb.append("DAOImpl");
         setDAOImplementationType(sb.toString());
 
         sb.setLength(0);
         sb.append(calculateJavaClientInterfacePackage());
         sb.append('.');
         sb.append(fullyQualifiedTable.getDomainObjectName());
-        sb.append("DAO"); //$NON-NLS-1$
+        sb.append("DAO");
         setDAOInterfaceType(sb.toString());
 
         sb.setLength(0);
@@ -68,7 +68,7 @@ public class TkMyBatis3SimpleImpl extends IntrospectedTableMyBatis3SimpleImpl {
             sb.append(MessageFormat.format(tableConfiguration.getMapperName(), fullyQualifiedTable.getDomainObjectName()));
         } else {
             sb.append(fullyQualifiedTable.getDomainObjectName());
-            sb.append("Mapper"); //$NON-NLS-1$
+            sb.append("Mapper");
         }
         setMyBatis3JavaMapperType(sb.toString());
 
@@ -80,7 +80,7 @@ public class TkMyBatis3SimpleImpl extends IntrospectedTableMyBatis3SimpleImpl {
             sb.append(MessageFormat.format(tableConfiguration.getSqlProviderName(), fullyQualifiedTable.getDomainObjectName()));
         } else {
             sb.append(fullyQualifiedTable.getDomainObjectName());
-            sb.append("SqlProvider"); //$NON-NLS-1$
+            sb.append("SqlProvider");
         }
         setMyBatis3SqlProviderType(sb.toString());
     }

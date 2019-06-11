@@ -29,7 +29,6 @@ import java.util.List;
  * This class holds methods useful for constructing custom classloaders.
  *
  * @author Jeff Butler
- *
  */
 public class ClassloaderUtility {
 
@@ -47,24 +46,20 @@ public class ClassloaderUtility {
             for (String classPathEntry : entries) {
                 file = new File(classPathEntry);
                 if (!file.exists()) {
-                    throw new RuntimeException(getString(
-                        "RuntimeError.9", classPathEntry)); //$NON-NLS-1$
+                    throw new RuntimeException(getString("RuntimeError.9", classPathEntry));
                 }
 
                 try {
                     urls.add(file.toURI().toURL());
                 } catch (MalformedURLException e) {
-                    // this shouldn't happen, but just in case...
-                    throw new RuntimeException(getString(
-                        "RuntimeError.9", classPathEntry)); //$NON-NLS-1$
+                    throw new RuntimeException(getString("RuntimeError.9", classPathEntry));
                 }
             }
         }
 
         ClassLoader parent = Thread.currentThread().getContextClassLoader();
 
-        URLClassLoader ucl = new URLClassLoader(urls.toArray(new URL[urls
-            .size()]), parent);
+        URLClassLoader ucl = new URLClassLoader(urls.toArray(new URL[urls.size()]), parent);
 
         return ucl;
     }
