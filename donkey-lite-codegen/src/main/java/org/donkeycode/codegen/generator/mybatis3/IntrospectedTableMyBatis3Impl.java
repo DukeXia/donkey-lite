@@ -31,7 +31,6 @@ import org.donkeycode.codegen.generator.AbstractJavaGenerator;
 import org.donkeycode.codegen.generator.AbstractXmlGenerator;
 import org.donkeycode.codegen.generator.mybatis3.javamapper.AnnotatedClientGenerator;
 import org.donkeycode.codegen.generator.mybatis3.javamapper.JavaMapperGenerator;
-import org.donkeycode.codegen.generator.mybatis3.model.BaseRecordGenerator;
 import org.donkeycode.codegen.generator.mybatis3.model.PrimaryKeyGenerator;
 import org.donkeycode.codegen.internal.ObjectFactory;
 
@@ -102,16 +101,9 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
 	}
 
 	protected void calculateJavaModelGenerators(List<String> warnings, ProgressCallback progressCallback) {
-		
 
 		if (getRules().generatePrimaryKeyClass()) {
 			AbstractJavaGenerator javaGenerator = new PrimaryKeyGenerator();
-			initializeAbstractGenerator(javaGenerator, warnings, progressCallback);
-			javaModelGenerators.add(javaGenerator);
-		}
-
-		if (getRules().generateBaseRecordClass()) {
-			AbstractJavaGenerator javaGenerator = new BaseRecordGenerator();
 			initializeAbstractGenerator(javaGenerator, warnings, progressCallback);
 			javaModelGenerators.add(javaGenerator);
 		}
