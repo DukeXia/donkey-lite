@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * @author yanjun.xue
+ * @author donkey
  */
 @EnableScheduling
 @EnableAutoConfiguration

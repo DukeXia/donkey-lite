@@ -3,7 +3,7 @@ package com.donkeycode.core.utils;
 import java.util.UUID;
 
 /**
- * @author yanjun.xue
+ * @author donkey
  */
 public class UUIDUtils {
 

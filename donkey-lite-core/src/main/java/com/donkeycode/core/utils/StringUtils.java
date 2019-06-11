@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 /**
  * 扩展 Apache 字符串工具类（StringUtils）
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 2018年12月31日
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
@@ -79,7 +79,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return bytes
      */
     public static byte[] getBytes(String str, Charset charset) {
-        if (str.isBlank()) {
+        if (StringUtils.isBlank(str)) {
             return null;
         }
         return null == charset ? str.getBytes() : str.getBytes(charset);
@@ -308,6 +308,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * <p>Supports all known HTML 4.0 entities, including funky accents.
      * Note that the commonly used apostrophe escape character (&amp;apos;)
      * is not a legal entity and so is not supported). </p>
+     *
      * @param input
      * @return
      */

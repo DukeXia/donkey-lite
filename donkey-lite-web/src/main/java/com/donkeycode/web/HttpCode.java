@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 返回码
  *
- * @author yanjun.xue
+ * @author donkey
  */
 public enum HttpCode {
 

@@ -8,7 +8,7 @@ import lombok.Setter;
 /**
  * 操作返回前端数据Message
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 0.0.1
  */
 @Setter

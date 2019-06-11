@@ -23,6 +23,13 @@ import com.donkeycode.core.exception.FactoryException;
 
 import lombok.extern.slf4j.Slf4j;
 
+
+/**
+ * Bean Factory Manager
+ *
+ * @author donkey
+ * @since 0.0.1
+ */
 @Slf4j
 @SuppressWarnings("rawtypes")
 @Service

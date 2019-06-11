@@ -1,7 +1,7 @@
 package com.donkeycode.core.exception;
 
 /**
- * @author yanjun.xue
+ * @author donkey
  */
 public class ParamNullException extends BaseException {
 

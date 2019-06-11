@@ -9,7 +9,7 @@ import lombok.Setter;
 /**
  * 操作日志
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 0.0.1
  */
 @SuppressWarnings("serial")

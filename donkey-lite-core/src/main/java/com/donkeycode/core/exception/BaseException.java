@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author yanjun.xue
+ * @author donkey
  */
 @Slf4j
 public class BaseException extends RuntimeException {

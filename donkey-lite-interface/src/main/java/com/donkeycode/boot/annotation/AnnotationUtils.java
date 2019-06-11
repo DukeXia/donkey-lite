@@ -4,10 +4,14 @@ import org.springframework.aop.framework.AopProxyUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
-
+import java.util.Objects;
 
 /**
- * @author yanjun.xue
+ * 注解工具类
+ *
+ * @author donkey
+ * @date 2019.6.11
+ * @since 0.0.1
  */
 public class AnnotationUtils {
 
@@ -19,7 +23,7 @@ public class AnnotationUtils {
      */
     private static <T extends Annotation> T getAnnotation(Class<?> cls, Class<T> annotationClass) {
 
-        if (cls == null || annotationClass == null) {
+        if (Objects.isNull(cls) || Objects.isNull(annotationClass)) {
             return null;
         }
         T res = cls.getAnnotation(annotationClass);
@@ -45,7 +49,7 @@ public class AnnotationUtils {
      * @return
      */
     public static <Obj, T extends Annotation> T getAnnotation(Obj obj, Class<T> annotationClass) {
-        if (obj == null) {
+        if (Objects.isNull(obj)) {
             return null;
         }
         return getAnnotation(AopProxyUtils.ultimateTargetClass(obj), annotationClass);
@@ -57,11 +61,11 @@ public class AnnotationUtils {
      * @return
      */
     public static <Obj> String getResourceType(Obj obj) {
-        if (obj == null) {
+        if (Objects.isNull(obj)) {
             return null;
         }
         ResourceInfo info = getAnnotation(obj, ResourceInfo.class);
-        return info == null ? null : info.type();
+        return Objects.isNull(obj) ? null : info.type();
     }
 
     /**
@@ -70,10 +74,10 @@ public class AnnotationUtils {
      * @return
      */
     public static <Obj> String getFunctionName(Obj obj) {
-        if (obj == null) {
+        if (Objects.isNull(obj)) {
             return null;
         }
         SelfDefined definedSearch = getAnnotation(obj, SelfDefined.class);
-        return definedSearch == null ? null : definedSearch.functionName();
+        return Objects.isNull(definedSearch) ? null : definedSearch.functionName();
     }
 }

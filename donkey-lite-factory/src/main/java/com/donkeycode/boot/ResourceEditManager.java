@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 修改资源接口管理
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 0.0.1
  */
 @Slf4j
@@ -65,7 +65,7 @@ public class ResourceEditManager {
      */
     private void recordLog(LinkedInfo linkedInfo) {
         LogInfo logInfo = new LogInfo(linkedInfo.getResourceType(), linkedInfo.getMasterId(), linkedInfo.getOperateType(), linkedInfo.getMasterJson());
-        factoryManager.getDataEditComponent(LiteConstants.RESOURCE_TYPE_OPERATE_LOG).insert(new DataEditInfo(JSON.toJSONString(logInfo), linkedInfo.getOperateType()));
+        factoryManager.getDataEditComponent(LiteConstants.RESOURCE_TYPE_ACTION_LOG).insert(new DataEditInfo(JSON.toJSONString(logInfo), linkedInfo.getOperateType()));
     }
 
     /**

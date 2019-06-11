@@ -27,7 +27,7 @@ import org.springframework.cglib.beans.BeanMap;
 /**
  * Java 集合处理工具类，继承了Spring 的 CollectionUtils
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 2018年12月31日
  */
 public final class CollectionUtils extends org.springframework.util.CollectionUtils{

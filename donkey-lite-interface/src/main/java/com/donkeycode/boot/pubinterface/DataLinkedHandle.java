@@ -5,7 +5,7 @@ import com.donkeycode.boot.pubinterface.info.LinkedInfo;
 /**
  * 联动数据修改
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 2018年9月19日
  */
 public interface DataLinkedHandle {

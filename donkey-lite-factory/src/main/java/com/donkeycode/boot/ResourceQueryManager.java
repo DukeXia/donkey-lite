@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 资源查询接口管理
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 0.0.1
  */
 @Slf4j

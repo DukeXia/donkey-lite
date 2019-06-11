@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.io.Serializable;
 
 /**
- * @author yanjun.xue
+ * @author donkey
  */
 public abstract class BaseEntity implements Serializable {
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * Spring 容器Bean获取
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 0.0.1
  */
 @Component

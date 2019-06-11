@@ -16,7 +16,7 @@ import org.springframework.cglib.beans.BeanCopier;
 /**
  * 对象操作工具类
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 2019年5月12日
  */
 @Slf4j

@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 分页接口定义
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 2019年5月13日
  */
 public interface PageFilter {

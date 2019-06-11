@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
- * @author yanjun.xue
+ * @author donkey
  * @since 0.0.1
  */
 public class CharsetUtils {

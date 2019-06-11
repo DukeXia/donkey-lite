@@ -7,7 +7,7 @@ import com.donkeycode.boot.pubinterface.info.LinkedInfo;
 import com.donkeycode.core.exception.FunctUnrealizedException;
 
 /**
- * @author yanjun.xue
+ * @author donkey
  * @since 2019年5月19日
  */
 public interface DataEditService {

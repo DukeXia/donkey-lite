@@ -7,7 +7,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @author yanjun.xue
+ * 通用登陆用户定义
+ *
+ * @author donkey
  * @since 2018年12月31日
  */
 @SuppressWarnings("serial")
@@ -18,8 +20,8 @@ public class LoginUser extends BaseEntity {
     private String userId;
     private String userName;
     private Instant loginTime;
-    /*角色*/
+    /** 拥有角色*/
     private Collection<String> roleCodes;
-    /*资源*/
+    /** 操作权限*/
     private Collection<String> actionCodes;
 }

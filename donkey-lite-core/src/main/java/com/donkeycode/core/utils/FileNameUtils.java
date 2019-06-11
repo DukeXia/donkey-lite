@@ -3,7 +3,7 @@ package com.donkeycode.core.utils;
 /**
  * 对文件名称处理
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 2019年5月12日
  */
 public class FileNameUtils {

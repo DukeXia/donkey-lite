@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.UnsupportedEncodingException;
 
 /**
- * @author yanjun.xue
+ * @author donkey
  */
 @Slf4j
 public class Base64Utils {

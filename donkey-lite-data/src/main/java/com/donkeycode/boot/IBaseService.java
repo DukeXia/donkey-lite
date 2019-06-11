@@ -10,7 +10,7 @@ import com.donkeycode.core.page.PageResult;
  * BaseService 通用接口定义
  *
  * @param <T>
- * @author yanjun.xue
+ * @author donkey
  * @since 2019年5月13日
  */
 public interface IBaseService<T> {

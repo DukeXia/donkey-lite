@@ -12,7 +12,7 @@ import org.springframework.cglib.beans.BeanMap;
 /**
  * 数据转换成树形结构
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 0.0.1
  */
 @Slf4j

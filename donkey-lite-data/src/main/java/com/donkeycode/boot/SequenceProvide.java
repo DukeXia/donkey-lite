@@ -14,7 +14,7 @@ import com.xuanner.seq.sequence.impl.DefaultRangeSequence;
 /**
  * 基于DB方式生成业务编号
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 2019年5月13日
  */
 @Component

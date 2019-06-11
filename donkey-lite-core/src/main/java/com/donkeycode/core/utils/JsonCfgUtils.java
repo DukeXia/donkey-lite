@@ -24,7 +24,7 @@ import com.alibaba.fastjson.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author yanjun.xue
+ * @author donkey
  */
 @Slf4j
 public class JsonCfgUtils {

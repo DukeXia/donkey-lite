@@ -3,7 +3,7 @@ package com.donkeycode.core.utils;
 /**
  * 数据库字段转成对象的属性
  * 
- * @author yanjun.xue
+ * @author donkey
  * @since 2019年5月28日
  */
 public class ColumnPropertyUtils {

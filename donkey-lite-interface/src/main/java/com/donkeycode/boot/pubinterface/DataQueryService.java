@@ -8,7 +8,7 @@ import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.page.PageResult;
 
 /**
- * @author yanjun.xue
+ * @author donkey
  * @since 2019年5月19日
  */
 public interface DataQueryService {

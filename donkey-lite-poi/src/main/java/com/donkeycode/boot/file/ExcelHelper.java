@@ -179,7 +179,6 @@ public class ExcelHelper {
             Row row = sheet.createRow(index);
             for (int j = 0; j < excelColumns.size(); j++) {
                 Cell cell = row.createCell(j);
-                cell.setCellType(CellType.STRING);
                 String value = excelColumns.get(j).getFieldDispName();
                 cell.setCellValue(value);
             }

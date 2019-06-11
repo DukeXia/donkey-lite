@@ -13,11 +13,12 @@ import com.donkeycode.core.utils.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * SQL mapper工具
  *
- * @author yanjun.xue
+ * @author donkey
  * @since 2019年5月13日
  */
 @Component
@@ -42,7 +43,7 @@ public class SqlMapper {
      *
      * @param list List结果
      * @param <T>  泛型类型
-     * @return
+     * @return back query result T
      */
     private <T> T getOne(List<T> list) {
         if (CollectionUtils.isEmpty(list)) {
@@ -58,7 +59,7 @@ public class SqlMapper {
      * 查询返回一个结果，多个结果时抛出异常
      *
      * @param sql 执行的sql
-     * @return
+     * @return back query result map
      */
     public Map<String, Object> selectOne(String sql) {
         return getOne(selectList(sql));
@@ -69,7 +70,7 @@ public class SqlMapper {
      *
      * @param sql   执行的sql
      * @param value 参数
-     * @return
+     * @return back query result map
      */
     public Map<String, Object> selectOne(String sql, Object value) {
         return getOne(selectList(sql, value));
@@ -81,7 +82,7 @@ public class SqlMapper {
      * @param sql        执行的sql
      * @param resultType 返回的结果类型
      * @param <T>        泛型类型
-     * @return
+     * @return back query result
      */
     public <T> T selectOne(String sql, Class<T> resultType) {
         return getOne(selectList(sql, resultType));
@@ -94,7 +95,7 @@ public class SqlMapper {
      * @param value      参数
      * @param resultType 返回的结果类型
      * @param <T>        泛型类型
-     * @return
+     * @return back query result
      */
     public <T> T selectOne(String sql, Object value, Class<T> resultType) {
         return getOne(selectList(sql, value, resultType));
@@ -104,7 +105,7 @@ public class SqlMapper {
      * 查询返回List<Map<String, Object>>
      *
      * @param sql 执行的sql
-     * @return
+     * @return back query result collections
      */
     public List<Map<String, Object>> selectList(String sql) {
         String msId = msUtils.select(sql);
@@ -116,7 +117,7 @@ public class SqlMapper {
      *
      * @param sql   执行的sql
      * @param value 参数
-     * @return
+     * @return back query result collections
      */
     public List<Map<String, Object>> selectList(String sql, Object value) {
         Class<?> parameterType = value != null ? value.getClass() : null;
@@ -130,15 +131,10 @@ public class SqlMapper {
      * @param sql        执行的sql
      * @param resultType 返回的结果类型
      * @param <T>        泛型类型
-     * @return
+     * @return back query result collections
      */
     public <T> List<T> selectList(String sql, Class<T> resultType) {
-        String msId;
-        if (resultType == null) {
-            msId = msUtils.select(sql);
-        } else {
-            msId = msUtils.select(sql, resultType);
-        }
+        String msId = Objects.isNull(resultType) ? msUtils.select(sql) : msUtils.select(sql, resultType);
         return sqlSession.selectList(msId);
     }
 
@@ -149,16 +145,11 @@ public class SqlMapper {
      * @param value      参数
      * @param resultType 返回的结果类型
      * @param <T>        泛型类型
-     * @return
+     * @return back query result collections
      */
     public <T> List<T> selectList(String sql, Object value, Class<T> resultType) {
-        String msId;
         Class<?> parameterType = value != null ? value.getClass() : null;
-        if (resultType == null) {
-            msId = msUtils.selectDynamic(sql, parameterType);
-        } else {
-            msId = msUtils.selectDynamic(sql, parameterType, resultType);
-        }
+        String msId = Objects.isNull(resultType) ? msUtils.selectDynamic(sql, parameterType) : msUtils.selectDynamic(sql, parameterType, resultType);
         return sqlSession.selectList(msId, value);
     }
 
@@ -166,7 +157,7 @@ public class SqlMapper {
      * 插入数据
      *
      * @param sql 执行的sql
-     * @return
+     * @return back update row num
      */
     public int insert(String sql) {
         String msId = msUtils.insert(sql);
@@ -178,7 +169,7 @@ public class SqlMapper {
      *
      * @param sql   执行的sql
      * @param value 参数
-     * @return
+     * @return back update row num
      */
     public int insert(String sql, Object value) {
         Class<?> parameterType = value != null ? value.getClass() : null;
@@ -190,7 +181,7 @@ public class SqlMapper {
      * 更新数据
      *
      * @param sql 执行的sql
-     * @return
+     * @return back update row num
      */
     public int update(String sql) {
         String msId = msUtils.update(sql);
@@ -202,7 +193,7 @@ public class SqlMapper {
      *
      * @param sql   执行的sql
      * @param value 参数
-     * @return
+     * @return back update row num
      */
     public int update(String sql, Object value) {
         Class<?> parameterType = value != null ? value.getClass() : null;
@@ -214,7 +205,7 @@ public class SqlMapper {
      * 删除数据
      *
      * @param sql 执行的sql
-     * @return
+     * @return back update row num
      */
     public int delete(String sql) {
         String msId = msUtils.delete(sql);
@@ -226,7 +217,7 @@ public class SqlMapper {
      *
      * @param sql   执行的sql
      * @param value 参数
-     * @return
+     * @return back update row num
      */
     public int delete(String sql, Object value) {
         Class<?> parameterType = value != null ? value.getClass() : null;

@@ -13,7 +13,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 
 /**
- * @author yanjun.xue
+ * @author donkey
  * @since 2019年5月12日
  */
 @Configuration

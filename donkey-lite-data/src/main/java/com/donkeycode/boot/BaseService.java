@@ -20,7 +20,7 @@ import tk.mybatis.mapper.entity.Example;
 
 /**
  * @param <T>
- * @author yanjun.xue
+ * @author donkey
  * @since 2019年5月13日
  */
 @Slf4j
