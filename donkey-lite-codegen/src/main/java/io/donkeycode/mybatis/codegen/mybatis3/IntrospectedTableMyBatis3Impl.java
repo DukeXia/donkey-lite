@@ -30,11 +30,8 @@ import io.donkeycode.mybatis.codegen.AbstractJavaGenerator;
 import io.donkeycode.mybatis.codegen.AbstractXmlGenerator;
 import io.donkeycode.mybatis.codegen.mybatis3.javamapper.AnnotatedClientGenerator;
 import io.donkeycode.mybatis.codegen.mybatis3.javamapper.JavaMapperGenerator;
-import io.donkeycode.mybatis.codegen.mybatis3.javamapper.MixedClientGenerator;
 import io.donkeycode.mybatis.codegen.mybatis3.model.BaseRecordGenerator;
-import io.donkeycode.mybatis.codegen.mybatis3.model.ExampleGenerator;
 import io.donkeycode.mybatis.codegen.mybatis3.model.PrimaryKeyGenerator;
-import io.donkeycode.mybatis.codegen.mybatis3.model.RecordWithBLOBsGenerator;
 import io.donkeycode.mybatis.codegen.mybatis3.xmlmapper.XMLMapperGenerator;
 import io.donkeycode.mybatis.config.PropertyRegistry;
 import io.donkeycode.mybatis.internal.ObjectFactory;
@@ -101,8 +98,6 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
 		AbstractJavaClientGenerator javaGenerator;
 		if ("XMLMAPPER".equalsIgnoreCase(type)) {
 			javaGenerator = new JavaMapperGenerator();
-		} else if ("MIXEDMAPPER".equalsIgnoreCase(type)) {
-			javaGenerator = new MixedClientGenerator();
 		} else if ("ANNOTATEDMAPPER".equalsIgnoreCase(type)) {
 			javaGenerator = new AnnotatedClientGenerator();
 		} else if ("MAPPER".equalsIgnoreCase(type)) {
@@ -115,11 +110,7 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
 	}
 
 	protected void calculateJavaModelGenerators(List<String> warnings, ProgressCallback progressCallback) {
-		if (getRules().generateExampleClass()) {
-			AbstractJavaGenerator javaGenerator = new ExampleGenerator();
-			initializeAbstractGenerator(javaGenerator, warnings, progressCallback);
-			javaModelGenerators.add(javaGenerator);
-		}
+		
 
 		if (getRules().generatePrimaryKeyClass()) {
 			AbstractJavaGenerator javaGenerator = new PrimaryKeyGenerator();
@@ -133,11 +124,6 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
 			javaModelGenerators.add(javaGenerator);
 		}
 
-		if (getRules().generateRecordWithBLOBsClass()) {
-			AbstractJavaGenerator javaGenerator = new RecordWithBLOBsGenerator();
-			initializeAbstractGenerator(javaGenerator, warnings, progressCallback);
-			javaModelGenerators.add(javaGenerator);
-		}
 	}
 
 	protected void initializeAbstractGenerator(AbstractGenerator abstractGenerator, List<String> warnings, ProgressCallback progressCallback) {

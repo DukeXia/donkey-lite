@@ -18,7 +18,6 @@ package io.donkeycode.mybatis.codegen.mybatis3.javamapper;
 import java.util.List;
 
 import io.donkeycode.mybatis.api.dom.java.CompilationUnit;
-import io.donkeycode.mybatis.api.dom.java.Interface;
 import io.donkeycode.mybatis.codegen.AbstractXmlGenerator;
 import io.donkeycode.mybatis.config.PropertyRegistry;
 import io.donkeycode.mybatis.internal.util.StringUtility;

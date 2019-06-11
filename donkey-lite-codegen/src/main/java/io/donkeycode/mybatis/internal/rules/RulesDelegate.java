@@ -95,11 +95,6 @@ public class RulesDelegate implements Rules {
     }
 
     @Override
-    public boolean generateExampleClass() {
-        return rules.generateExampleClass();
-    }
-
-    @Override
     public boolean generateInsert() {
         return rules.generateInsert();
     }
@@ -120,21 +115,6 @@ public class RulesDelegate implements Rules {
     }
 
     @Override
-    public boolean generateResultMapWithBLOBs() {
-        return rules.generateResultMapWithBLOBs();
-    }
-
-    @Override
-    public boolean generateSelectByExampleWithBLOBs() {
-        return rules.generateSelectByExampleWithBLOBs();
-    }
-
-    @Override
-    public boolean generateSelectByExampleWithoutBLOBs() {
-        return rules.generateSelectByExampleWithoutBLOBs();
-    }
-
-    @Override
     public boolean generateSelectByPrimaryKey() {
         return rules.generateSelectByPrimaryKey();
     }
@@ -150,33 +130,8 @@ public class RulesDelegate implements Rules {
     }
 
     @Override
-    public boolean generateUpdateByExampleSelective() {
-        return rules.generateUpdateByExampleSelective();
-    }
-
-    @Override
-    public boolean generateUpdateByExampleWithBLOBs() {
-        return rules.generateUpdateByExampleWithBLOBs();
-    }
-
-    @Override
-    public boolean generateUpdateByExampleWithoutBLOBs() {
-        return rules.generateUpdateByExampleWithoutBLOBs();
-    }
-
-    @Override
     public boolean generateUpdateByPrimaryKeySelective() {
         return rules.generateUpdateByPrimaryKeySelective();
-    }
-
-    @Override
-    public boolean generateUpdateByPrimaryKeyWithBLOBs() {
-        return rules.generateUpdateByPrimaryKeyWithBLOBs();
-    }
-
-    @Override
-    public boolean generateUpdateByPrimaryKeyWithoutBLOBs() {
-        return rules.generateUpdateByPrimaryKeyWithoutBLOBs();
     }
 
     @Override

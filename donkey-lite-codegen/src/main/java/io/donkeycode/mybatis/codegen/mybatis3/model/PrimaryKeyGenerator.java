@@ -44,100 +44,87 @@ import io.donkeycode.mybatis.codegen.RootClassInfo;
  */
 public class PrimaryKeyGenerator extends AbstractJavaGenerator {
 
-    public PrimaryKeyGenerator() {
-        super();
-    }
+	public PrimaryKeyGenerator() {
+		super();
+	}
 
-    @Override
-    public List<CompilationUnit> getCompilationUnits() {
-        FullyQualifiedTable table = introspectedTable.getFullyQualifiedTable();
-        progressCallback.startTask(getString(
-            "Progress.7", table.toString()));
-        Plugin plugins = context.getPlugins();
-        CommentGenerator commentGenerator = context.getCommentGenerator();
+	@Override
+	public List<CompilationUnit> getCompilationUnits() {
+		FullyQualifiedTable table = introspectedTable.getFullyQualifiedTable();
+		progressCallback.startTask(getString("Progress.7", table.toString()));
+		Plugin plugins = context.getPlugins();
+		CommentGenerator commentGenerator = context.getCommentGenerator();
 
-        TopLevelClass topLevelClass = new TopLevelClass(introspectedTable
-            .getPrimaryKeyType());
-        topLevelClass.setVisibility(JavaVisibility.PUBLIC);
-        commentGenerator.addJavaFileComment(topLevelClass);
+		TopLevelClass topLevelClass = new TopLevelClass(introspectedTable.getPrimaryKeyType());
+		topLevelClass.setVisibility(JavaVisibility.PUBLIC);
+		commentGenerator.addJavaFileComment(topLevelClass);
 
-        String rootClass = getRootClass();
-        if (rootClass != null) {
-            topLevelClass.setSuperClass(new FullyQualifiedJavaType(rootClass));
-            topLevelClass.addImportedType(topLevelClass.getSuperClass());
-        }
+		String rootClass = getRootClass();
+		if (rootClass != null) {
+			topLevelClass.setSuperClass(new FullyQualifiedJavaType(rootClass));
+			topLevelClass.addImportedType(topLevelClass.getSuperClass());
+		}
 
-        if (introspectedTable.isConstructorBased()) {
-            addParameterizedConstructor(topLevelClass);
+		if (introspectedTable.isConstructorBased()) {
+			addParameterizedConstructor(topLevelClass);
 
-            if (!introspectedTable.isImmutable()) {
-                addDefaultConstructor(topLevelClass);
-            }
-        }
+			if (!introspectedTable.isImmutable()) {
+				addDefaultConstructor(topLevelClass);
+			}
+		}
 
-        commentGenerator.addModelClassComment(topLevelClass, introspectedTable);
+		commentGenerator.addModelClassComment(topLevelClass, introspectedTable);
 
-        for (IntrospectedColumn introspectedColumn : introspectedTable
-            .getPrimaryKeyColumns()) {
-            if (RootClassInfo.getInstance(rootClass, warnings)
-                .containsProperty(introspectedColumn)) {
-                continue;
-            }
+		for (IntrospectedColumn introspectedColumn : introspectedTable.getPrimaryKeyColumns()) {
+			if (RootClassInfo.getInstance(rootClass, warnings).containsProperty(introspectedColumn)) {
+				continue;
+			}
 
-            Field field = getJavaBeansField(introspectedColumn, context, introspectedTable);
-            if (plugins.modelFieldGenerated(field, topLevelClass,
-                introspectedColumn, introspectedTable,
-                Plugin.ModelClassType.PRIMARY_KEY)) {
-                topLevelClass.addField(field);
-                topLevelClass.addImportedType(field.getType());
-            }
+			Field field = getJavaBeansField(introspectedColumn, context, introspectedTable);
+			if (plugins.modelFieldGenerated(field, topLevelClass, introspectedColumn, introspectedTable, Plugin.ModelClassType.PRIMARY_KEY)) {
+				topLevelClass.addField(field);
+				topLevelClass.addImportedType(field.getType());
+			}
 
-            Method method = getJavaBeansGetter(introspectedColumn, context, introspectedTable);
-            if (plugins.modelGetterMethodGenerated(method, topLevelClass,
-                introspectedColumn, introspectedTable,
-                Plugin.ModelClassType.PRIMARY_KEY)) {
-                topLevelClass.addMethod(method);
-            }
+			Method method = getJavaBeansGetter(introspectedColumn, context, introspectedTable);
+			if (plugins.modelGetterMethodGenerated(method, topLevelClass, introspectedColumn, introspectedTable, Plugin.ModelClassType.PRIMARY_KEY)) {
+				topLevelClass.addMethod(method);
+			}
 
-            if (!introspectedTable.isImmutable()) {
-                method = getJavaBeansSetter(introspectedColumn, context, introspectedTable);
-                if (plugins.modelSetterMethodGenerated(method, topLevelClass,
-                    introspectedColumn, introspectedTable,
-                    Plugin.ModelClassType.PRIMARY_KEY)) {
-                    topLevelClass.addMethod(method);
-                }
-            }
-        }
+			if (!introspectedTable.isImmutable()) {
+				method = getJavaBeansSetter(introspectedColumn, context, introspectedTable);
+				if (plugins.modelSetterMethodGenerated(method, topLevelClass, introspectedColumn, introspectedTable, Plugin.ModelClassType.PRIMARY_KEY)) {
+					topLevelClass.addMethod(method);
+				}
+			}
+		}
 
-        List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
-        if (context.getPlugins().modelPrimaryKeyClassGenerated(
-            topLevelClass, introspectedTable)) {
-            answer.add(topLevelClass);
-        }
-        return answer;
-    }
+		List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
+		if (context.getPlugins().modelPrimaryKeyClassGenerated(topLevelClass, introspectedTable)) {
+			answer.add(topLevelClass);
+		}
+		return answer;
+	}
 
-    private void addParameterizedConstructor(TopLevelClass topLevelClass) {
-        Method method = new Method();
-        method.setVisibility(JavaVisibility.PUBLIC);
-        method.setConstructor(true);
-        method.setName(topLevelClass.getType().getShortName());
-        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+	private void addParameterizedConstructor(TopLevelClass topLevelClass) {
+		Method method = new Method();
+		method.setVisibility(JavaVisibility.PUBLIC);
+		method.setConstructor(true);
+		method.setName(topLevelClass.getType().getShortName());
+		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
 
-        StringBuilder sb = new StringBuilder();
-        for (IntrospectedColumn introspectedColumn : introspectedTable
-            .getPrimaryKeyColumns()) {
-            method.addParameter(new Parameter(introspectedColumn.getFullyQualifiedJavaType(),
-                introspectedColumn.getJavaProperty()));
-            sb.setLength(0);
-            sb.append("this.");
-            sb.append(introspectedColumn.getJavaProperty());
-            sb.append(" = ");
-            sb.append(introspectedColumn.getJavaProperty());
-            sb.append(';');
-            method.addBodyLine(sb.toString());
-        }
+		StringBuilder sb = new StringBuilder();
+		for (IntrospectedColumn introspectedColumn : introspectedTable.getPrimaryKeyColumns()) {
+			method.addParameter(new Parameter(introspectedColumn.getFullyQualifiedJavaType(), introspectedColumn.getJavaProperty()));
+			sb.setLength(0);
+			sb.append("this.");
+			sb.append(introspectedColumn.getJavaProperty());
+			sb.append(" = ");
+			sb.append(introspectedColumn.getJavaProperty());
+			sb.append(';');
+			method.addBodyLine(sb.toString());
+		}
 
-        topLevelClass.addMethod(method);
-    }
+		topLevelClass.addMethod(method);
+	}
 }

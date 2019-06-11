@@ -56,26 +56,6 @@ public interface Rules {
     FullyQualifiedJavaType calculateAllFieldsClass();
 
     /**
-     * Implements the rule for generating the update by primary key without
-     * BLOBs SQL Map element and DAO method. If the table has a primary key as
-     * well as other non-BLOB fields, and the updateByPrimaryKey statement is
-     * allowed, then generate the element and method.
-     *
-     * @return true if the element and method should be generated
-     */
-    boolean generateUpdateByPrimaryKeyWithoutBLOBs();
-
-    /**
-     * Implements the rule for generating the update by primary key with BLOBs
-     * SQL Map element and DAO method. If the table has a primary key as well as
-     * other BLOB fields, and the updateByPrimaryKey statement is allowed, then
-     * generate the element and method.
-     *
-     * @return true if the element and method should be generated
-     */
-    boolean generateUpdateByPrimaryKeyWithBLOBs();
-
-    /**
      * Implements the rule for generating the update by primary key selective
      * SQL Map element and DAO method. If the table has a primary key as well as
      * other fields, and the updateByPrimaryKey statement is allowed, then
@@ -111,15 +91,6 @@ public interface Rules {
      * @return true if the result map should be generated
      */
     boolean generateBaseResultMap();
-
-    /**
-     * Implements the rule for generating the result map with BLOBs. If the
-     * table has BLOB columns, and either select method is allowed, then
-     * generate the result map.
-     *
-     * @return true if the result map should be generated
-     */
-    boolean generateResultMapWithBLOBs();
 
     /**
      * Implements the rule for generating the SQL example where clause element.
@@ -174,41 +145,7 @@ public interface Rules {
      */
     boolean generateSelectByPrimaryKey();
 
-    /**
-     * Implements the rule for generating the select by example without BLOBs
-     * SQL Map element and DAO method. If the selectByExample statement is
-     * allowed, then generate the element and method.
-     *
-     * @return true if the element and method should be generated
-     */
-    boolean generateSelectByExampleWithoutBLOBs();
-
-    /**
-     * Implements the rule for generating the select by example with BLOBs SQL
-     * Map element and DAO method. If the table has BLOB fields and the
-     * selectByExample statement is allowed, then generate the element and
-     * method.
-     *
-     * @return true if the element and method should be generated
-     */
-    boolean generateSelectByExampleWithBLOBs();
-
-    /**
-     * Implements the rule for generating an example class. The class should be
-     * generated if the selectByExample or deleteByExample or countByExample
-     * methods are allowed.
-     *
-     * @return true if the example class should be generated
-     */
-    boolean generateExampleClass();
-
     boolean generateCountByExample();
-
-    boolean generateUpdateByExampleSelective();
-
-    boolean generateUpdateByExampleWithoutBLOBs();
-
-    boolean generateUpdateByExampleWithBLOBs();
 
     /**
      * Implements the rule for determining whether to generate a primary key

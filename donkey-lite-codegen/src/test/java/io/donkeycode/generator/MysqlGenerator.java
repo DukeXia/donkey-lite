@@ -24,13 +24,19 @@
 
 package io.donkeycode.generator;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.Test;
 
 import io.donkeycode.mybatis.api.MyBatisGenerator;
 import io.donkeycode.mybatis.config.Configuration;
 import io.donkeycode.mybatis.config.xml.ConfigurationParser;
+import io.donkeycode.mybatis.exception.InvalidConfigurationException;
+import io.donkeycode.mybatis.exception.XMLParserException;
 import io.donkeycode.mybatis.internal.DefaultShellCallback;
 
 /**
@@ -38,21 +44,21 @@ import io.donkeycode.mybatis.internal.DefaultShellCallback;
  */
 public class MysqlGenerator {
 
+	public static InputStream getResourceAsStream(String path) {
+		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+	}
 
-    public static InputStream getResourceAsStream(String path) {
-        return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-    }
-
-    public static void main(String[] args) throws Exception {
-        List<String> warnings = new ArrayList<String>();
-        boolean overwrite = true;
-        ConfigurationParser cp = new ConfigurationParser(warnings);
-        Configuration config = cp.parseConfiguration(getResourceAsStream("generatorConfig.xml"));
-        DefaultShellCallback callback = new DefaultShellCallback(overwrite);
-        MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
-        myBatisGenerator.generate(null);
-        for (String warning : warnings) {
-            System.out.println(warning);
-        }
-    }
+	@Test
+	public void main() throws IOException, XMLParserException, InvalidConfigurationException, SQLException, InterruptedException {
+		List<String> warnings = new ArrayList<String>();
+		boolean overwrite = true;
+		ConfigurationParser cp = new ConfigurationParser(warnings);
+		Configuration config = cp.parseConfiguration(getResourceAsStream("generatorConfig.xml"));
+		DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+		MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
+		myBatisGenerator.generate(null);
+		for (String warning : warnings) {
+			System.out.println(warning);
+		}
+	}
 }
