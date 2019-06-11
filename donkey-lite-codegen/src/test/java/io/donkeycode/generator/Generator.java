@@ -24,12 +24,11 @@
 
 package io.donkeycode.generator;
 
+import org.donkeycode.codegen.api.MyBatisGenerator;
+import org.donkeycode.codegen.config.Configuration;
+import org.donkeycode.codegen.config.xml.ConfigurationParser;
+import org.donkeycode.codegen.internal.DefaultShellCallback;
 import org.hsqldb.cmdline.SqlFile;
-
-import io.donkeycode.mybatis.api.MyBatisGenerator;
-import io.donkeycode.mybatis.config.Configuration;
-import io.donkeycode.mybatis.config.xml.ConfigurationParser;
-import io.donkeycode.mybatis.internal.DefaultShellCallback;
 
 import java.io.File;
 import java.io.InputStream;

@@ -30,14 +30,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.donkeycode.codegen.api.MyBatisGenerator;
+import org.donkeycode.codegen.config.Configuration;
+import org.donkeycode.codegen.config.xml.ConfigurationParser;
+import org.donkeycode.codegen.exception.InvalidConfigurationException;
+import org.donkeycode.codegen.exception.XMLParserException;
+import org.donkeycode.codegen.internal.DefaultShellCallback;
 import org.junit.Test;
-
-import io.donkeycode.mybatis.api.MyBatisGenerator;
-import io.donkeycode.mybatis.config.Configuration;
-import io.donkeycode.mybatis.config.xml.ConfigurationParser;
-import io.donkeycode.mybatis.exception.InvalidConfigurationException;
-import io.donkeycode.mybatis.exception.XMLParserException;
-import io.donkeycode.mybatis.internal.DefaultShellCallback;
 
 /**
  * @author liuzh

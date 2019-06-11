@@ -11,7 +11,7 @@
         <property name="javaFileEncoding" value="UTF-8"/>
         <property name="useMapperCommentGenerator" value="true"/>
 
-        <plugin type="io.donkeycode.mybatis.plugins.MapperPlugin">
+        <plugin type="org.donkeycode.codegen.plugins.MapperPlugin">
             <property name="mappers" value="${mapper.Mapper}"/>
             <property name="caseSensitive" value="true"/>
             <property name="lombok" value="Getter,Setter,ToString,Accessors"/>
@@ -19,7 +19,7 @@
 
         <!--通用代码生成器插件-->
         <!--mapper接口-->
-        <plugin type="io.donkeycode.mybatis.plugins.TemplateFilePlugin">
+        <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
             <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.mappers"/>
             <property name="templatePath" value="generator/mapper.ftl"/>
@@ -28,7 +28,7 @@
         </plugin>
 
         <!--mapper.xml-->
-        <plugin type="io.donkeycode.mybatis.plugins.TemplateFilePlugin">
+        <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
             <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.mappers"/>
             <property name="mapperPackage" value="test.demo.mappers"/>
@@ -39,7 +39,7 @@
 
 
         <!--service  -->
-        <plugin type="io.donkeycode.mybatis.plugins.ServiceTemplatePlugin">
+        <plugin type="org.donkeycode.codegen.plugins.ServiceTemplatePlugin">
             <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.service.imp"/>
             <property name="mapperPackage" value="test.demo.mappers"/>
@@ -51,7 +51,7 @@
 
 
         <!--interface -->
-        <plugin type="io.donkeycode.mybatis.plugins.ServiceTemplatePlugin">
+        <plugin type="org.donkeycode.codegen.plugins.ServiceTemplatePlugin">
             <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.service"/>
             <property name="templatePath" value="generator/service.ftl"/>
@@ -61,7 +61,7 @@
         </plugin>
 
         <!-- controller -->
-        <plugin type="io.donkeycode.mybatis.plugins.TemplateFilePlugin">
+        <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
             <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.controller"/>
             <property name="servicePackage" value="test.demo.service"/>
@@ -72,7 +72,7 @@
 
 
         <!-- data edit biz -->
-        <plugin type="io.donkeycode.mybatis.plugins.TemplateFilePlugin">
+        <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
             <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.biz"/>
             <property name="servicePackage" value="test.demo.service"/>
@@ -82,7 +82,7 @@
         </plugin>
 
         <!-- data query biz -->
-        <plugin type="io.donkeycode.mybatis.plugins.TemplateFilePlugin">
+        <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
             <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.biz"/>
             <property name="servicePackage" value="test.demo.service"/>
