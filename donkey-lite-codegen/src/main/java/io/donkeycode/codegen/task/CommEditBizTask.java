@@ -1,0 +1,51 @@
+package io.donkeycode.codegen.task;
+
+import freemarker.template.TemplateException;
+import io.donkeycode.codegen.task.base.AbstractTask;
+import io.donkeycode.codegen.utils.ConfigUtil;
+import io.donkeycode.codegen.utils.FileUtil;
+import io.donkeycode.codegen.utils.FreemarketConfigUtils;
+import io.donkeycode.codegen.utils.StringUtil;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Author GreedyStar
+ * Date   2018/4/20
+ */
+public class CommEditBizTask extends AbstractTask {
+
+    public CommEditBizTask(String className, String entityDescription) {
+        super(className);
+        this.entityDescription = entityDescription;
+    }
+
+    @Override
+    public void run() throws IOException, TemplateException {
+        // 生成Controller填充数据
+        System.out.println("Generating " + className + "DataEdit.java");
+        Map<String, String> controllerData = new HashMap<>();
+        controllerData.put("BasePackageName", ConfigUtil.getConfiguration().getPackageName());
+        controllerData.put("EntityDescription", entityDescription);
+        controllerData.put("CommBizPackageName", ConfigUtil.getConfiguration().getPath().getCommEditBiz());
+        if (StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getInterf())) {
+            controllerData.put("ServicePackageName", ConfigUtil.getConfiguration().getPath().getService());
+        } else {
+            controllerData.put("ServicePackageName", ConfigUtil.getConfiguration().getPath().getInterf());
+        }
+        controllerData.put("EntityPackageName", ConfigUtil.getConfiguration().getPath().getEntity());
+        controllerData.put("Author", ConfigUtil.getConfiguration().getAuthor());
+        controllerData.put("Date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+        controllerData.put("ClassName", className);
+        controllerData.put("ClassNameUpperCase", className.toUpperCase());
+        controllerData.put("EntityName", StringUtil.firstToLowerCase(className));
+        String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(ConfigUtil.getConfiguration().getPackageName()) + StringUtil.package2Path(ConfigUtil.getConfiguration().getPath().getCommEditBiz());
+        String fileName = className + "DataEdit.java";
+        // 生成Controller文件
+        FileUtil.generateToJava(FreemarketConfigUtils.TYPE_COMM_EDIT_BIZ, controllerData, filePath + fileName);
+    }
+}

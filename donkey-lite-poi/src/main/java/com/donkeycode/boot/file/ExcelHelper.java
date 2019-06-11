@@ -1,6 +1,7 @@
 package com.donkeycode.boot.file;
 
 import com.donkeycode.boot.ReflectUtils;
+import com.donkeycode.core.utils.CollectionUtils;
 import com.donkeycode.core.utils.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +15,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -23,8 +24,6 @@ import java.util.*;
  */
 @Slf4j
 public class ExcelHelper {
-
-    private static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static List<Object> importToObjectList(ExcelHead head, File file, Class<?> cls) {
@@ -106,18 +105,15 @@ public class ExcelHelper {
     }
 
     /**
-     * @param excelColumns
+     * @param columns
      * @return
      */
-    private static Map<String, Integer> convertExcelHeadToPropertyType(List<ExcelColumn> excelColumns) {
+    private static Map<String, Integer> convertExcelHeadToPropertyType(List<ExcelColumn> columns) {
 
-        Objects.requireNonNull(excelColumns);
+        Objects.requireNonNull(columns);
 
         Map<String, Integer> map = new HashMap<>();
-
-        excelColumns.stream().parallel().forEach(excelColumn -> {
-            map.put(excelColumn.getFieldName(), excelColumn.getFieldType());
-        });
+        columns.stream().forEach(excelColumn -> map.put(excelColumn.getFieldName(), excelColumn.getFieldType()));
         return map;
 
     }
@@ -226,22 +222,19 @@ public class ExcelHelper {
         List<Object> contents = new ArrayList<>();
         for (List<?> list : rows) {
             // 如果当前第一列中无数据,则忽略当前行的数据
-            if (list == null || list.get(0) == null) {
+            if (CollectionUtils.isEmpty(list) || list.get(0) == null) {
                 break;
             }
             // 当前行的数据放入map中,生成<fieldName, value>的形式
             Map<String, Object> rowMap = rowListToMap(excelHeadMap, list);
             try {
                 // 将当前行转换成对应的对象
-                Object obj = cls.getDeclaringClass().newInstance();
+                Object obj = cls.getDeclaredConstructor().newInstance();
                 ReflectUtils.populateBean(obj, rowMap, filedTypeMap);
                 contents.add(obj);
-            } catch (InstantiationException e) {
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 log.error("类实例化异常:" + e.getMessage());
                 throw new ExcelHandleException("类实例化异常");
-            } catch (IllegalAccessException e) {
-                log.error("类安全权限异常:" + e.getMessage());
-                throw new ExcelHandleException("类安全权限异常");
             }
         }
         return contents;
@@ -250,15 +243,15 @@ public class ExcelHelper {
     /**
      * 将行转行成map,生成<fieldName, value>的形式
      *
-     * @param excelHeadMap 表头信息
-     * @param list         数据
+     * @param headerMap 表头信息
+     * @param list      数据
      * @return Map
      */
-    private static Map<String, Object> rowListToMap(Map<Integer, String> excelHeadMap, List<?> list) {
+    private static Map<String, Object> rowListToMap(Map<Integer, String> headerMap, List<?> list) {
         Map<String, Object> rowMap = new HashMap<>();
         for (int i = 0; i < list.size(); i++) {
-            String fieldName = excelHeadMap.get(i);
-            if (fieldName != null) {
+            String fieldName = headerMap.get(i);
+            if (StringUtils.isNotEmpty(fieldName)) {
                 rowMap.put(fieldName, list.get(i));
             }
         }
