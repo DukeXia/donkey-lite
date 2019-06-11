@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.donkeycode.codegen.api.dom.java.CompilationUnit;
 import org.donkeycode.codegen.config.PropertyRegistry;
-import org.donkeycode.codegen.generator.AbstractXmlGenerator;
 import org.donkeycode.codegen.internal.util.StringUtility;
 
 public class AnnotatedClientGenerator extends JavaMapperGenerator {
@@ -44,9 +43,5 @@ public class AnnotatedClientGenerator extends JavaMapperGenerator {
 		return sqlProviderGenerator.getCompilationUnits();
 	}
 
-	@Override
-	public AbstractXmlGenerator getMatchedXMLGenerator() {
-		// No XML required by the annotated client
-		return null;
-	}
+	 
 }

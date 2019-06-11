@@ -26,28 +26,20 @@ package org.donkeycode.codegen.generator;
  */
 public abstract class AbstractJavaClientGenerator extends AbstractJavaGenerator {
 
-    private boolean requiresXMLGenerator;
+	private boolean requiresXMLGenerator;
 
-    public AbstractJavaClientGenerator(boolean requiresXMLGenerator) {
-        super();
-        this.requiresXMLGenerator = requiresXMLGenerator;
-    }
+	public AbstractJavaClientGenerator(boolean requiresXMLGenerator) {
+		super();
+		this.requiresXMLGenerator = requiresXMLGenerator;
+	}
 
-    /**
-     * Returns true is a matching XML generator is required.
-     *
-     * @return true if matching XML is generator required
-     */
-    public boolean requiresXMLGenerator() {
-        return requiresXMLGenerator;
-    }
+	/**
+	 * Returns true is a matching XML generator is required.
+	 *
+	 * @return true if matching XML is generator required
+	 */
+	public boolean requiresXMLGenerator() {
+		return requiresXMLGenerator;
+	}
 
-    /**
-     * Returns an instance of the XML generator associated
-     * with this client generator.
-     *
-     * @return the matched XML generator.  May return null if no
-     *     XML is required by this generator
-     */
-    public abstract AbstractXmlGenerator getMatchedXMLGenerator();
 }

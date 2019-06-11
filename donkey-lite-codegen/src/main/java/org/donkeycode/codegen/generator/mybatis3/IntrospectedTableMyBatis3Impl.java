@@ -33,7 +33,6 @@ import org.donkeycode.codegen.generator.mybatis3.javamapper.AnnotatedClientGener
 import org.donkeycode.codegen.generator.mybatis3.javamapper.JavaMapperGenerator;
 import org.donkeycode.codegen.generator.mybatis3.model.BaseRecordGenerator;
 import org.donkeycode.codegen.generator.mybatis3.model.PrimaryKeyGenerator;
-import org.donkeycode.codegen.generator.mybatis3.xmlmapper.XMLMapperGenerator;
 import org.donkeycode.codegen.internal.ObjectFactory;
 
 /**
@@ -61,13 +60,6 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
 	}
 
 	protected void calculateXmlMapperGenerator(AbstractJavaClientGenerator javaClientGenerator, List<String> warnings, ProgressCallback progressCallback) {
-		if (javaClientGenerator == null) {
-			if (context.getSqlMapGeneratorConfiguration() != null) {
-				xmlMapperGenerator = new XMLMapperGenerator();
-			}
-		} else {
-			xmlMapperGenerator = javaClientGenerator.getMatchedXMLGenerator();
-		}
 
 		initializeAbstractGenerator(xmlMapperGenerator, warnings, progressCallback);
 	}

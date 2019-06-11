@@ -20,10 +20,8 @@ import java.util.List;
 import org.donkeycode.codegen.api.ProgressCallback;
 import org.donkeycode.codegen.generator.AbstractJavaClientGenerator;
 import org.donkeycode.codegen.generator.AbstractJavaGenerator;
-import org.donkeycode.codegen.generator.mybatis3.javamapper.SimpleAnnotatedClientGenerator;
 import org.donkeycode.codegen.generator.mybatis3.javamapper.SimpleJavaClientGenerator;
 import org.donkeycode.codegen.generator.mybatis3.model.SimpleModelGenerator;
-import org.donkeycode.codegen.generator.mybatis3.xmlmapper.SimpleXMLMapperGenerator;
 import org.donkeycode.codegen.internal.ObjectFactory;
 
 /**
@@ -38,14 +36,6 @@ public class IntrospectedTableMyBatis3SimpleImpl extends IntrospectedTableMyBati
 
 	@Override
 	protected void calculateXmlMapperGenerator(AbstractJavaClientGenerator javaClientGenerator, List<String> warnings, ProgressCallback progressCallback) {
-		if (javaClientGenerator == null) {
-			if (context.getSqlMapGeneratorConfiguration() != null) {
-				xmlMapperGenerator = new SimpleXMLMapperGenerator();
-			}
-		} else {
-			xmlMapperGenerator = javaClientGenerator.getMatchedXMLGenerator();
-		}
-
 		initializeAbstractGenerator(xmlMapperGenerator, warnings, progressCallback);
 	}
 
@@ -60,9 +50,7 @@ public class IntrospectedTableMyBatis3SimpleImpl extends IntrospectedTableMyBati
 		AbstractJavaClientGenerator javaGenerator;
 		if ("XMLMAPPER".equalsIgnoreCase(type)) {
 			javaGenerator = new SimpleJavaClientGenerator();
-		} else if ("ANNOTATEDMAPPER".equalsIgnoreCase(type)) {
-			javaGenerator = new SimpleAnnotatedClientGenerator();
-		} else if ("MAPPER".equalsIgnoreCase(type)) {
+		}  else if ("MAPPER".equalsIgnoreCase(type)) {
 			javaGenerator = new SimpleJavaClientGenerator();
 		} else {
 			javaGenerator = (AbstractJavaClientGenerator) ObjectFactory.createInternalObject(type);

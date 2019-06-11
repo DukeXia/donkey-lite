@@ -28,8 +28,6 @@ import org.donkeycode.codegen.api.dom.java.Interface;
 import org.donkeycode.codegen.api.dom.java.JavaVisibility;
 import org.donkeycode.codegen.config.PropertyRegistry;
 import org.donkeycode.codegen.generator.AbstractJavaClientGenerator;
-import org.donkeycode.codegen.generator.AbstractXmlGenerator;
-import org.donkeycode.codegen.generator.mybatis3.xmlmapper.XMLMapperGenerator;
 
 /**
  * @author Jeff Butler
@@ -83,8 +81,5 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
 		return null;
 	}
 
-	@Override
-	public AbstractXmlGenerator getMatchedXMLGenerator() {
-		return new XMLMapperGenerator();
-	}
+	 
 }

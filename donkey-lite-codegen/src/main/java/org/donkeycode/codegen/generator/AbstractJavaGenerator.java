@@ -28,6 +28,7 @@ import org.donkeycode.codegen.api.dom.java.TopLevelClass;
 import org.donkeycode.codegen.config.PropertyRegistry;
 
 public abstract class AbstractJavaGenerator extends AbstractGenerator {
+
 	public abstract List<CompilationUnit> getCompilationUnits();
 
 	public static Method getGetter(Field field) {
