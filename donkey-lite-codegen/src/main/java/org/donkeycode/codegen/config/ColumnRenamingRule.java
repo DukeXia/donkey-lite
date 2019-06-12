@@ -20,6 +20,8 @@ import static org.donkeycode.codegen.internal.util.messages.Messages.getString;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.donkeycode.codegen.api.dom.xml.Attribute;
 import org.donkeycode.codegen.api.dom.xml.XmlElement;
 
@@ -52,27 +54,13 @@ import org.donkeycode.codegen.api.dom.xml.XmlElement;
  * language used in Java.
  *
  * @author Jeff Butler
- *
  */
+@Getter
+@Setter
 public class ColumnRenamingRule {
     private String searchString;
     private String replaceString;
 
-    public String getReplaceString() {
-        return replaceString;
-    }
-
-    public void setReplaceString(String replaceString) {
-        this.replaceString = replaceString;
-    }
-
-    public String getSearchString() {
-        return searchString;
-    }
-
-    public void setSearchString(String searchString) {
-        this.searchString = searchString;
-    }
 
     public void validate(List<String> errors, String tableName) {
         if (!stringHasValue(searchString)) {
@@ -85,8 +73,7 @@ public class ColumnRenamingRule {
         xmlElement.addAttribute(new Attribute("searchString", searchString));
 
         if (replaceString != null) {
-            xmlElement.addAttribute(new Attribute(
-                "replaceString", replaceString));
+            xmlElement.addAttribute(new Attribute("replaceString", replaceString));
         }
 
         return xmlElement;

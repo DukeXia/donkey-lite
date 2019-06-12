@@ -31,113 +31,111 @@ import org.donkeycode.codegen.api.dom.xml.XmlElement;
  */
 public class IgnoredColumn {
 
-    /** The column name. */
-    protected String columnName;
+	/** The column name. */
+	protected String columnName;
 
-    /** The is column name delimited. */
-    private boolean isColumnNameDelimited;
+	/** The is column name delimited. */
+	private boolean isColumnNameDelimited;
 
-    /** The configured delimited column name. */
-    protected String configuredDelimitedColumnName;
+	/** The configured delimited column name. */
+	protected String configuredDelimitedColumnName;
 
-    /**
-     * Instantiates a new ignored column.
-     *
-     * @param columnName
-     *            the column name
-     */
-    public IgnoredColumn(String columnName) {
-        super();
-        this.columnName = columnName;
-        isColumnNameDelimited = stringContainsSpace(columnName);
-    }
+	/**
+	 * Instantiates a new ignored column.
+	 *
+	 * @param columnName
+	 *            the column name
+	 */
+	public IgnoredColumn(String columnName) {
+		super();
+		this.columnName = columnName;
+		isColumnNameDelimited = stringContainsSpace(columnName);
+	}
 
-    /**
-     * Gets the column name.
-     *
-     * @return the column name
-     */
-    public String getColumnName() {
-        return columnName;
-    }
+	/**
+	 * Gets the column name.
+	 *
+	 * @return the column name
+	 */
+	public String getColumnName() {
+		return columnName;
+	}
 
-    /**
-     * Checks if is column name delimited.
-     *
-     * @return true, if is column name delimited
-     */
-    public boolean isColumnNameDelimited() {
-        return isColumnNameDelimited;
-    }
+	/**
+	 * Checks if is column name delimited.
+	 *
+	 * @return true, if is column name delimited
+	 */
+	public boolean isColumnNameDelimited() {
+		return isColumnNameDelimited;
+	}
 
-    /**
-     * Sets the column name delimited.
-     *
-     * @param isColumnNameDelimited
-     *            the new column name delimited
-     */
-    public void setColumnNameDelimited(boolean isColumnNameDelimited) {
-        this.isColumnNameDelimited = isColumnNameDelimited;
-        configuredDelimitedColumnName = isColumnNameDelimited ? "true" : "false";  //$NON-NLS-2$
-    }
+	/**
+	 * Sets the column name delimited.
+	 *
+	 * @param isColumnNameDelimited
+	 *            the new column name delimited
+	 */
+	public void setColumnNameDelimited(boolean isColumnNameDelimited) {
+		this.isColumnNameDelimited = isColumnNameDelimited;
+		configuredDelimitedColumnName = isColumnNameDelimited ? "true" : "false";
+	}
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof IgnoredColumn)) {
-            return false;
-        }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof IgnoredColumn)) {
+			return false;
+		}
 
-        return columnName.equals(((IgnoredColumn) obj).getColumnName());
-    }
+		return columnName.equals(((IgnoredColumn) obj).getColumnName());
+	}
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return columnName.hashCode();
-    }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return columnName.hashCode();
+	}
 
-    /**
-     * To xml element.
-     *
-     * @return the xml element
-     */
-    public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("ignoreColumn");
-        xmlElement.addAttribute(new Attribute("column", columnName));
+	/**
+	 * To xml element.
+	 *
+	 * @return the xml element
+	 */
+	public XmlElement toXmlElement() {
+		XmlElement xmlElement = new XmlElement("ignoreColumn");
+		xmlElement.addAttribute(new Attribute("column", columnName));
 
-        if (stringHasValue(configuredDelimitedColumnName)) {
-            xmlElement.addAttribute(new Attribute(
-                "delimitedColumnName", configuredDelimitedColumnName));
-        }
+		if (stringHasValue(configuredDelimitedColumnName)) {
+			xmlElement.addAttribute(new Attribute("delimitedColumnName", configuredDelimitedColumnName));
+		}
 
-        return xmlElement;
-    }
+		return xmlElement;
+	}
 
-    /**
-     * Validate.
-     *
-     * @param errors
-     *            the errors
-     * @param tableName
-     *            the table name
-     */
-    public void validate(List<String> errors, String tableName) {
-        if (!stringHasValue(columnName)) {
-            errors.add(getString("ValidationError.21",
-                tableName));
-        }
-    }
+	/**
+	 * Validate.
+	 *
+	 * @param errors
+	 *            the errors
+	 * @param tableName
+	 *            the table name
+	 */
+	public void validate(List<String> errors, String tableName) {
+		if (!stringHasValue(columnName)) {
+			errors.add(getString("ValidationError.21", tableName));
+		}
+	}
 
-    public boolean matches(String columnName) {
-        if (isColumnNameDelimited) {
-            return this.columnName.equals(columnName);
-        } else {
-            return this.columnName.equalsIgnoreCase(columnName);
-        }
-    }
+	public boolean matches(String columnName) {
+		if (isColumnNameDelimited) {
+			return this.columnName.equals(columnName);
+		} else {
+			return this.columnName.equalsIgnoreCase(columnName);
+		}
+	}
 }

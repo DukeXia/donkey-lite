@@ -10,6 +10,7 @@
 
         <property name="javaFileEncoding" value="UTF-8"/>
         <property name="useMapperCommentGenerator" value="true"/>
+        <property name="schema" value="course"/>
 
         <plugin type="org.donkeycode.codegen.plugins.MapperPlugin">
             <property name="mappers" value="${mapper.Mapper}"/>

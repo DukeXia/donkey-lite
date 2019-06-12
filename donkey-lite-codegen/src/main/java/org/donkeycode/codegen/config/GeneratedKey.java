@@ -94,7 +94,7 @@ public class GeneratedKey {
     }
 
     public String getMyBatis3Order() {
-        return isIdentity ? "AFTER" : "BEFORE";  //$NON-NLS-2$
+        return isIdentity ? "AFTER" : "BEFORE";
     }
 
     public XmlElement toXmlElement() {
@@ -106,7 +106,7 @@ public class GeneratedKey {
             xmlElement.addAttribute(new Attribute("type", type));
         }
         xmlElement.addAttribute(new Attribute("identity",
-            isIdentity ? "true" : "false"));  //$NON-NLS-2$
+            isIdentity ? "true" : "false"));
 
         return xmlElement;
     }
@@ -119,7 +119,7 @@ public class GeneratedKey {
 
         if (stringHasValue(type)
             && !"pre".equals(type)
-            && !"post".equals(type)) {  //$NON-NLS-2$
+            && !"post".equals(type)) {
             errors.add(getString("ValidationError.15", tableName));
         }
 

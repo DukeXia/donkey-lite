@@ -1,7 +1,6 @@
 package org.donkeycode.codegen.internal.rules;
 
 import org.donkeycode.codegen.api.IntrospectedTable;
-import org.donkeycode.codegen.api.IntrospectedTable.TargetRuntime;
 import org.donkeycode.codegen.api.dom.java.FullyQualifiedJavaType;
 import org.donkeycode.codegen.config.PropertyRegistry;
 import org.donkeycode.codegen.config.TableConfiguration;
@@ -40,11 +39,7 @@ public abstract class BaseRules implements Rules {
 	 */
 	@Override
 	public boolean generateInsert() {
-		if (isModelOnly) {
-			return false;
-		}
-
-		return tableConfiguration.isInsertStatementEnabled();
+		return false;
 	}
 
 	/**
@@ -56,11 +51,7 @@ public abstract class BaseRules implements Rules {
 	 */
 	@Override
 	public boolean generateInsertSelective() {
-		if (isModelOnly) {
-			return false;
-		}
-
-		return tableConfiguration.isInsertStatementEnabled();
+		return false;
 	}
 
 	/**
@@ -105,9 +96,7 @@ public abstract class BaseRules implements Rules {
 			return false;
 		}
 
-		boolean rc = tableConfiguration.isUpdateByPrimaryKeyStatementEnabled() && introspectedTable.hasPrimaryKeyColumns() && (introspectedTable.hasBLOBColumns() || introspectedTable.hasBaseColumns());
-
-		return rc;
+		return false;
 	}
 
 	/**
@@ -124,9 +113,7 @@ public abstract class BaseRules implements Rules {
 			return false;
 		}
 
-		boolean rc = tableConfiguration.isDeleteByPrimaryKeyStatementEnabled() && introspectedTable.hasPrimaryKeyColumns();
-
-		return rc;
+		return false;
 	}
 
 	/**
@@ -142,9 +129,7 @@ public abstract class BaseRules implements Rules {
 			return false;
 		}
 
-		boolean rc = tableConfiguration.isDeleteByExampleStatementEnabled();
-
-		return rc;
+		return false;
 	}
 
 	/**
@@ -159,9 +144,7 @@ public abstract class BaseRules implements Rules {
 			return true;
 		}
 
-		boolean rc = tableConfiguration.isSelectByExampleStatementEnabled() || tableConfiguration.isSelectByPrimaryKeyStatementEnabled();
-
-		return rc;
+		return false;
 	}
 
 	/**
@@ -181,13 +164,7 @@ public abstract class BaseRules implements Rules {
 			return false;
 		}
 
-		boolean rc = tableConfiguration.isSelectByExampleStatementEnabled() || tableConfiguration.isDeleteByExampleStatementEnabled() || tableConfiguration.isCountByExampleStatementEnabled();
-
-		if (introspectedTable.getTargetRuntime() == TargetRuntime.IBATIS2) {
-			rc |= tableConfiguration.isUpdateByExampleStatementEnabled();
-		}
-
-		return rc;
+		return false;
 	}
 
 	/**
@@ -207,7 +184,7 @@ public abstract class BaseRules implements Rules {
 			return false;
 		}
 
-		return introspectedTable.getTargetRuntime() == TargetRuntime.MYBATIS3 && tableConfiguration.isUpdateByExampleStatementEnabled();
+		return false;
 	}
 
 	/**
@@ -224,9 +201,7 @@ public abstract class BaseRules implements Rules {
 			return false;
 		}
 
-		boolean rc = tableConfiguration.isSelectByPrimaryKeyStatementEnabled() && introspectedTable.hasPrimaryKeyColumns() && (introspectedTable.hasBaseColumns() || introspectedTable.hasBLOBColumns());
-
-		return rc;
+		return false;
 	}
 
 	@Override
@@ -235,9 +210,7 @@ public abstract class BaseRules implements Rules {
 			return false;
 		}
 
-		boolean rc = tableConfiguration.isCountByExampleStatementEnabled();
-
-		return rc;
+		return false;
 	}
 
 	@Override
@@ -260,7 +233,7 @@ public abstract class BaseRules implements Rules {
 			return false;
 		}
 
-		return introspectedTable.hasBLOBColumns() && (tableConfiguration.isSelectByExampleStatementEnabled() || tableConfiguration.isSelectByPrimaryKeyStatementEnabled());
+		return false;
 	}
 
 	@Override

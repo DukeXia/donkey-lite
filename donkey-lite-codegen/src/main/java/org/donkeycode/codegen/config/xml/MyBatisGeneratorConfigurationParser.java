@@ -253,56 +253,6 @@ public class MyBatisGeneratorConfigurationParser {
 			tc.setAlias(alias);
 		}
 
-		String enableInsert = attributes.getProperty("enableInsert");
-		if (stringHasValue(enableInsert)) {
-			tc.setInsertStatementEnabled(isTrue(enableInsert));
-		}
-
-		String enableSelectByPrimaryKey = attributes.getProperty("enableSelectByPrimaryKey");
-		if (stringHasValue(enableSelectByPrimaryKey)) {
-			tc.setSelectByPrimaryKeyStatementEnabled(isTrue(enableSelectByPrimaryKey));
-		}
-
-		String enableSelectByExample = attributes.getProperty("enableSelectByExample");
-		if (stringHasValue(enableSelectByExample)) {
-			tc.setSelectByExampleStatementEnabled(isTrue(enableSelectByExample));
-		}
-
-		String enableUpdateByPrimaryKey = attributes.getProperty("enableUpdateByPrimaryKey");
-		if (stringHasValue(enableUpdateByPrimaryKey)) {
-			tc.setUpdateByPrimaryKeyStatementEnabled(isTrue(enableUpdateByPrimaryKey));
-		}
-
-		String enableDeleteByPrimaryKey = attributes.getProperty("enableDeleteByPrimaryKey");
-		if (stringHasValue(enableDeleteByPrimaryKey)) {
-			tc.setDeleteByPrimaryKeyStatementEnabled(isTrue(enableDeleteByPrimaryKey));
-		}
-
-		String enableDeleteByExample = attributes.getProperty("enableDeleteByExample");
-		if (stringHasValue(enableDeleteByExample)) {
-			tc.setDeleteByExampleStatementEnabled(isTrue(enableDeleteByExample));
-		}
-
-		String enableCountByExample = attributes.getProperty("enableCountByExample");
-		if (stringHasValue(enableCountByExample)) {
-			tc.setCountByExampleStatementEnabled(isTrue(enableCountByExample));
-		}
-
-		String enableUpdateByExample = attributes.getProperty("enableUpdateByExample");
-		if (stringHasValue(enableUpdateByExample)) {
-			tc.setUpdateByExampleStatementEnabled(isTrue(enableUpdateByExample));
-		}
-
-		String selectByPrimaryKeyQueryId = attributes.getProperty("selectByPrimaryKeyQueryId");
-		if (stringHasValue(selectByPrimaryKeyQueryId)) {
-			tc.setSelectByPrimaryKeyQueryId(selectByPrimaryKeyQueryId);
-		}
-
-		String selectByExampleQueryId = attributes.getProperty("selectByExampleQueryId");
-		if (stringHasValue(selectByExampleQueryId)) {
-			tc.setSelectByExampleQueryId(selectByExampleQueryId);
-		}
-
 		String modelType = attributes.getProperty("modelType");
 		if (stringHasValue(modelType)) {
 			tc.setConfiguredModelType(modelType);

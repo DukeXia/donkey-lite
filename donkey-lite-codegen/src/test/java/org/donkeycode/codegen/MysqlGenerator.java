@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package io.donkeycode.generator;
+package org.donkeycode.codegen;
 
 import java.io.IOException;
 import java.io.InputStream;

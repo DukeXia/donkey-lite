@@ -103,7 +103,7 @@ public class InitializationBlock {
             OutputUtilities.javaIndent(sb, indentLevel);
             sb.append(line);
 
-            if ((line.endsWith("{") && !line.startsWith("switch"))  //$NON-NLS-2$
+            if ((line.endsWith("{") && !line.startsWith("switch"))
                 || line.endsWith(":")) {
                 indentLevel++;
             }

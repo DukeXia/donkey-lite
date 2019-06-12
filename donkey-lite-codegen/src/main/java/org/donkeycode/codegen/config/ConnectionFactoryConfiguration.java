@@ -33,11 +33,11 @@ public class ConnectionFactoryConfiguration extends TypedPropertyHolder {
     public void validate(List<String> errors) {
         if (getConfigurationType() == null || "DEFAULT".equals(getConfigurationType())) {
             if (!StringUtility.stringHasValue(getProperty("driverClass"))) {
-                errors.add(getString("ValidationError.18", "connectionFactory", "driverClass"));  //$NON-NLS-2$ //$NON-NLS-3$
+                errors.add(getString("ValidationError.18", "connectionFactory", "driverClass"));   //$NON-NLS-3$
             }
 
             if (!StringUtility.stringHasValue(getProperty("connectionURL"))) {
-                errors.add(getString("ValidationError.18", "connectionFactory", "connectionURL"));  //$NON-NLS-2$ //$NON-NLS-3$
+                errors.add(getString("ValidationError.18", "connectionFactory", "connectionURL"));   //$NON-NLS-3$
             }
         }
     }

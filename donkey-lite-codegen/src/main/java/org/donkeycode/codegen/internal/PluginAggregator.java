@@ -173,34 +173,6 @@ public final class PluginAggregator implements Plugin {
 	}
 
 	@Override
-	public boolean clientSelectAllMethodGenerated(Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-		boolean rc = true;
-
-		for (Plugin plugin : plugins) {
-			if (!plugin.clientSelectAllMethodGenerated(method, topLevelClass, introspectedTable)) {
-				rc = false;
-				break;
-			}
-		}
-
-		return rc;
-	}
-
-	@Override
-	public boolean clientSelectAllMethodGenerated(Method method, Interface interfaze, IntrospectedTable introspectedTable) {
-		boolean rc = true;
-
-		for (Plugin plugin : plugins) {
-			if (!plugin.clientSelectAllMethodGenerated(method, interfaze, introspectedTable)) {
-				rc = false;
-				break;
-			}
-		}
-
-		return rc;
-	}
-
-	@Override
 	public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
 		boolean rc = true;
 

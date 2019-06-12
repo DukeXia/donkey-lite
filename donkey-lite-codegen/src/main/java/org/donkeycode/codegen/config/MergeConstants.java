@@ -31,7 +31,7 @@ public class MergeConstants {
     }
 
     public static final String[] OLD_XML_ELEMENT_PREFIXES = {
-        "ibatorgenerated_", "abatorgenerated_"};  //$NON-NLS-2$
+        "ibatorgenerated_", "abatorgenerated_"};
 
     public static final String NEW_ELEMENT_TAG = "@mbg.generated";
     public static final String[] OLD_ELEMENT_TAGS = {

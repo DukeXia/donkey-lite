@@ -110,14 +110,6 @@ public abstract class IntrospectedTable {
 		return fullyQualifiedTable;
 	}
 
-	public String getSelectByExampleQueryId() {
-		return tableConfiguration.getSelectByExampleQueryId();
-	}
-
-	public String getSelectByPrimaryKeyQueryId() {
-		return tableConfiguration.getSelectByPrimaryKeyQueryId();
-	}
-
 	public GeneratedKey getGeneratedKey() {
 		return tableConfiguration.getGeneratedKey();
 	}

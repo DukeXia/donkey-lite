@@ -24,20 +24,20 @@ import org.donkeycode.codegen.api.dom.xml.XmlElement;
  */
 public class CommentGeneratorConfiguration extends TypedPropertyHolder {
 
-    /**
-     *
-     */
-    public CommentGeneratorConfiguration() {
-    }
+	/**
+	 *
+	 */
+	public CommentGeneratorConfiguration() {
+	}
 
-    public XmlElement toXmlElement() {
-        XmlElement answer = new XmlElement("commentGenerator");
-        if (getConfigurationType() != null) {
-            answer.addAttribute(new Attribute("type", getConfigurationType()));
-        }
+	public XmlElement toXmlElement() {
+		XmlElement answer = new XmlElement("commentGenerator");
+		if (getConfigurationType() != null) {
+			answer.addAttribute(new Attribute("type", getConfigurationType()));
+		}
 
-        addPropertyXmlElements(answer);
+		addPropertyXmlElements(answer);
 
-        return answer;
-    }
+		return answer;
+	}
 }
