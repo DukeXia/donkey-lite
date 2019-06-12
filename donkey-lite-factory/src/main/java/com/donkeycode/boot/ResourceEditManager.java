@@ -14,7 +14,7 @@ import com.donkeycode.boot.pubinterface.info.LinkedInfo;
 import com.donkeycode.boot.pubinterface.info.LogInfo;
 import com.donkeycode.core.LiteConstants;
 import com.donkeycode.core.utils.ObjectUtils;
-import com.donkeycode.core.utils.JsonUtils;
+import com.donkeycode.core.utils.JSONUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,7 +43,7 @@ public class ResourceEditManager {
 
         Validate.notBlank(resourceType, "resourceType is null.");
 
-        if (!JsonUtils.isJson(beanJson)) {
+        if (!JSONUtils.isJson(beanJson)) {
             throw new IllegalArgumentException("接口参数beanjson非法数据格式，合法为Json格式的数据.");
         }
         log.debug("ResourceManager.add  资源类别：" + resourceType + "  DataJson:" + beanJson);
@@ -79,7 +79,7 @@ public class ResourceEditManager {
     public LinkedInfo modify(String resourceType, String beanJson, String operateType) {
         Validate.notBlank(resourceType, "resourceType is null.");
 
-        if (!JsonUtils.isJson(beanJson)) {
+        if (!JSONUtils.isJson(beanJson)) {
             throw new IllegalArgumentException("接口参数beanjson非法数据格式，合法为Json格式的数据.");
         }
 
@@ -105,7 +105,7 @@ public class ResourceEditManager {
     public LinkedInfo delete(String resourceType, String idsJson, String operateType) {
         Validate.notBlank(resourceType, "resourceType is null.");
 
-        if (!JsonUtils.isJson(idsJson)) {
+        if (!JSONUtils.isJson(idsJson)) {
             throw new IllegalArgumentException("接口参数idsJson非法数据格式，合法为Json格式的数据.");
         }
         log.debug("ResourceManager.deletes  资源类别：" + resourceType + "  IDS:" + idsJson);

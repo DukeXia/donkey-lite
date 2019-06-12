@@ -1,4 +1,4 @@
-package com.donkeycode.core.utils;
+package com.donkeycode.core.seqno;
 
 import java.util.UUID;
 

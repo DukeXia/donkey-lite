@@ -1,4 +1,4 @@
-package com.donkeycode.core.sequence;
+package com.donkeycode.core.seqno;
 
 /**
  * Twitter_Snowflake<br>
@@ -169,14 +169,5 @@ public class SnowflakeIdWorker {
         return System.currentTimeMillis();
     }
 
-    // ==============================Test=============================================
-
-    // public static void main(String[] args) {
-    // SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
-    // for (int i = 0; i < 1000000; i++) {
-    // long id = idWorker.nextId();
-    // System.out.println(Long.toBinaryString(id));
-    // System.out.println(id);
-    // }
-    // }
+   
 }

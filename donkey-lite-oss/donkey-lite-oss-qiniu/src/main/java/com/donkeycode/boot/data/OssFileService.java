@@ -17,7 +17,7 @@ import com.donkeycode.boot.config.OssConfigProperties;
 import com.donkeycode.boot.data.domain.OssFile;
 import com.donkeycode.core.utils.CollectionUtils;
 import com.donkeycode.core.page.PageFilter;
-import com.donkeycode.core.utils.UUIDUtils;
+import com.donkeycode.core.seqno.UUIDUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 

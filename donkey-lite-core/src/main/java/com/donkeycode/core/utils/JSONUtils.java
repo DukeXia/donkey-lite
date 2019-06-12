@@ -12,7 +12,7 @@ import java.util.Map;
  * @author donkey
  * @since 0.0.1
  */
-public class JsonUtils {
+public class JSONUtils {
 
     /**
      * 判断是否JSON对象

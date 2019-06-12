@@ -734,7 +734,7 @@ public final class CollectionUtils extends org.springframework.util.CollectionUt
      * @param bean bean对象
      * @return Map
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Map toMap(Object bean) {
         Objects.requireNonNull(bean, "Param bean is null");
         BeanMap beanMap = BeanMap.create(bean);
