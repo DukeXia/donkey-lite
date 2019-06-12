@@ -56,13 +56,5 @@ public class FlatModelRules extends BaseRules {
         return true;
     }
 
-    /**
-     * We never generate a record with BLOBs class in the flat model.
-     *
-     * @return true if the record with BLOBs class should be generated
-     */
-    @Override
-    public boolean generateRecordWithBLOBsClass() {
-        return false;
-    }
+  
 }

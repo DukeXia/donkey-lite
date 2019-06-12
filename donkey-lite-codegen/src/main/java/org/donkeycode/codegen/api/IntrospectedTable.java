@@ -29,14 +29,11 @@ import org.donkeycode.codegen.config.Context;
 import org.donkeycode.codegen.config.GeneratedKey;
 import org.donkeycode.codegen.config.JavaClientGeneratorConfiguration;
 import org.donkeycode.codegen.config.JavaModelGeneratorConfiguration;
-import org.donkeycode.codegen.config.ModelType;
 import org.donkeycode.codegen.config.PropertyHolder;
 import org.donkeycode.codegen.config.PropertyRegistry;
 import org.donkeycode.codegen.config.SqlMapGeneratorConfiguration;
 import org.donkeycode.codegen.config.TableConfiguration;
-import org.donkeycode.codegen.internal.rules.ConditionalModelRules;
 import org.donkeycode.codegen.internal.rules.FlatModelRules;
-import org.donkeycode.codegen.internal.rules.HierarchicalModelRules;
 import org.donkeycode.codegen.internal.rules.Rules;
 
 /**
@@ -251,23 +248,6 @@ public abstract class IntrospectedTable {
 		return answer;
 	}
 
-	/**
-	 * Returns all columns except BLOBs (for use by the select by example without BLOBs method).
-	 *
-	 * @return a List of ColumnDefinition objects for columns in the table that are non BLOBs
-	 */
-	public List<IntrospectedColumn> getNonBLOBColumns() {
-		List<IntrospectedColumn> answer = new ArrayList<IntrospectedColumn>();
-		answer.addAll(primaryKeyColumns);
-		answer.addAll(baseColumns);
-
-		return answer;
-	}
-
-	public int getNonBLOBColumnCount() {
-		return primaryKeyColumns.size() + baseColumns.size();
-	}
-
 	public List<IntrospectedColumn> getNonPrimaryKeyColumns() {
 		List<IntrospectedColumn> answer = new ArrayList<IntrospectedColumn>();
 		answer.addAll(baseColumns);
@@ -327,21 +307,6 @@ public abstract class IntrospectedTable {
 	 */
 	public String getRecordWithBLOBsType() {
 		return internalAttributes.get(InternalAttribute.ATTR_RECORD_WITH_BLOBS_TYPE);
-	}
-
-	/**
-	 * Calculates an SQL Map file name for the table. Typically the name is
-	 * "XXXX_SqlMap.xml" where XXXX is the fully qualified table name (delimited
-	 * with underscores).
-	 *
-	 * @return the name of the SqlMap file
-	 */
-	public String getIbatis2SqlMapFileName() {
-		return internalAttributes.get(InternalAttribute.ATTR_IBATIS2_SQL_MAP_FILE_NAME);
-	}
-
-	public String getIbatis2SqlMapNamespace() {
-		return internalAttributes.get(InternalAttribute.ATTR_IBATIS2_SQL_MAP_NAMESPACE);
 	}
 
 	public String getMyBatis3SqlMapNamespace() {
@@ -446,150 +411,31 @@ public abstract class IntrospectedTable {
 		calculateModelAttributes();
 		calculateXmlAttributes();
 
-		if (tableConfiguration.getModelType() == ModelType.HIERARCHICAL) {
-			rules = new HierarchicalModelRules(this);
-		} else if (tableConfiguration.getModelType() == ModelType.FLAT) {
-			rules = new FlatModelRules(this);
-		} else {
-			rules = new ConditionalModelRules(this);
-		}
-
+		rules = new FlatModelRules(this);
 		context.getPlugins().initialized(this);
 	}
 
 	protected void calculateXmlAttributes() {
-		setIbatis2SqlMapPackage(calculateSqlMapPackage());
-		setIbatis2SqlMapFileName(calculateIbatis2SqlMapFileName());
 		setMyBatis3XmlMapperFileName(calculateMyBatis3XmlMapperFileName());
 		setMyBatis3XmlMapperPackage(calculateSqlMapPackage());
 
-		setIbatis2SqlMapNamespace(calculateIbatis2SqlMapNamespace());
 		setMyBatis3FallbackSqlMapNamespace(calculateMyBatis3FallbackSqlMapNamespace());
 
 		setSqlMapFullyQualifiedRuntimeTableName(calculateSqlMapFullyQualifiedRuntimeTableName());
 		setSqlMapAliasedFullyQualifiedRuntimeTableName(calculateSqlMapAliasedFullyQualifiedRuntimeTableName());
-
-		setCountByExampleStatementId("countByExample");
-		setDeleteByExampleStatementId("deleteByExample");
-		setDeleteByPrimaryKeyStatementId("deleteByPrimaryKey");
-		setInsertStatementId("insert");
-		setInsertSelectiveStatementId("insertSelective");
-		setSelectAllStatementId("selectAll");
-		setSelectByExampleStatementId("selectByExample");
-		setSelectByExampleWithBLOBsStatementId("selectByExampleWithBLOBs");
-		setSelectByPrimaryKeyStatementId("selectByPrimaryKey");
-		setUpdateByExampleStatementId("updateByExample");
-		setUpdateByExampleSelectiveStatementId("updateByExampleSelective");
-		setUpdateByExampleWithBLOBsStatementId("updateByExampleWithBLOBs");
-		setUpdateByPrimaryKeyStatementId("updateByPrimaryKey");
-		setUpdateByPrimaryKeySelectiveStatementId("updateByPrimaryKeySelective");
-		setUpdateByPrimaryKeyWithBLOBsStatementId("updateByPrimaryKeyWithBLOBs");
-		setBaseResultMapId("BaseResultMap");
-		setResultMapWithBLOBsId("ResultMapWithBLOBs");
-		setExampleWhereClauseId("Example_Where_Clause");
 		setBaseColumnListId("Base_Column_List");
-		setBlobColumnListId("Blob_Column_List");
-		setMyBatis3UpdateByExampleWhereClauseId("Update_By_Example_Where_Clause");
-	}
-
-	public void setBlobColumnListId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_BLOB_COLUMN_LIST_ID, s);
 	}
 
 	public void setBaseColumnListId(String s) {
 		internalAttributes.put(InternalAttribute.ATTR_BASE_COLUMN_LIST_ID, s);
 	}
 
-	public void setExampleWhereClauseId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_EXAMPLE_WHERE_CLAUSE_ID, s);
-	}
-
-	public void setMyBatis3UpdateByExampleWhereClauseId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_MYBATIS3_UPDATE_BY_EXAMPLE_WHERE_CLAUSE_ID, s);
-	}
-
-	public void setResultMapWithBLOBsId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_RESULT_MAP_WITH_BLOBS_ID, s);
-	}
-
 	public void setBaseResultMapId(String s) {
 		internalAttributes.put(InternalAttribute.ATTR_BASE_RESULT_MAP_ID, s);
 	}
 
-	public void setUpdateByPrimaryKeyWithBLOBsStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_UPDATE_BY_PRIMARY_KEY_WITH_BLOBS_STATEMENT_ID, s);
-	}
-
-	public void setUpdateByPrimaryKeySelectiveStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_UPDATE_BY_PRIMARY_KEY_SELECTIVE_STATEMENT_ID, s);
-	}
-
-	public void setUpdateByPrimaryKeyStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_UPDATE_BY_PRIMARY_KEY_STATEMENT_ID, s);
-	}
-
-	public void setUpdateByExampleWithBLOBsStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_UPDATE_BY_EXAMPLE_WITH_BLOBS_STATEMENT_ID, s);
-	}
-
-	public void setUpdateByExampleSelectiveStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_UPDATE_BY_EXAMPLE_SELECTIVE_STATEMENT_ID, s);
-	}
-
-	public void setUpdateByExampleStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_UPDATE_BY_EXAMPLE_STATEMENT_ID, s);
-	}
-
-	public void setSelectByPrimaryKeyStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_SELECT_BY_PRIMARY_KEY_STATEMENT_ID, s);
-	}
-
-	public void setSelectByExampleWithBLOBsStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_SELECT_BY_EXAMPLE_WITH_BLOBS_STATEMENT_ID, s);
-	}
-
-	public void setSelectAllStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_SELECT_ALL_STATEMENT_ID, s);
-	}
-
-	public void setSelectByExampleStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_SELECT_BY_EXAMPLE_STATEMENT_ID, s);
-	}
-
-	public void setInsertSelectiveStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_INSERT_SELECTIVE_STATEMENT_ID, s);
-	}
-
-	public void setInsertStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_INSERT_STATEMENT_ID, s);
-	}
-
-	public void setDeleteByPrimaryKeyStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_DELETE_BY_PRIMARY_KEY_STATEMENT_ID, s);
-	}
-
-	public void setDeleteByExampleStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_DELETE_BY_EXAMPLE_STATEMENT_ID, s);
-	}
-
-	public void setCountByExampleStatementId(String s) {
-		internalAttributes.put(InternalAttribute.ATTR_COUNT_BY_EXAMPLE_STATEMENT_ID, s);
-	}
-
-	public String getBlobColumnListId() {
-		return internalAttributes.get(InternalAttribute.ATTR_BLOB_COLUMN_LIST_ID);
-	}
-
 	public String getBaseColumnListId() {
 		return internalAttributes.get(InternalAttribute.ATTR_BASE_COLUMN_LIST_ID);
-	}
-
-	public String getExampleWhereClauseId() {
-		return internalAttributes.get(InternalAttribute.ATTR_EXAMPLE_WHERE_CLAUSE_ID);
-	}
-
-	public String getMyBatis3UpdateByExampleWhereClauseId() {
-		return internalAttributes.get(InternalAttribute.ATTR_MYBATIS3_UPDATE_BY_EXAMPLE_WHERE_CLAUSE_ID);
 	}
 
 	public String getResultMapWithBLOBsId() {
@@ -598,66 +444,6 @@ public abstract class IntrospectedTable {
 
 	public String getBaseResultMapId() {
 		return internalAttributes.get(InternalAttribute.ATTR_BASE_RESULT_MAP_ID);
-	}
-
-	public String getUpdateByPrimaryKeyWithBLOBsStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_UPDATE_BY_PRIMARY_KEY_WITH_BLOBS_STATEMENT_ID);
-	}
-
-	public String getUpdateByPrimaryKeySelectiveStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_UPDATE_BY_PRIMARY_KEY_SELECTIVE_STATEMENT_ID);
-	}
-
-	public String getUpdateByPrimaryKeyStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_UPDATE_BY_PRIMARY_KEY_STATEMENT_ID);
-	}
-
-	public String getUpdateByExampleWithBLOBsStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_UPDATE_BY_EXAMPLE_WITH_BLOBS_STATEMENT_ID);
-	}
-
-	public String getUpdateByExampleSelectiveStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_UPDATE_BY_EXAMPLE_SELECTIVE_STATEMENT_ID);
-	}
-
-	public String getUpdateByExampleStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_UPDATE_BY_EXAMPLE_STATEMENT_ID);
-	}
-
-	public String getSelectByPrimaryKeyStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_SELECT_BY_PRIMARY_KEY_STATEMENT_ID);
-	}
-
-	public String getSelectByExampleWithBLOBsStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_SELECT_BY_EXAMPLE_WITH_BLOBS_STATEMENT_ID);
-	}
-
-	public String getSelectAllStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_SELECT_ALL_STATEMENT_ID);
-	}
-
-	public String getSelectByExampleStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_SELECT_BY_EXAMPLE_STATEMENT_ID);
-	}
-
-	public String getInsertSelectiveStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_INSERT_SELECTIVE_STATEMENT_ID);
-	}
-
-	public String getInsertStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_INSERT_STATEMENT_ID);
-	}
-
-	public String getDeleteByPrimaryKeyStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_DELETE_BY_PRIMARY_KEY_STATEMENT_ID);
-	}
-
-	public String getDeleteByExampleStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_DELETE_BY_EXAMPLE_STATEMENT_ID);
-	}
-
-	public String getCountByExampleStatementId() {
-		return internalAttributes.get(InternalAttribute.ATTR_COUNT_BY_EXAMPLE_STATEMENT_ID);
 	}
 
 	protected String calculateJavaClientImplementationPackage() {
@@ -957,18 +743,6 @@ public abstract class IntrospectedTable {
 
 	public void setExampleType(String exampleType) {
 		internalAttributes.put(InternalAttribute.ATTR_EXAMPLE_TYPE, exampleType);
-	}
-
-	public void setIbatis2SqlMapPackage(String sqlMapPackage) {
-		internalAttributes.put(InternalAttribute.ATTR_IBATIS2_SQL_MAP_PACKAGE, sqlMapPackage);
-	}
-
-	public void setIbatis2SqlMapFileName(String sqlMapFileName) {
-		internalAttributes.put(InternalAttribute.ATTR_IBATIS2_SQL_MAP_FILE_NAME, sqlMapFileName);
-	}
-
-	public void setIbatis2SqlMapNamespace(String sqlMapNamespace) {
-		internalAttributes.put(InternalAttribute.ATTR_IBATIS2_SQL_MAP_NAMESPACE, sqlMapNamespace);
 	}
 
 	public void setMyBatis3FallbackSqlMapNamespace(String sqlMapNamespace) {

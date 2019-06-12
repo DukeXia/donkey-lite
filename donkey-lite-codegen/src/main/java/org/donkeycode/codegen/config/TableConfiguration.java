@@ -19,7 +19,6 @@ import static org.donkeycode.codegen.internal.util.EqualsUtil.areEqual;
 import static org.donkeycode.codegen.internal.util.HashCodeUtil.SEED;
 import static org.donkeycode.codegen.internal.util.HashCodeUtil.hash;
 import static org.donkeycode.codegen.internal.util.StringUtility.composeFullyQualifiedTableName;
-import static org.donkeycode.codegen.internal.util.StringUtility.isTrue;
 import static org.donkeycode.codegen.internal.util.StringUtility.stringHasValue;
 import static org.donkeycode.codegen.internal.util.messages.Messages.getString;
 
@@ -57,7 +56,6 @@ public class TableConfiguration extends PropertyHolder {
 	private String mapperName;
 	private String sqlProviderName;
 
-	private List<IgnoredColumnPattern> ignoredColumnPatterns = new ArrayList<IgnoredColumnPattern>();
 
 	public TableConfiguration(Context context) {
 		super();
@@ -76,11 +74,6 @@ public class TableConfiguration extends PropertyHolder {
 			}
 		}
 
-		for (IgnoredColumnPattern ignoredColumnPattern : ignoredColumnPatterns) {
-			if (ignoredColumnPattern.matches(columnName)) {
-				return true;
-			}
-		}
 
 		return false;
 	}
@@ -89,9 +82,7 @@ public class TableConfiguration extends PropertyHolder {
 		ignoredColumns.put(ignoredColumn, Boolean.FALSE);
 	}
 
-	public void addIgnoredColumnPattern(IgnoredColumnPattern ignoredColumnPattern) {
-		ignoredColumnPatterns.add(ignoredColumnPattern);
-	}
+
 
 	public void addColumnOverride(ColumnOverride columnOverride) {
 		columnOverrides.add(columnOverride);
@@ -298,10 +289,7 @@ public class TableConfiguration extends PropertyHolder {
 			}
 		}
 
-		for (IgnoredColumnPattern ignoredColumnPattern : ignoredColumnPatterns) {
-			xmlElement.addElement(ignoredColumnPattern.toXmlElement());
-		}
-
+	
 		if (columnOverrides.size() > 0) {
 			for (ColumnOverride columnOverride : columnOverrides) {
 				xmlElement.addElement(columnOverride.toXmlElement());
@@ -354,9 +342,7 @@ public class TableConfiguration extends PropertyHolder {
 			ignoredColumn.validate(errors, fqTableName);
 		}
 
-		for (IgnoredColumnPattern ignoredColumnPattern : ignoredColumnPatterns) {
-			ignoredColumnPattern.validate(errors, fqTableName);
-		}
+	
 	}
 
 	public DomainObjectRenamingRule getDomainObjectRenamingRule() {

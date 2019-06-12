@@ -46,8 +46,6 @@ import org.donkeycode.codegen.config.Context;
 import org.donkeycode.codegen.config.DomainObjectRenamingRule;
 import org.donkeycode.codegen.config.GeneratedKey;
 import org.donkeycode.codegen.config.IgnoredColumn;
-import org.donkeycode.codegen.config.IgnoredColumnException;
-import org.donkeycode.codegen.config.IgnoredColumnPattern;
 import org.donkeycode.codegen.config.JDBCConnectionConfiguration;
 import org.donkeycode.codegen.config.JavaClientGeneratorConfiguration;
 import org.donkeycode.codegen.config.JavaModelGeneratorConfiguration;
@@ -297,8 +295,6 @@ public class MyBatisGeneratorConfigurationParser {
 				parseColumnOverride(tc, childNode);
 			} else if ("ignoreColumn".equals(childNode.getNodeName())) {
 				parseIgnoreColumn(tc, childNode);
-			} else if ("ignoreColumnsByRegex".equals(childNode.getNodeName())) {
-				parseIgnoreColumnByRegex(tc, childNode);
 			} else if ("generatedKey".equals(childNode.getNodeName())) {
 				parseGeneratedKey(tc, childNode);
 			} else if ("domainObjectRenamingRule".equals(childNode.getNodeName())) {
@@ -388,41 +384,9 @@ public class MyBatisGeneratorConfigurationParser {
 		tc.addIgnoredColumn(ic);
 	}
 
-	private void parseIgnoreColumnByRegex(TableConfiguration tc, Node node) {
-		Properties attributes = parseAttributes(node);
-		String pattern = attributes.getProperty("pattern");
+	
 
-		IgnoredColumnPattern icPattern = new IgnoredColumnPattern(pattern);
 
-		NodeList nodeList = node.getChildNodes();
-		for (int i = 0; i < nodeList.getLength(); i++) {
-			Node childNode = nodeList.item(i);
-
-			if (childNode.getNodeType() != Node.ELEMENT_NODE) {
-				continue;
-			}
-
-			if ("except".equals(childNode.getNodeName())) {
-				parseException(icPattern, childNode);
-			}
-		}
-
-		tc.addIgnoredColumnPattern(icPattern);
-	}
-
-	private void parseException(IgnoredColumnPattern icPattern, Node node) {
-		Properties attributes = parseAttributes(node);
-		String column = attributes.getProperty("column");
-		String delimitedColumnName = attributes.getProperty("delimitedColumnName");
-
-		IgnoredColumnException exception = new IgnoredColumnException(column);
-
-		if (stringHasValue(delimitedColumnName)) {
-			exception.setColumnNameDelimited(isTrue(delimitedColumnName));
-		}
-
-		icPattern.addException(exception);
-	}
 
 	private void parseDomainObjectRenamingRule(TableConfiguration tc, Node node) {
 		Properties attributes = parseAttributes(node);
