@@ -80,11 +80,4 @@ public abstract class GeneratedFile {
     public String toString() {
         return getFormattedContent();
     }
-
-    /**
-     * Checks if is mergeable.
-     *
-     * @return true, if is mergeable
-     */
-    public abstract boolean isMergeable();
 }

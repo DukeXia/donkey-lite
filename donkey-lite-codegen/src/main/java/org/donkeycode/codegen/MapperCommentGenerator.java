@@ -31,10 +31,17 @@ import java.util.Set;
 import org.donkeycode.codegen.api.CommentGenerator;
 import org.donkeycode.codegen.api.IntrospectedColumn;
 import org.donkeycode.codegen.api.IntrospectedTable;
-import org.donkeycode.codegen.api.dom.java.*;
+import org.donkeycode.codegen.api.dom.java.CompilationUnit;
+import org.donkeycode.codegen.api.dom.java.Field;
+import org.donkeycode.codegen.api.dom.java.FullyQualifiedJavaType;
+import org.donkeycode.codegen.api.dom.java.InnerClass;
+import org.donkeycode.codegen.api.dom.java.InnerEnum;
+import org.donkeycode.codegen.api.dom.java.JavaElement;
+import org.donkeycode.codegen.api.dom.java.Method;
+import org.donkeycode.codegen.api.dom.java.Parameter;
+import org.donkeycode.codegen.api.dom.java.TopLevelClass;
 import org.donkeycode.codegen.api.dom.xml.TextElement;
 import org.donkeycode.codegen.api.dom.xml.XmlElement;
-import org.donkeycode.codegen.config.MergeConstants;
 import org.donkeycode.codegen.internal.util.StringUtility;
 
 public class MapperCommentGenerator implements CommentGenerator {
@@ -64,7 +71,6 @@ public class MapperCommentGenerator implements CommentGenerator {
         xmlElement.addElement(new TextElement("<!--"));
         StringBuilder sb = new StringBuilder();
         sb.append("  WARNING - ");
-        sb.append(MergeConstants.NEW_ELEMENT_TAG);
         xmlElement.addElement(new TextElement(sb.toString()));
         xmlElement.addElement(new TextElement("-->"));
     }
@@ -107,7 +113,6 @@ public class MapperCommentGenerator implements CommentGenerator {
     protected void addJavadocTag(JavaElement javaElement, boolean markAsDoNotDelete) {
         StringBuilder sb = new StringBuilder();
         sb.append(" * ");
-        sb.append(MergeConstants.NEW_ELEMENT_TAG);
         if (markAsDoNotDelete) {
             sb.append(" do_not_delete_during_merge");
         }

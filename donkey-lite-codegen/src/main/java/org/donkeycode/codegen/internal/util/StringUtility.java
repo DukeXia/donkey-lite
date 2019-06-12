@@ -15,6 +15,8 @@
  */
 package org.donkeycode.codegen.internal.util;
 
+import com.donkeycode.core.utils.StringUtils;
+
 import java.util.StringTokenizer;
 
 /**
@@ -31,7 +33,7 @@ public class StringUtility {
 	}
 
 	public static boolean stringHasValue(String s) {
-		return s != null && s.length() > 0;
+		return StringUtils.isNotEmpty(s);
 	}
 
 	public static String composeFullyQualifiedTableName(String catalog, String schema, String tableName, char separator) {

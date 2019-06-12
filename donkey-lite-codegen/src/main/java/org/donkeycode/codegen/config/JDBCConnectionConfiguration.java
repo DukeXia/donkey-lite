@@ -24,6 +24,7 @@ import org.donkeycode.codegen.api.dom.xml.Attribute;
 import org.donkeycode.codegen.api.dom.xml.XmlElement;
 
 /**
+ *	数据库链接配置
  *
  * @author Jeff Butler
  */

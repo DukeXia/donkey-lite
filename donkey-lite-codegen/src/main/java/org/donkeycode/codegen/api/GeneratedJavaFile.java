@@ -88,16 +88,6 @@ public class GeneratedJavaFile extends GeneratedFile {
 	}
 
 	/**
-	 * A Java file is mergeable if the getCompilationUnit() method returns a valid compilation unit.
-	 *
-	 * @return true, if is mergeable
-	 */
-	@Override
-	public boolean isMergeable() {
-		return true;
-	}
-
-	/**
 	 * Gets the file encoding.
 	 *
 	 * @return the file encoding
