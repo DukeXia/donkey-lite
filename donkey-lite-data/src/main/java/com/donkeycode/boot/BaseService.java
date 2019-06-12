@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.donkeycode.core.utils.CollectionUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -54,6 +55,9 @@ public abstract class BaseService<T> implements IBaseService<T> {
 
     @Override
     public int insertList(List<T> entitys) {
+        if (CollectionUtils.isEmpty(entitys)) {
+            return 0;
+        }
         return mapper.insertList(entitys);
     }
 
@@ -64,6 +68,9 @@ public abstract class BaseService<T> implements IBaseService<T> {
 
     @Override
     public int deleteByPrimaryKeys(List<?> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return 0;
+        }
         String joinId = ids.stream().map(id -> id.toString()).collect(Collectors.joining(","));
         log.debug("delete resouce ids:{}", joinId);
         return mapper.deleteByIds(joinId);

@@ -92,28 +92,6 @@
         </plugin>
 
 
-        <!--测试输出单个文件，每个表都会生成一个对应的文件
-        <plugin type="org.mybatis.generator.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
-            <property name="targetPackage" value="test.one"/>
-            <property name="templatePath" value="generator/test-one.ftl"/>
-            <property name="fileName" value="${tableClass.shortClassName}Test.txt"/>
-            默认值是下面这个，可以不配置
-            <property name="templateFormatter" value="tk.mybatis.mapper.generator.formatter.FreemarkerTemplateFormatter"/>
-        </plugin>
-        -->
-
-
-        <!--测试输出整个文件，所有表都可用，一次只生成一个文件，用于聚合所有表使用
-        <plugin type="org.mybatis.generator.plugins.TemplateFilePlugin">
-            <property name="singleMode" value="false"/>
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
-            <property name="targetPackage" value="test.all"/>
-            <property name="templatePath" value="generator/test-all.ftl"/>
-            <property name="fileName" value="All.txt"/>
-        </plugin>
-        -->
-
         <jdbcConnection driverClass="${jdbc.driverClass}"
                         connectionURL="${jdbc.url}"
                         userId="${jdbc.user}"
@@ -122,6 +100,30 @@
 
         <!--MyBatis 生成器只需要生成 Model-->
         <javaModelGenerator targetPackage="test.demo.model" targetProject="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
+
+
+
+        <!-- generate Model
+        <javaModelGenerator targetPackage="com.donkeycode.data.domain" targetProject="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.donkeycode.core.BaseEntity"/>
+        </javaModelGenerator>
+         -->
+
+
+        <!-- generate xml -->
+        <sqlMapGenerator targetPackage="com.donkeycode.data.mapper" targetProject="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- generate Mapper -->
+        <javaClientGenerator type="ANNOTATEDMAPPER"
+                             targetPackage="com.donkeycode.data.mapper"
+                             targetProject="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="exampleMethodVisibility" value="public"/>
+        </javaClientGenerator>
 
         <table tableName="goods" catalog="course">
             <generatedKey column="goods_id" sqlStatement="JDBC"/>

@@ -10,6 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 反射工具类型
+ *
+ *
  * @author donkey
  * @since 2019年5月13日
  */
@@ -48,6 +51,7 @@ public class ReflectionUtils {
     }
 
     public static void setFieldValue(final Object obj, final String fieldName, final Object value) {
+
         Field field = getAccessibleField(obj, fieldName);
 
         if (field == null) {
@@ -134,7 +138,10 @@ public class ReflectionUtils {
     }
 
     /**
-     * 将反射时的checked exception转换为unchecked exception.
+     * 将反射时的checked exception转换为unchecked exception
+     *
+     * @param e
+     * @return
      */
     public static RuntimeException convertReflectionExceptionToUnchecked(Exception e) {
         if (e instanceof IllegalAccessException || e instanceof IllegalArgumentException || e instanceof NoSuchMethodException) {
@@ -147,6 +154,13 @@ public class ReflectionUtils {
         return new RuntimeException("Unexpected Checked Exception.", e);
     }
 
+    /**
+     *  对象属性复制
+     *
+     * @param source
+     * @param target
+     * @param properties
+     */
     public static void copyProperties(Object source, Object target, String[] properties) {
 
         PropertyDescriptor[] targetPds = BeanUtils.getPropertyDescriptors(target.getClass());

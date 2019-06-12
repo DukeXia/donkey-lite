@@ -234,7 +234,7 @@ public class SqlMapper {
         @SuppressWarnings("deprecation")
         private MSUtils(Configuration configuration) {
             this.configuration = configuration;
-            languageDriver = configuration.getDefaultScriptingLanuageInstance();
+            languageDriver = configuration.getDefaultScriptingLanguageInstance();
         }
 
         /**
@@ -273,7 +273,7 @@ public class SqlMapper {
                 private static final long serialVersionUID = -5372725087115317079L;
 
                 {
-                    add(new ResultMap.Builder(configuration, "defaultResultMap", resultType, new ArrayList<ResultMapping>(0)).build());
+                    add(new ResultMap.Builder(configuration, "defaultResultMap", resultType, new ArrayList<>(0)).build());
                 }
             }).build();
             // 缓存
@@ -292,7 +292,7 @@ public class SqlMapper {
                 private static final long serialVersionUID = 1L;
 
                 {
-                    add(new ResultMap.Builder(configuration, "defaultResultMap", int.class, new ArrayList<ResultMapping>(0)).build());
+                    add(new ResultMap.Builder(configuration, "defaultResultMap", int.class, new ArrayList<>(0)).build());
                 }
             }).build();
             // 缓存

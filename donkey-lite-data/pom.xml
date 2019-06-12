@@ -7,6 +7,9 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>donkey-lite-data</artifactId>
+    <description>
+        Data持久化
+    </description>
 
     <dependencies>
         <dependency>
@@ -27,7 +30,6 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
         </dependency>
-        <!--mybatis -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -48,6 +50,5 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-
     </dependencies>
 </project>
