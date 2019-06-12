@@ -17,6 +17,8 @@ import org.donkeycode.codegen.config.JDBCConnectionConfiguration;
  * (avoids the dreaded UnsatisfiedLinkError library loaded in another
  * classloader)
  *
+ * Jdbc 链接工厂
+ *
  * @author Jeff Butler
  */
 public class JDBCConnectionFactory implements ConnectionFactory {
@@ -79,7 +81,7 @@ public class JDBCConnectionFactory implements ConnectionFactory {
         Driver driver;
         try {
             Class<?> clazz = ObjectFactory.externalClassForName(driverClass);
-            driver = (Driver) clazz.newInstance();
+            driver = (Driver) clazz.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(getString("RuntimeError.8"), e);
         }

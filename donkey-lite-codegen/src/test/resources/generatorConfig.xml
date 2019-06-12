@@ -40,7 +40,7 @@
 
 
         <!--service  -->
-        <plugin type="org.donkeycode.codegen.plugins.ServiceTemplatePlugin">
+        <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
             <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.service.imp"/>
             <property name="mapperPackage" value="test.demo.mappers"/>
@@ -52,10 +52,9 @@
 
 
         <!--interface -->
-        <plugin type="org.donkeycode.codegen.plugins.ServiceTemplatePlugin">
+        <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
             <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.service"/>
-            <property name="templatePath" value="generator/service.ftl"/>
             <property name="templatePath" value="generator/interface.ftl"/>
             <property name="serviceSuffix" value="Service"/>
             <property name="fileName" value="${tableClass.shortClassName}${serviceSuffix}.java"/>

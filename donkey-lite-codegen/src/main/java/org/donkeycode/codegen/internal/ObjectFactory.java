@@ -111,19 +111,6 @@ public class ObjectFactory {
 		return internalClassForName(type);
 	}
 
-	public static Object createExternalObject(String type) {
-		Object answer;
-
-		try {
-			Class<?> clazz = externalClassForName(type);
-			answer = clazz.newInstance();
-		} catch (Exception e) {
-			throw new RuntimeException(getString("RuntimeError.6", type), e);
-		}
-
-		return answer;
-	}
-
 	public static Class<?> internalClassForName(String type) throws ClassNotFoundException {
 		Class<?> clazz = null;
 
@@ -166,8 +153,7 @@ public class ObjectFactory {
 
 		try {
 			Class<?> clazz = internalClassForName(type);
-
-			answer = clazz.newInstance();
+			answer = clazz.getDeclaredConstructor().newInstance();
 		} catch (Exception e) {
 			throw new RuntimeException(getString("RuntimeError.6", type), e);
 
@@ -297,7 +283,7 @@ public class ObjectFactory {
 	public static IntrospectedTable createIntrospectedTableForValidation(Context context) {
 		String type = context.getTargetRuntime();
 		if (!stringHasValue(type)) {
-			type = IntrospectedTableMyBatis3Impl.class.getName();
+			type = IntrospectedTableMyBatis3SimpleImpl.class.getName();
 		} else if ("MyBatis3".equalsIgnoreCase(type)) {
 			type = IntrospectedTableMyBatis3Impl.class.getName();
 		} else if ("MyBatis3Simple".equalsIgnoreCase(type)) {

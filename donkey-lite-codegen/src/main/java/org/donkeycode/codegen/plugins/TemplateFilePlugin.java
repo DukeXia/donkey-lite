@@ -31,6 +31,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.*;
 
+import com.donkeycode.core.utils.CollectionUtils;
+import com.donkeycode.core.utils.StringUtils;
 import org.donkeycode.codegen.api.GeneratedJavaFile;
 import org.donkeycode.codegen.api.IntrospectedColumn;
 import org.donkeycode.codegen.api.IntrospectedTable;
@@ -43,7 +45,6 @@ import org.donkeycode.codegen.file.GenerateByTemplateFile;
 import org.donkeycode.codegen.formatter.ListTemplateFormatter;
 import org.donkeycode.codegen.formatter.TemplateFormatter;
 import org.donkeycode.codegen.internal.ObjectFactory;
-import org.donkeycode.codegen.internal.util.StringUtility;
 import org.donkeycode.codegen.model.TableClass;
 import org.donkeycode.codegen.model.TableColumnBuilder;
 
@@ -142,11 +143,11 @@ public class TemplateFilePlugin extends PluginAdapter {
     @Override
     public boolean validate(List<String> warnings) {
         boolean right = true;
-        if (!StringUtility.stringHasValue(fileName)) {
+        if (StringUtils.isBlank(fileName)) {
             warnings.add("没有配置 \"fileName\" 文件名模板，因此不会生成任何额外代码!");
             right = false;
         }
-        if (!StringUtility.stringHasValue(templatePath)) {
+        if (StringUtils.isBlank(templatePath)) {
             warnings.add("没有配置 \"templatePath\" 模板路径，因此不会生成任何额外代码!");
             right = false;
         } else {
@@ -169,12 +170,12 @@ public class TemplateFilePlugin extends PluginAdapter {
                 right = false;
             }
         }
-        if (!StringUtility.stringHasValue(templateFormatterClass)) {
+        if (StringUtils.isBlank(templateFormatterClass)) {
             templateFormatterClass = DEFAULT_TEMPLATEFORMATTER;
             warnings.add("没有配置 \"templateFormatterClass\" 模板处理器，使用默认的处理器!");
         }
         try {
-            templateFormatter = Class.forName(templateFormatterClass).newInstance();
+            templateFormatter = Class.forName(templateFormatterClass).getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             warnings.add("初始化 templateFormatter 出错:" + e.getMessage());
             right = false;
@@ -183,11 +184,11 @@ public class TemplateFilePlugin extends PluginAdapter {
             return false;
         }
         int errorCount = 0;
-        if (!StringUtility.stringHasValue(targetProject)) {
+        if (StringUtils.isBlank(targetProject)) {
             errorCount++;
             warnings.add("没有配置 \"targetProject\" 路径!");
         }
-        if (!StringUtility.stringHasValue(targetPackage)) {
+        if (StringUtils.isBlank(targetPackage)) {
             errorCount++;
             warnings.add("没有配置 \"targetPackage\" 路径!");
         }
@@ -213,7 +214,7 @@ public class TemplateFilePlugin extends PluginAdapter {
     @Override
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles() {
         List<GeneratedJavaFile> list = new ArrayList<GeneratedJavaFile>();
-        if (cacheTables != null && cacheTables.size() > 0) {
+        if (CollectionUtils.isNotEmpty(cacheTables)) {
             list.add(new GenerateByListTemplateFile(cacheTables, (ListTemplateFormatter) templateFormatter, properties, targetProject, targetPackage, fileName, templateContent));
         }
         return list;
@@ -224,7 +225,7 @@ public class TemplateFilePlugin extends PluginAdapter {
         super.setProperties(properties);
         this.singleMode = properties.getProperty("singleMode", "true");
         if (!"TRUE".equalsIgnoreCase(singleMode)) {
-            this.cacheTables = new LinkedHashSet<TableClass>();
+            this.cacheTables = new LinkedHashSet<>();
         }
         this.targetProject = properties.getProperty("targetProject");
         this.targetPackage = properties.getProperty("targetPackage");
