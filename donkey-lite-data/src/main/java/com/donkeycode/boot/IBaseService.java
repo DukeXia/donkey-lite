@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.page.PageResult;
+import com.github.pagehelper.PageInfo;
 
 /**
  * BaseService 通用接口定义
@@ -103,4 +104,18 @@ public interface IBaseService<T> {
      * @return
      */
     PageResult<Map<String, Object>> selectPageBySQL(String sql, PageFilter query);
+    
+    /**
+     * 
+     * @param param
+     * @return
+     */
+    List<T> getList(Map<String, String> param);
+
+    /**
+     * 
+     * @param pageFilter
+     * @return
+     */
+    PageInfo<T> getPageList(PageFilter pageFilter);
 }
