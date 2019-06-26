@@ -82,7 +82,29 @@ public abstract class BaseService<T> implements IBaseService<T> {
 		return mapper.selectByIds(ids.stream().collect(Collectors.joining(",")));
 	}
 
-	@Override
+    @Override
+    public T selectOne(T entity) {
+        return mapper.selectOne(entity);
+    }
+
+    @Override
+    public List<T> select(T entity) {
+        return mapper.select(entity);
+    }
+
+
+    @Override
+    public T selectOneByExample(Example example) {
+        return mapper.selectOneByExample(example);
+    }
+
+    @Override
+    public List<T> selectByExample(Example example) {
+        return mapper.selectByExample(example);
+    }
+
+
+    @Override
 	public T selectByPrimaryKey(Object id) {
 		return mapper.selectByPrimaryKey(id);
 	}

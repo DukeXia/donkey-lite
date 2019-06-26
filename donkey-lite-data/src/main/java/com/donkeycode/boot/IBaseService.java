@@ -6,6 +6,7 @@ import java.util.Map;
 import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.page.PageResult;
 import com.github.pagehelper.PageInfo;
+import tk.mybatis.mapper.entity.Example;
 
 /**
  * BaseService 通用接口定义
@@ -72,6 +73,18 @@ public interface IBaseService<T> {
      */
     T selectByPrimaryKey(Object id);
 
+
+    T selectOne(T entity);
+
+
+    List<T> select(T entity);
+
+
+    T selectOneByExample(Example example);
+
+
+    List<T> selectByExample(Example example);
+
     /**
      * 通过主键更新有值的字段
      *
@@ -104,16 +117,14 @@ public interface IBaseService<T> {
      * @return
      */
     PageResult<Map<String, Object>> selectPageBySQL(String sql, PageFilter query);
-    
+
     /**
-     * 
      * @param param
      * @return
      */
     List<T> getList(Map<String, String> param);
 
     /**
-     * 
      * @param pageFilter
      * @return
      */
