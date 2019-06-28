@@ -9,5 +9,6 @@ package com.donkeycode.core;
 public interface LiteConstants {
 
     /**  操作日志 */
+    String APP_CODE_KEY = "appCode";
     String RESOURCE_TYPE_ACTION_LOG = "actionLog";
 }
