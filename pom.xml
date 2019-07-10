@@ -56,6 +56,7 @@
         <jaxb.version>2.3.1</jaxb.version>
         <lombok.version>1.18.4</lombok.version>
         <mysql.version>5.1.47</mysql.version>
+        <mariadb.version>2.4.2</mariadb.version>
         <mapper.version>4.1.5</mapper.version>
         <tk.mybatis.version>2.1.5</tk.mybatis.version>
         <mybatis-spring-boot.version>2.0.1</mybatis-spring-boot.version>
@@ -190,6 +191,11 @@
                         <artifactId>mybatis-spring-boot-starter</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.mariadb.jdbc</groupId>
+                <artifactId>mariadb-java-client</artifactId>
+                <version>${mariadb.version}</version>
             </dependency>
 
             <!-- 阿里oss -->
