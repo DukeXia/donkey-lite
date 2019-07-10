@@ -16,7 +16,7 @@ public class WebConstants {
     public static final String PAGE_SIZE = "pageSize";
 
     // 第几页
-    public static final String PAGE_INDEX = "pageNo";
+    public static final String PAGE_NO = "pageNo";
 
     // 默认显示行
     public static final int DEFAULT_PAGE_SIZE = 10;
@@ -24,11 +24,6 @@ public class WebConstants {
     // 默认显示页
     public static final int DEFAULT_PAGE_INDEX = 0;
 
-    // 分页总记录数据
-    public static final String PAGE_TOTAL = "totalCount";
-
-    // 列表数据
-    public static final String PAGE_DATA = "data";
 
     // 是否支持缓存
     public static final String HEADER_IS_CACHE = "iscache";

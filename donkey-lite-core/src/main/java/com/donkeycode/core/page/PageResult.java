@@ -18,25 +18,27 @@ import lombok.Setter;
 @Setter
 public class PageResult<E> extends BaseEntity {
 
-    public final long total;
-    public final List<E> data;
+    public final long totalCount;
+    public final List<E> list;
     private final List<?> footer;
+    public int pageNo;
+    public int pageSize;
 
     public PageResult() {
-        this.total = 0;
-        this.data = Collections.emptyList();
+        this.totalCount = 0;
+        this.list = Collections.emptyList();
         this.footer = Collections.emptyList();
     }
 
     public PageResult(long total, List<E> list) {
-        this.total = total;
-        this.data = list;
+        this.totalCount = total;
+        this.list = list;
         this.footer = Collections.emptyList();
     }
 
     public PageResult(long total, List<E> list, List<?> footer) {
-        this.total = total;
-        this.data = list;
+        this.totalCount = total;
+        this.list = list;
         this.footer = footer;
     }
 }

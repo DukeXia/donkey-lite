@@ -56,7 +56,10 @@ public class ResourceQueryManager {
     public PageResult<?> pageList(String resourceType, String operateType, PageFilter pageFilter) {
 
         Validate.notBlank(resourceType, "resourceType is null.");
-        return factoryManager.getDataQueryComponent(resourceType).pageList(operateType, pageFilter);
+        PageResult<?> pageResult = factoryManager.getDataQueryComponent(resourceType).pageList(operateType, pageFilter);
+        pageResult.pageNo = pageFilter.getPageNum();
+        pageResult.pageSize = pageFilter.getPageSize();
+        return pageResult;
     }
 
     /**

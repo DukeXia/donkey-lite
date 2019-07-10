@@ -76,10 +76,10 @@ public class HttpServletParamUtils {
      * @return
      */
     public static int pageIndex(Map<String, String> params) {
-        if (CollectionUtils.isEmpty(params) || StringUtils.isEmpty(params.get(WebConstants.PAGE_INDEX))) {
+        if (CollectionUtils.isEmpty(params) || StringUtils.isEmpty(params.get(WebConstants.PAGE_NO))) {
             return WebConstants.DEFAULT_PAGE_INDEX;
         }
-        int pageIndex = Integer.parseInt(params.get(WebConstants.PAGE_INDEX));
+        int pageIndex = Integer.parseInt(params.get(WebConstants.PAGE_NO));
         return pageIndex <= 0 ? 0 : pageIndex;
     }
 
