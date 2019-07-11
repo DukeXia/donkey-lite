@@ -50,7 +50,7 @@ public class BaseResponseExceptionHandler extends ResponseEntityExceptionHandler
      * @throws Exception
      */
     @ExceptionHandler(value = {BusinessException.class, FactoryException.class})
-    public ResponseEntity<Map<String, Object>> businessException(Exception ex) {
+    protected ResponseEntity<Map<String, Object>> businessException(Exception ex) {
         log.error(ex.getMessage(), ex);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(MESSAGE_KEY, ex.getMessage());
@@ -65,7 +65,7 @@ public class BaseResponseExceptionHandler extends ResponseEntityExceptionHandler
      * @throws Exception
      */
     @ExceptionHandler(value = {FunctUnrealizedException.class})
-    public ResponseEntity<Map<String, Object>> functUnrealizedException(FunctUnrealizedException ex) {
+    protected ResponseEntity<Map<String, Object>> functUnrealizedException(FunctUnrealizedException ex) {
         log.warn(ex.getMessage(), ex);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(MESSAGE_KEY, ex.getMessage());
@@ -80,7 +80,7 @@ public class BaseResponseExceptionHandler extends ResponseEntityExceptionHandler
      * @throws Exception
      */
     @ExceptionHandler(value = {ValidateIllegalArgumentException.class, ValidateIndexOutOfBoundsException.class, ValidateNullPointerException.class, ResourceNotFoundException.class})
-    public ResponseEntity<Map<String, Object>> validateIllegalException(RuntimeException ex) {
+    protected ResponseEntity<Map<String, Object>> validateIllegalException(RuntimeException ex) {
         log.warn(ex.getMessage(), ex);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put(MESSAGE_KEY, ex.getMessage());
@@ -92,7 +92,7 @@ public class BaseResponseExceptionHandler extends ResponseEntityExceptionHandler
      * @return
      */
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<String> constraintViolationException(ConstraintViolationException ex) {
+    protected ResponseEntity<String> constraintViolationException(ConstraintViolationException ex) {
         String message = "";
         Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
         for (ConstraintViolation<?> violation : violations) {
