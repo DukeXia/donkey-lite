@@ -148,7 +148,7 @@ public interface IBaseService<T> {
      */
     @Deprecated
     default List<T> getList(Map<String, String> param) {
-        return getList(param);
+        return selectList(param);
     }
 
     /**
