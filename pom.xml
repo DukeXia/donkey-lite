@@ -42,10 +42,9 @@
         <maven.version>3.1.0</maven.version>
         <node.version>v8.9.3</node.version>
         <npm.version>5.6.0</npm.version>
-        <resource.delimiter>@</resource.delimiter>
 
-        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-        <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
+        <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+        <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
         <spring-boot-starter-redis.version>1.4.7.RELEASE</spring-boot-starter-redis.version>
         <javax.mail.version>1.6.0</javax.mail.version>
         <poi.version>4.1.0</poi.version>
@@ -55,11 +54,9 @@
         <aliyun-sdk-oss.version>3.4.2</aliyun-sdk-oss.version>
         <jaxb.version>2.3.1</jaxb.version>
         <lombok.version>1.18.4</lombok.version>
-        <mysql.version>5.1.47</mysql.version>
         <mariadb.version>2.4.2</mariadb.version>
-        <mapper.version>4.1.5</mapper.version>
         <tk.mybatis.version>2.1.5</tk.mybatis.version>
-        <mybatis-spring-boot.version>2.0.1</mybatis-spring-boot.version>
+        <mybatis-spring-boot.version>2.1.0</mybatis-spring-boot.version>
         <pagehelper.version>1.2.12</pagehelper.version>
         <jasypt.version>2.1.1</jasypt.version>
         <commons-logging.version>1.2</commons-logging.version>
@@ -87,8 +84,6 @@
         <lombok-maven-plugin.version>1.16.8.0</lombok-maven-plugin.version>
 
         <sonar-maven-plugin.version>3.2</sonar-maven-plugin.version>
-
-
         <!-- Sonar properties -->
         <sonar.jacoco.itReportPath>${project.testresult.directory}/coverage/jacoco/jacoco-it.exec</sonar.jacoco.itReportPath>
         <sonar.jacoco.reportPath>${project.testresult.directory}/coverage/jacoco/jacoco.exec</sonar.jacoco.reportPath>
@@ -170,11 +165,6 @@
                         <artifactId>mybatis</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>tk.mybatis</groupId>
-                <artifactId>mapper</artifactId>
-                <version>${mapper.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
@@ -419,12 +409,12 @@
                         <dependency>
                             <groupId>mysql</groupId>
                             <artifactId>mysql-connector-java</artifactId>
-                            <version>${mysql.version}</version>
+                            <version>5.1.47</version>
                         </dependency>
                         <dependency>
                             <groupId>tk.mybatis</groupId>
                             <artifactId>mapper</artifactId>
-                            <version>${mapper.version}</version>
+                            <version>4.1.5</version>
                         </dependency>
                     </dependencies>
                 </plugin>
