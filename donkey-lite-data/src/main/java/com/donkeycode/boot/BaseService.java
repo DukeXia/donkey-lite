@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
 
 import com.donkeycode.boot.utils.BaseMapper;
 import com.donkeycode.core.page.PageFilter;
@@ -28,7 +27,6 @@ import tk.mybatis.mapper.weekend.WeekendCriteria;
  * @since 2019年5月13日
  */
 @Slf4j
-@Service
 public abstract class BaseService<T> implements IBaseService<T> {
 
     @Autowired
@@ -116,7 +114,7 @@ public abstract class BaseService<T> implements IBaseService<T> {
 
     @Override
     public PageResult<Map<String, Object>> selectPageBySQL(String sql, PageFilter pageFilter) {
-        PageHelper.startPage(pageFilter.getPageNum(), pageFilter.getPageSize(), pageFilter.getOrderBy());
+        PageHelper.startPage(pageFilter.getPageNum(), pageFilter.getPageSize(), pageFilter.getOrder());
         List<Map<String, Object>> list = sqlmapper.selectList(sql);
         PageInfo<Map<String, Object>> pageInfo = new PageInfo<Map<String, Object>>(list);
         return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
@@ -150,7 +148,7 @@ public abstract class BaseService<T> implements IBaseService<T> {
 
     @Override
     public PageInfo<T> selectPage(PageFilter pageFilter) {
-        PageHelper.startPage(pageFilter.getPageNum(), pageFilter.getPageSize(), pageFilter.getOrderBy());
-        return new PageInfo<>(selectList(pageFilter.getQueryParams()));
+        PageHelper.startPage(pageFilter.getPageNum(), pageFilter.getPageSize(), pageFilter.getOrder());
+        return new PageInfo<>(selectList(pageFilter.getParams()));
     }
 }

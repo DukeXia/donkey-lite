@@ -98,7 +98,12 @@ public class HttpServletParamUtils {
         Map<String, String> params = HttpServletParamUtils.requestToMap(request);
         int pageNum = HttpServletParamUtils.pageIndex(params);
         int pageSize = HttpServletParamUtils.pageSize(params);
-        PageFilter pageFilter = PageFilterHelper.builder().pageNum(pageNum).pageSize(pageSize).queryParams(params).build();
+
+        PageFilter pageFilter = PageFilterHelper.builder()
+            .pageNum(pageNum)
+            .pageSize(pageSize)
+            .params(params)
+            .build();
 
         if (StringUtils.isNotBlank(params.get("orderBys[]"))) {
             String[] orderBys = request.getParameterValues("orderBys[]");
@@ -107,7 +112,7 @@ public class HttpServletParamUtils {
                 Stream.of(orderBys).forEach(item -> {
                     orderBySet.add(item.replace(" ", ""));
                 });
-                pageFilter.setOrderBys(orderBySet.stream().collect(Collectors.toList()));
+                pageFilter.setOrders(orderBySet.stream().collect(Collectors.toList()));
             }
         }
         return pageFilter;

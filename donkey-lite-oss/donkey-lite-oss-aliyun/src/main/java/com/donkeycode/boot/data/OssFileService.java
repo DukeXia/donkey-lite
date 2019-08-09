@@ -96,16 +96,16 @@ public class OssFileService {
      */
     public PageInfo<OssFile> getPageList(PageFilter pageFilter) {
         StringBuffer querySql = new StringBuffer(LIST_SQL);
-        if (CollectionUtils.isNotEmpty(pageFilter.getQueryParams())) {
-            if (StringUtils.isNoneBlank(pageFilter.getQueryParams().get("fileType"))) {
+        if (CollectionUtils.isNotEmpty(pageFilter.getParams())) {
+            if (StringUtils.isNoneBlank(pageFilter.getParams().get("fileType"))) {
                 querySql.append(" and file_type=#{fileType} ");
             }
-            if (StringUtils.isNoneBlank(pageFilter.getQueryParams().get("fileName"))) {
+            if (StringUtils.isNoneBlank(pageFilter.getParams().get("fileName"))) {
                 querySql.append(" and name like concat('%',#{fileName},'%') ");
             }
         }
-        PageHelper.startPage(pageFilter.getPageNum(), pageFilter.getPageSize(), pageFilter.getOrderBy());
-        List<OssFile> ossFiles = sqlMapper.selectList(querySql.toString(), pageFilter.getQueryParams(), OssFile.class);
+        PageHelper.startPage(pageFilter.getPageNum(), pageFilter.getPageSize(), pageFilter.getOrder());
+        List<OssFile> ossFiles = sqlMapper.selectList(querySql.toString(), pageFilter.getParams(), OssFile.class);
         ossFiles.stream().filter(item -> StringUtils.isNoneBlank(item.getOssKey())).forEach(item -> item.setCdnPath(configProperties.getCdnPath() + (item.getOssKey().startsWith("/") ? "" : "/") + item.getOssKey()));
         return new PageInfo<>(ossFiles);
     }

@@ -45,19 +45,19 @@ public interface PageFilter {
      *
      * @return
      */
-    String getOrderBy();
+    String getOrder();
 
     /**
      * 获取排序字符串
      *
      * @return
      */
-    void setOrderBys(List<String> orderBys);
+    void setOrders(List<String> orderBys);
 
     /**
      * 获取查询参数
      *
      * @return
      */
-    Map<String, String> getQueryParams();
+    Map<String, String> getParams();
 }

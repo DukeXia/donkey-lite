@@ -41,12 +41,12 @@ public class PageFilterHelper implements PageFilter {
     /**
      * 排序字段
      */
-    private List<String> orderBys;
+    private List<String> orders;
 
     /**
      * 查询参会
      */
-    private Map<String, String> queryParams;
+    private Map<String, String> params;
 
     @Override
     public int getPageNum() {
@@ -59,8 +59,8 @@ public class PageFilterHelper implements PageFilter {
     }
 
     @Override
-    public Map<String, String> getQueryParams() {
-        return queryParams;
+    public Map<String, String> getParams() {
+        return params;
     }
 
     /**
@@ -69,11 +69,11 @@ public class PageFilterHelper implements PageFilter {
      * @return
      */
     @Override
-    public String getOrderBy() {
-        if (CollectionUtils.isEmpty(orderBys)) {
+    public String getOrder() {
+        if (CollectionUtils.isEmpty(orders)) {
             return "";
         }
-        return orderBys.stream().map(item -> {
+        return orders.stream().map(item -> {
             if (StringUtils.isBlank(item)) {
                 return "";
             }

@@ -37,8 +37,8 @@ public class OssFileServiceTest extends BaseTest {
         PageFilter pageProvider = PageFilterHelper.builder()
             .pageNum(3)
             .pageSize(3)
-            .orderBys(Collections.singletonList("createTime:desc"))
-            .queryParams(Collections.singletonMap("fileName", "微信")).build();
+            .orders(Collections.singletonList("createTime:desc"))
+            .params(Collections.singletonMap("fileName", "微信")).build();
 
         ossFileService.getPageList(pageProvider);
     }
