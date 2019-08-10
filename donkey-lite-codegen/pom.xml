@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.donkeycat</groupId>
 		<artifactId>donkey-lite</artifactId>
-		<version>0.0.2.RELEASE</version>
+		<version>1.0.0.RELEASE</version>
 	</parent>
 
 	<artifactId>donkey-lite-codegen</artifactId>
@@ -31,7 +31,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.donkeycat</groupId>
-			<artifactId>donkey-lite-interface</artifactId>
+			<artifactId>donkey-lite-manager</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
