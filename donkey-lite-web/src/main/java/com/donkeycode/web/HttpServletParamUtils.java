@@ -1,6 +1,8 @@
 package com.donkeycode.web;
 
 import com.donkeycode.core.collections.SetList;
+import com.donkeycode.core.page.ListFilter;
+import com.donkeycode.core.page.ListFilterHelper;
 import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.page.PageFilterHelper;
 import com.donkeycode.core.utils.CollectionUtils;
@@ -83,6 +85,35 @@ public class HttpServletParamUtils {
         return pageIndex <= 0 ? 0 : pageIndex;
     }
 
+
+    /**
+     * 根据预订的规则获取分页参数
+     * eg:
+     *  http://localhost:9020/api/role/list?sortField=roleName&amp;sortOrder=descend&amp;orderBys[]=roleName:descend
+     *
+     *
+     * @param request
+     * @return
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public static ListFilter listFilter(@NotBlank HttpServletRequest request) {
+        Map<String, String> params = HttpServletParamUtils.requestToMap(request);
+        ListFilter pageFilter = ListFilterHelper.builder()
+            .params(params)
+            .build();
+
+        if (StringUtils.isNotBlank(params.get("orderBys[]"))) {
+            String[] orderBys = request.getParameterValues("orderBys[]");
+            if (CollectionUtils.isNotEmpty(orderBys)) {
+                SetList<String> orderBySet = new SetList();
+                Stream.of(orderBys).forEach(item -> {
+                    orderBySet.add(item.replace(" ", ""));
+                });
+                pageFilter.setOrders(orderBySet.stream().collect(Collectors.toList()));
+            }
+        }
+        return pageFilter;
+    }
 
     /**
      * 根据预订的规则获取分页参数

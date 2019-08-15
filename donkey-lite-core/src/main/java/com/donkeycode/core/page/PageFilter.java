@@ -60,4 +60,12 @@ public interface PageFilter {
      * @return
      */
     Map<String, String> getParams();
+
+
+    /**
+     * 获取查询参数
+     *
+     * @return
+     */
+    ListFilter listFilter();
 }

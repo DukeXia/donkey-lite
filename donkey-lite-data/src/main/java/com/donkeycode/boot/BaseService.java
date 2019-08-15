@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.donkeycode.core.page.ListFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -63,12 +64,12 @@ public abstract class BaseService<T> implements IBaseService<T> {
     }
 
     @Override
-    public int deleteByPrimaryKey(Object id) {
+    public int deleteByKey(Object id) {
         return mapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public int deleteByPrimaryKeys(List<?> ids) {
+    public int deleteByKeys(List<?> ids) {
         if (CollectionUtils.isEmpty(ids)) {
             return 0;
         }
@@ -77,19 +78,21 @@ public abstract class BaseService<T> implements IBaseService<T> {
         return mapper.deleteByIds(joinId);
     }
 
+
     @Override
-    public int updateByPrimaryKeySelective(T entity) {
+    public int updateByKeySelective(T entity) {
         return mapper.updateByPrimaryKeySelective(entity);
     }
 
+
     @Override
-    public int updateByPrimaryKey(T entity) {
+    public int updateByKey(T entity) {
         return mapper.updateByPrimaryKey(entity);
     }
 
     @Override
-    public List<T> selectByPrimaryKeys(List<String> ids) {
-        return mapper.selectByIds(ids.stream().collect(Collectors.joining(",")));
+    public List<T> selectByKeys(List<String> ids) {
+        return null;
     }
 
     @Override
@@ -112,16 +115,21 @@ public abstract class BaseService<T> implements IBaseService<T> {
         return mapper.selectByExample(example);
     }
 
-    @Override
-    public PageResult<Map<String, Object>> selectPageBySQL(String sql, PageFilter pageFilter) {
+    /**
+     * @param sql
+     * @param pageFilter
+     * @return
+     */
+    protected PageResult<Map<String, Object>> selectPageBySQL(String sql, PageFilter pageFilter) {
         PageHelper.startPage(pageFilter.getPageNum(), pageFilter.getPageSize(), pageFilter.getOrder());
         List<Map<String, Object>> list = sqlmapper.selectList(sql);
         PageInfo<Map<String, Object>> pageInfo = new PageInfo<Map<String, Object>>(list);
         return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
     }
 
+
     @Override
-    public T selectByPrimaryKey(Object id) {
+    public T selectByKey(Object id) {
         return mapper.selectByPrimaryKey(id);
     }
 
@@ -129,13 +137,18 @@ public abstract class BaseService<T> implements IBaseService<T> {
      * 子类重新此功能
      */
     @Override
-    public List<T> selectList(Map<String, String> param) {
+    public List<T> selectList(String userId, Map<String, String> param) {
         Weekend<T> weekend = new Weekend<>(this.entityClass);
         WeekendCriteria<T, Object> criteria = weekend.weekendCriteria();
         if (CollectionUtils.isNotEmpty(param)) {
 
         }
         return selectList(weekend);
+    }
+
+    @Override
+    public List<T> selectList(String userId, ListFilter listFilter) {
+        return selectList(userId,listFilter.getParams());
     }
 
     /**
@@ -146,9 +159,12 @@ public abstract class BaseService<T> implements IBaseService<T> {
         return mapper.selectByExample(weekend);
     }
 
+    /**
+     * 子类重新此功能
+     */
     @Override
-    public PageInfo<T> selectPage(PageFilter pageFilter) {
+    public PageInfo<T> selectPage(String userId, PageFilter pageFilter) {
         PageHelper.startPage(pageFilter.getPageNum(), pageFilter.getPageSize(), pageFilter.getOrder());
-        return new PageInfo<>(selectList(pageFilter.getParams()));
+        return new PageInfo<>(selectList(userId, pageFilter.listFilter()));
     }
 }

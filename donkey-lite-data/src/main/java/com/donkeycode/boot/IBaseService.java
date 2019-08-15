@@ -3,6 +3,7 @@ package com.donkeycode.boot;
 import java.util.List;
 import java.util.Map;
 
+import com.donkeycode.core.page.ListFilter;
 import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.page.PageResult;
 import com.github.pagehelper.PageInfo;
@@ -48,7 +49,19 @@ public interface IBaseService<T> {
      * @param id
      * @return
      */
-    int deleteByPrimaryKey(Object id);
+    @Deprecated
+    default int deleteByPrimaryKey(Object id) {
+        return deleteByKey(id);
+    }
+
+    /**
+     * 通过主键物理删除
+     *
+     * @param id
+     * @return
+     */
+    int deleteByKey(Object id);
+
 
     /**
      * 通过多个主键删除PO
@@ -56,7 +69,18 @@ public interface IBaseService<T> {
      * @param ids
      * @return
      */
-    int deleteByPrimaryKeys(List<?> ids);
+    @Deprecated
+    default int deleteByPrimaryKeys(List<?> ids) {
+        return deleteByKeys(ids);
+    }
+
+    /**
+     * 通过多个主键删除PO
+     *
+     * @param ids
+     * @return
+     */
+    int deleteByKeys(List<?> ids);
 
     /**
      * 通过主键更新有值的字段
@@ -64,7 +88,18 @@ public interface IBaseService<T> {
      * @param entity
      * @return
      */
-    int updateByPrimaryKeySelective(T entity);
+    @Deprecated
+    default int updateByPrimaryKeySelective(T entity) {
+        return updateByKeySelective(entity);
+    }
+
+    /**
+     * 通过主键更新有值的字段
+     *
+     * @param entity
+     * @return
+     */
+    int updateByKeySelective(T entity);
 
     /**
      * 通过主键更新所有字段
@@ -72,16 +107,23 @@ public interface IBaseService<T> {
      * @param entity
      * @return
      */
-    int updateByPrimaryKey(T entity);
+    @Deprecated
+    default int updateByPrimaryKey(T entity) {
+        return updateByKey(entity);
+    }
 
+    /**
+     * 通过主键更新所有字段
+     *
+     * @param entity
+     * @return
+     */
+    int updateByKey(T entity);
 
     /**
      * @param example
      * @return
      */
-    @Deprecated
-    List<T> selectByExample(Example example);
-
     @Deprecated
     T selectOneByExample(Example example);
 
@@ -91,7 +133,18 @@ public interface IBaseService<T> {
      * @param ids
      * @return
      */
-    List<T> selectByPrimaryKeys(List<String> ids);
+    @Deprecated
+    default List<T> selectByPrimaryKeys(List<String> ids) {
+        return selectByKeys(ids);
+    }
+
+    /**
+     * 通过多个主键获取PO
+     *
+     * @param ids
+     * @return
+     */
+    List<T> selectByKeys(List<String> ids);
 
     /**
      * 通过主键获取PO
@@ -99,7 +152,18 @@ public interface IBaseService<T> {
      * @param id
      * @return
      */
-    T selectByPrimaryKey(Object id);
+    @Deprecated
+    default T selectByPrimaryKey(Object id) {
+        return selectByKey(id);
+    }
+
+    /**
+     * 通过主键获取PO
+     *
+     * @param id
+     * @return
+     */
+    T selectByKey(Object id);
 
 
     /**
@@ -108,6 +172,12 @@ public interface IBaseService<T> {
      */
     T selectOne(T entity);
 
+    /**
+     * @param example
+     * @return
+     */
+    @Deprecated
+    List<T> selectByExample(Example example);
 
     /**
      * @param entity
@@ -115,34 +185,41 @@ public interface IBaseService<T> {
      */
     List<T> selectList(T entity);
 
-    /**
-     * 通过sql查询数据
-     *
-     * @param sql
-     * @param pageFilter
-     * @return
-     */
-    PageResult<Map<String, Object>> selectPageBySQL(String sql, PageFilter pageFilter);
 
     /**
      * @param param
      * @return
      */
-    List<T> selectList(Map<String, String> param);
+    @Deprecated
+    default List<T> selectList(Map<String, String> param) {
+        return selectList(null, param);
+    }
+
+    /**
+     * @param param
+     * @return
+     */
+    @Deprecated
+    List<T> selectList(String userId, Map<String, String> param);
+
+    /**
+     * @param userId
+     * @param listFilter
+     * @return
+     */
+    List<T> selectList(String userId, ListFilter listFilter);
 
     /**
      * @param weekend
      * @return
      */
+    @Deprecated
     List<T> selectList(Weekend<T> weekend);
 
-    /**
-     * @param pageFilter
-     * @return
-     */
-    PageInfo<T> selectPage(PageFilter pageFilter);
 
     /**
+     * 资源列表查找
+     *
      * @param param
      * @return
      */
@@ -152,11 +229,45 @@ public interface IBaseService<T> {
     }
 
     /**
+     * 资源列表查找
+     *
+     * @param userId
+     * @param param
+     * @return
+     */
+    @Deprecated
+    default List<T> getList(String userId, Map<String, String> param) {
+        return selectList(userId, param);
+    }
+
+    /**
+     * 资源分页查找
+     *
+     * @param pageFilter
+     * @return
+     */
+    default PageInfo<T> selectPage(PageFilter pageFilter) {
+        return selectPage(null, pageFilter);
+    }
+
+    /**
+     * 资源分页查找
+     *
+     * @param userId     用户Id
+     * @param pageFilter 分页过滤参数
+     * @return
+     */
+    PageInfo<T> selectPage(String userId, PageFilter pageFilter);
+
+
+    /**
+     * 资源分页查找
+     *
      * @param pageFilter
      * @return
      */
     @Deprecated
     default PageInfo<T> getPageList(PageFilter pageFilter) {
-        return selectPage(pageFilter);
+        return selectPage(null, pageFilter);
     }
 }

@@ -63,6 +63,11 @@ public class PageFilterHelper implements PageFilter {
         return params;
     }
 
+    @Override
+    public ListFilter listFilter() {
+        return ListFilterHelper.builder().params(getParams()).build();
+    }
+
     /**
      * 前端排序字段转成SQL 排序语句
      *
