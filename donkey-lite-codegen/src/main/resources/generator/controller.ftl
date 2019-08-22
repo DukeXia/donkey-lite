@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.donkeycode.core.page.PageFilter;
+import com.donkeycode.core.page.ListFilter;
 import com.donkeycode.core.utils.ObjectUtils;
 import com.donkeycode.core.validation.ValidateUtils;
 import com.donkeycode.web.HttpCode;
@@ -31,6 +32,9 @@ import com.donkeycode.web.HttpServletParamUtils;
 import com.donkeycode.web.ResponseCode;
 import com.donkeycode.web.WebConstants;
 import com.github.pagehelper.PageInfo;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 
 /**
@@ -42,7 +46,8 @@ import com.github.pagehelper.PageInfo;
  */
 @RestController
 @RequestMapping(value = "/api/${tableClass.lowerCaseName}")
-public class ${tableClass.shortClassName}Controller {
+@Api(tags="${tableClass.shortClassName}")
+public class ${tableClass.shortClassName}Controller extends BaseController{
 
     @Autowired
     ${tableClass.shortClassName}Service ${tableClass.lowerCaseName}Service;
@@ -54,16 +59,11 @@ public class ${tableClass.shortClassName}Controller {
      * @return
      */
     @GetMapping(value = "/page")
+    @ApiOperation(value="获取资源列表 - 分页", notes="通过不同过滤条件查询数据")
     public ResponseEntity<Object> page(HttpServletRequest request) {
-        
         PageFilter pageFilter = HttpServletParamUtils.pageFilter(request);
-        PageInfo<${tableClass.shortClassName}> page = ${tableClass.lowerCaseName}Service.getPageList(pageFilter);
-        Map<String, Object> pageVm = new HashMap<>();
-        pageVm.put(WebConstants.PAGE_TOTAL, ObjectUtils.isNotNull(page) ? page.getTotal() : 0);
-        pageVm.put(WebConstants.PAGE_DATA, ObjectUtils.isNotNull(page) ? page.getList() : Collections.emptyList());
-        pageVm.put(WebConstants.PAGE_SIZE, pageFilter.getPageSize());
-        pageVm.put(WebConstants.PAGE_INDEX, pageFilter.getPageNum());
-        return ResponseEntity.ok(pageVm);
+        PageInfo<${tableClass.shortClassName}> page = ${tableClass.lowerCaseName}Service.selectPage(getCurrentUserId(), pageFilter);
+        return ResponseEntity.ok(page);
     }
 
     /**
@@ -73,9 +73,10 @@ public class ${tableClass.shortClassName}Controller {
      * @return
      */
     @GetMapping(value = "/list")
+    @ApiOperation(value="获取资源列表", notes="通过不同过滤条件查询数据")
     public ResponseEntity<Object> list(HttpServletRequest request) {
-        Map<String, String> params = HttpServletParamUtils.requestToMap(request);
-        List<${tableClass.shortClassName}> pageList = ${tableClass.lowerCaseName}Service.getList(params);
+        ListFilter listFilter = HttpServletParamUtils.listFilter(request);
+        List<${tableClass.shortClassName}> pageList = ${tableClass.lowerCaseName}Service.selectList(getCurrentUserId(), listFilter);
         return ResponseEntity.ok(pageList);
     }
 
@@ -86,9 +87,10 @@ public class ${tableClass.shortClassName}Controller {
      * @return
      */
     @GetMapping(value = "/{id}")
+    @ApiOperation(value="获取资源详情", notes="根据Id获取详细")
     public ResponseEntity<Object> get(@PathVariable("id") String id) {
         ValidateUtils.notBlank(id, "资源主键不能为空");
-        return ResponseEntity.ok(${tableClass.lowerCaseName}Service.selectByPrimaryKey(id));
+        return ResponseEntity.ok(${tableClass.lowerCaseName}Service.selectByKey(id));
     }
 
     /**
@@ -98,6 +100,7 @@ public class ${tableClass.shortClassName}Controller {
      * @return
      */
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value="新增资源", notes="创建资源")
     public ResponseCode save(@RequestBody String json) {
         ${tableClass.shortClassName} ${tableClass.lowerCaseName} = JSON.parseObject(json, ${tableClass.shortClassName}.class);
         ${tableClass.lowerCaseName}Service.save(${tableClass.lowerCaseName});
@@ -111,6 +114,7 @@ public class ${tableClass.shortClassName}Controller {
      * @return
      */
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value="更新资源", notes="创建资源")
     public ResponseCode update(@RequestBody String json) {
         ${tableClass.shortClassName} ${tableClass.lowerCaseName} = JSON.parseObject(json, ${tableClass.shortClassName}.class);
         ${tableClass.lowerCaseName}Service.save(${tableClass.lowerCaseName});
@@ -124,8 +128,9 @@ public class ${tableClass.shortClassName}Controller {
      * @return
      */
     @DeleteMapping(value = "/{id}")
+    @ApiOperation(value="删除资源", notes="根据Id删除资源")
     public ResponseCode delete(@PathVariable("id") String id) {
-        ${tableClass.lowerCaseName}Service.deleteByPrimaryKey(id);
+        ${tableClass.lowerCaseName}Service.deleteByKey(id);
         return ResponseCode.returnResponse(HttpCode.OK, "删除资源成功");
     }
 }

@@ -24,19 +24,14 @@
 
 package org.donkeycode.codegen;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.donkeycode.codegen.api.MyBatisGenerator;
 import org.donkeycode.codegen.config.Configuration;
 import org.donkeycode.codegen.config.xml.ConfigurationParser;
-import org.donkeycode.codegen.exception.InvalidConfigurationException;
-import org.donkeycode.codegen.exception.XMLParserException;
 import org.donkeycode.codegen.internal.DefaultShellCallback;
-import org.junit.Test;
 
 /**
  * @author liuzh
@@ -47,8 +42,7 @@ public class MysqlGenerator {
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 	}
 
-	@Test
-	public void main() throws IOException, XMLParserException, InvalidConfigurationException, SQLException, InterruptedException {
+	public static void main(String[] args) throws Exception {
 		List<String> warnings = new ArrayList<String>();
 		boolean overwrite = true;
 		ConfigurationParser cp = new ConfigurationParser(warnings);
@@ -60,4 +54,5 @@ public class MysqlGenerator {
 			System.out.println(warning);
 		}
 	}
+	
 }

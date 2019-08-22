@@ -17,29 +17,6 @@ import java.util.Map;
 public interface ${tableClass.shortClassName}Service extends IBaseService<${tableClass.shortClassName}>{
 
     /**
-     * 查找资源
-     *
-     * @param params
-     * @return
-     */
-    List<${tableClass.shortClassName}> getList(Map<String, String> params);
-
-    /**
-     * 以分页的形式查找资源
-     *
-     * @param pageFilter
-     * @return
-     */
-    PageInfo<${tableClass.shortClassName}> getPageList(PageFilter pageFilter);
-
-    /**
-     * 通过主键删除资源
-     *
-     * @param ids
-     */
-    void deletes(List<String> ids);
-
-    /**
      * 新增资源
      *
      * @param ids

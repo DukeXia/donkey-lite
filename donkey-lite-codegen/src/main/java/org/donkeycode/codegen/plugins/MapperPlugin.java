@@ -28,7 +28,6 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
-import org.donkeycode.codegen.MapperCommentGenerator;
 import org.donkeycode.codegen.api.IntrospectedColumn;
 import org.donkeycode.codegen.api.IntrospectedTable;
 import org.donkeycode.codegen.api.dom.java.*;
@@ -213,7 +212,7 @@ public class MapperPlugin extends FalseMethodPlugin {
 		useMapperCommentGenerator = !"FALSE".equalsIgnoreCase(context.getProperty("useMapperCommentGenerator"));
 		if (useMapperCommentGenerator) {
 			commentCfg = new CommentGeneratorConfiguration();
-			commentCfg.setConfigurationType(MapperCommentGenerator.class.getCanonicalName());
+//			commentCfg.setConfigurationType(MapperCommentGenerator.class.getCanonicalName());
 			context.setCommentGeneratorConfiguration(commentCfg);
 		}
 		//支持oracle获取注释#114

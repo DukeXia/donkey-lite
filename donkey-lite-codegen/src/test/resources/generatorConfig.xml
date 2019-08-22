@@ -10,7 +10,7 @@
 
         <property name="javaFileEncoding" value="UTF-8"/>
         <property name="useMapperCommentGenerator" value="true"/>
-        <property name="schema" value="course"/>
+        <property name="schema" value="course_db"/>
 
         <plugin type="org.donkeycode.codegen.plugins.MapperPlugin">
             <property name="mappers" value="${mapper.Mapper}"/>
@@ -21,7 +21,7 @@
         <!--通用代码生成器插件-->
         <!--mapper接口-->
         <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
+            <property name="targetProject" value="/home/nanfeng/Documents/code/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.mappers"/>
             <property name="templatePath" value="generator/mapper.ftl"/>
             <property name="mapperSuffix" value="Mapper"/>
@@ -30,7 +30,7 @@
 
         <!--mapper.xml-->
         <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
+            <property name="targetProject" value="/home/nanfeng/Documents/code/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.mappers"/>
             <property name="mapperPackage" value="test.demo.mappers"/>
             <property name="templatePath" value="generator/mapperXml.ftl"/>
@@ -41,7 +41,7 @@
 
         <!--service  -->
         <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
+            <property name="targetProject" value="/home/nanfeng/Documents/code/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.service.imp"/>
             <property name="mapperPackage" value="test.demo.mappers"/>
             <property name="interfacePackage" value="test.demo.service"/>
@@ -53,7 +53,7 @@
 
         <!--interface -->
         <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
+            <property name="targetProject" value="/home/nanfeng/Documents/code/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.service"/>
             <property name="templatePath" value="generator/interface.ftl"/>
             <property name="serviceSuffix" value="Service"/>
@@ -62,35 +62,13 @@
 
         <!-- controller -->
         <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
+            <property name="targetProject" value="/home/nanfeng/Documents/code/donkey-lite/donkey-lite-codegen/src/test/java"/>
             <property name="targetPackage" value="test.demo.controller"/>
             <property name="servicePackage" value="test.demo.service"/>
             <property name="templatePath" value="generator/controller.ftl"/>
             <property name="controllerSuffix" value="Controller"/>
             <property name="fileName" value="${tableClass.shortClassName}${controllerSuffix}.java"/>
         </plugin>
-
-
-        <!-- data edit biz -->
-        <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
-            <property name="targetPackage" value="test.demo.biz"/>
-            <property name="servicePackage" value="test.demo.service"/>
-            <property name="templatePath" value="generator/data-edit-biz.ftl"/>
-            <property name="controllerSuffix" value="DataEdit"/>
-            <property name="fileName" value="${tableClass.shortClassName}${controllerSuffix}.java"/>
-        </plugin>
-
-        <!-- data query biz -->
-        <plugin type="org.donkeycode.codegen.plugins.TemplateFilePlugin">
-            <property name="targetProject" value="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
-            <property name="targetPackage" value="test.demo.biz"/>
-            <property name="servicePackage" value="test.demo.service"/>
-            <property name="templatePath" value="generator/data-query-biz.ftl"/>
-            <property name="controllerSuffix" value="Query"/>
-            <property name="fileName" value="${tableClass.shortClassName}${controllerSuffix}.java"/>
-        </plugin>
-
 
         <jdbcConnection driverClass="${jdbc.driverClass}"
                         connectionURL="${jdbc.url}"
@@ -99,7 +77,7 @@
         </jdbcConnection>
 
         <!--MyBatis 生成器只需要生成 Model-->
-        <javaModelGenerator targetPackage="test.demo.model" targetProject="D:/Users/Documents/donkey-lite/donkey-lite-codegen/src/test/java"/>
+        <javaModelGenerator targetPackage="test.demo.model" targetProject="/home/nanfeng/Documents/code/donkey-lite/donkey-lite-codegen/src/test/java"/>
 
 
 
@@ -113,23 +91,20 @@
 
 
         <!-- generate xml -->
-        <sqlMapGenerator targetPackage="com.donkeycode.data.mapper" targetProject="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/main/java">
+        <sqlMapGenerator targetPackage="com.donkeycode.data.mapper" targetProject="/home/nanfeng/Documents/code/donkey-lite/donkey-lite-generator/src/main/java">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
         <!-- generate Mapper -->
         <javaClientGenerator type="ANNOTATEDMAPPER"
                              targetPackage="com.donkeycode.data.mapper"
-                             targetProject="D:/Users/Documents/donkey-lite/donkey-lite-generator/src/main/java">
+                             targetProject="/home/nanfeng/Documents/code/donkey-lite/donkey-lite-generator/src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="exampleMethodVisibility" value="public"/>
         </javaClientGenerator>
 
-        <table tableName="goods" catalog="course">
-            <generatedKey column="goods_id" sqlStatement="JDBC"/>
-        </table>
-        <table tableName="question" catalog="course">
-            <generatedKey column="question_id" sqlStatement="JDBC"/>
+        <table tableName="user_info"  domainObjectName="UserInfo">
+            <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
     </context>
 </generatorConfiguration>

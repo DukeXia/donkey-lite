@@ -38,35 +38,14 @@ public class ${tableClass.shortClassName}ServiceImpl extends BaseService<${table
     public boolean save(${tableClass.shortClassName} entity) {
         return mapper.insertSelective(entity)>0 ? true: false;
     }
-
-    @Override
-    public PageInfo<${tableClass.shortClassName}> getPageList(PageFilter pageFilter) {
-        PageHelper.startPage(pageFilter.getPageNum(), pageFilter.getPageSize(), true);
-        return new PageInfo<>(getList(pageFilter.getQueryParams()));
-    }
-
-    @Override
-    public void deletes(List<String> ids) {
-        ValidateUtils.isTrue(CollectionUtils.isNotEmpty(ids),"Delete resouces Id is null.");
-
-        int updateNum = deleteByPrimaryKeys(ids);
-        if (updateNum <= 0) {
-            throw new ResourceNotFoundException("资源已不存在，请重新获取再次操作.");
-        }
-    }
-
-    @Override
-    public List<${tableClass.shortClassName}> getList(Map<String, String> params) {
+    
+    public List<${tableClass.shortClassName}> selectList(String userId, Map<String, String> param) {
         Weekend<${tableClass.shortClassName}> weekend = new Weekend<>(${tableClass.shortClassName}.class);
         WeekendCriteria<${tableClass.shortClassName}, Object> criteria = weekend.weekendCriteria();
-        if (CollectionUtils.isNotEmpty(params)) {
-            //criteria.andEqualTo(${tableClass.shortClassName}::getEffStatus, StatusEnum.ENABLE.getCode());
-            //String order = SortUtils.getOrderString(param.get(SortUtils.SORT_FIELDS));
+        if (CollectionUtils.isNotEmpty(param)) {
 
-            //if (StringUtils.isNotEmpty(order)) {
-              //  weekend.setOrderByClause(order);
-            //}
         }
-        return mapper.selectByExample(weekend);
+        return selectList(weekend);
     }
+    
 }

@@ -20,6 +20,7 @@ import java.util.List;
 import org.donkeycode.codegen.api.ProgressCallback;
 import org.donkeycode.codegen.generator.AbstractJavaClientGenerator;
 import org.donkeycode.codegen.generator.AbstractJavaGenerator;
+import org.donkeycode.codegen.generator.mybatis3.javamapper.AnnotatedClientGenerator;
 import org.donkeycode.codegen.generator.mybatis3.javamapper.SimpleJavaClientGenerator;
 import org.donkeycode.codegen.generator.mybatis3.model.SimpleModelGenerator;
 import org.donkeycode.codegen.internal.ObjectFactory;
@@ -52,6 +53,8 @@ public class IntrospectedTableMyBatis3SimpleImpl extends IntrospectedTableMyBati
 			javaGenerator = new SimpleJavaClientGenerator();
 		}  else if ("MAPPER".equalsIgnoreCase(type)) {
 			javaGenerator = new SimpleJavaClientGenerator();
+		} else if ("ANNOTATEDMAPPER".equalsIgnoreCase(type)) {
+			javaGenerator = new AnnotatedClientGenerator();
 		} else {
 			javaGenerator = (AbstractJavaClientGenerator) ObjectFactory.createInternalObject(type);
 		}
