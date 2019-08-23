@@ -100,9 +100,9 @@
 		<module>donkey-lite-data</module>
 		<module>donkey-lite-manager</module>
 		<module>donkey-lite-poi</module>
-		<module>donkey-lite-codegen</module>
 		<module>donkey-lite-oss</module>
 		<module>donkey-lite-sequence</module>
+        <module>donkey-codegen-maven-plugin</module>
 	</modules>
 
 
