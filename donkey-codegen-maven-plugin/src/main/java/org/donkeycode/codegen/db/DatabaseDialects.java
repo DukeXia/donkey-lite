@@ -1,10 +1,10 @@
 package org.donkeycode.codegen.db;
 
 /**
- * Author GreedyStar
- * Date   2018-10-24
+ * 数据库驱动配置
  */
-public class DriverFactory {
+public class DatabaseDialects {
+
     private final static String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
     private final static String DRIVER_ORACLE = "oracle.jdbc.driver.OracleDriver";
     private final static String DRIVER_SQLSERVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";

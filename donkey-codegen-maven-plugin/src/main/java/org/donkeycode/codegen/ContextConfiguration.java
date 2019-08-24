@@ -1,36 +1,38 @@
-package org.donkeycode.codegen.entity;
+package org.donkeycode.codegen;
 
-import java.io.Serializable;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 
- * @author nanfeng
- *
+ * 配置
  */
 @Getter
 @Setter
-@SuppressWarnings("serial")
-public class Configuration implements Serializable {
+public class ContextConfiguration {
 
 	private String author;
 	private String packageName;
 	private Path path;
-	private Db db;
+	private Datasources datasources;
+	private Map<String, TableConfiguration> tables;
 
+	/**
+	 * 数据源配置
+	 */
 	@Getter
 	@Setter
-	public static class Db {
+	public static class Datasources {
+
 		private String url;
 		private String username;
 		private String password;
 
-		public Db() {
+		public Datasources() {
 		}
 
-		public Db(String url, String username, String password) {
+		public Datasources(String url, String username, String password) {
 			this.url = url;
 			this.username = username;
 			this.password = password;
@@ -59,5 +61,14 @@ public class Configuration implements Serializable {
 			this.entity = entity;
 			this.mapper = mapper;
 		}
+	}
+
+	@Getter
+	@Setter
+	public static class TableConfiguration {
+		private String tableName;
+		private String domainName;
+		private String alias;
+		private String description;
 	}
 }

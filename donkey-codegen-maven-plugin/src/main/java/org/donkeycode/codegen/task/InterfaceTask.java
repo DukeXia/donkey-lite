@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.donkeycode.codegen.ContextConfiguration.Path;
+import org.donkeycode.codegen.entity.TableClass;
 import org.donkeycode.codegen.task.base.AbstractTask;
 import org.donkeycode.codegen.utils.ConfigUtil;
 import org.donkeycode.codegen.utils.FileUtil;
@@ -13,25 +15,28 @@ import org.donkeycode.codegen.utils.FreemarketConfigUtils;
 import org.donkeycode.codegen.utils.StringUtil;
 
 import freemarker.template.TemplateException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Author GreedyStar
  * Date   2019/1/24
  */
+@Slf4j
 public class InterfaceTask extends AbstractTask {
 
-    public InterfaceTask(String className) {
-        super(className);
-    }
+    public InterfaceTask(TableClass tableClass) {
+		super(tableClass);
+	}
 
     @Override
     public void run() throws IOException, TemplateException {
+    	Path path = ConfigUtil.getConfiguration().getPath();
         // 生成Service接口填充数据
-        System.out.println("Generating " + className + "Service.java");
+        log.info("Generating " + className + "Service.java");
         Map<String, String> interfaceData = new HashMap<>();
         interfaceData.put("BasePackageName", ConfigUtil.getConfiguration().getPackageName());
-        interfaceData.put("InterfacePackageName", ConfigUtil.getConfiguration().getPath().getInterf());
-        interfaceData.put("EntityPackageName", ConfigUtil.getConfiguration().getPath().getEntity());
+        interfaceData.put("InterfacePackageName", path.getInterf());
+        interfaceData.put("EntityPackageName", path.getEntity());
         interfaceData.put("Author", ConfigUtil.getConfiguration().getAuthor());
         interfaceData.put("Date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         interfaceData.put("ClassName", className);

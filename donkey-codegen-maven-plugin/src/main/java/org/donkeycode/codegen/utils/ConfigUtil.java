@@ -3,7 +3,7 @@ package org.donkeycode.codegen.utils;
 import java.io.InputStream;
 import java.net.URL;
 
-import org.donkeycode.codegen.entity.Configuration;
+import org.donkeycode.codegen.ContextConfiguration;
 import org.yaml.snakeyaml.Yaml;
 
 
@@ -12,7 +12,7 @@ import org.yaml.snakeyaml.Yaml;
  * Date   2018/9/7
  */
 public class ConfigUtil {
-    private static Configuration configuration;
+    private static ContextConfiguration contextConfiguration;
 
     static {
         URL url = ConfigUtil.class.getClassLoader().getResource("generator.yaml");
@@ -22,12 +22,12 @@ public class ConfigUtil {
         } else {
             InputStream inputStream = ConfigUtil.class.getClassLoader().getResourceAsStream("generator.yaml");
             Yaml yaml = new Yaml();
-            configuration = yaml.loadAs(inputStream, Configuration.class);
+            contextConfiguration = yaml.loadAs(inputStream, ContextConfiguration.class);
         }
     }
 
-    public static Configuration getConfiguration() {
-        return configuration;
+    public static ContextConfiguration getConfiguration() {
+        return contextConfiguration;
     }
 
 }

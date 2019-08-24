@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.donkeycode.codegen.entity.ColumnInfo;
+import org.donkeycode.codegen.ContextConfiguration.Path;
+import org.donkeycode.codegen.entity.ColumnField;
+import org.donkeycode.codegen.entity.TableClass;
 import org.donkeycode.codegen.task.base.AbstractTask;
 import org.donkeycode.codegen.utils.ConfigUtil;
 import org.donkeycode.codegen.utils.FileUtil;
@@ -16,89 +18,58 @@ import org.donkeycode.codegen.utils.StringUtil;
 import freemarker.template.TemplateException;
 
 /**
- * Author GreedyStar
- * Date   2018/4/20
+ * Author GreedyStar Date 2018/4/20
  */
 public class MapperTask extends AbstractTask {
 
-    /**
-     * 单表Mapper
-     */
-    public MapperTask(String className, String tableName, List<ColumnInfo> infos) {
-        this(tableName, className, null, null, null, infos, null);
-    }
+	public MapperTask(TableClass tableClass) {
+		super(tableClass);
+	}
 
-    /**
-     * 一对多Mapper
-     */
-    public MapperTask(String tableName, String className, String parentTableName, String parentClassName, String foreignKey, List<ColumnInfo> tableInfos, List<ColumnInfo> parentTableInfos) {
-        this(tableName, className, parentTableName, parentClassName, foreignKey, null, null, tableInfos, parentTableInfos);
-    }
+	public MapperTask(TableClass tableClass, List<ColumnField> columnFields) {
+		super(tableClass, columnFields);
+	}
 
-    /**
-     * 多对多Mapper
-     */
-    public MapperTask(String tableName, String className, String parentTableName, String parentClassName, String foreignKey, String parentForeignKey, String relationalTableName, List<ColumnInfo> tableInfos, List<ColumnInfo> parentTableInfos) {
-        super(tableName, className, parentTableName, parentClassName, foreignKey, parentForeignKey, relationalTableName, tableInfos, parentTableInfos);
-    }
+	@Override
+	public void run() throws IOException, TemplateException {
+		// 生成Mapper填充数据
+		Path path = ConfigUtil.getConfiguration().getPath();
 
-    @Override
-    public void run() throws IOException, TemplateException {
-        // 生成Mapper填充数据
-        System.out.println("Generating " + className + "Mapper.xml");
-        Map<String, String> mapperData = new HashMap<>();
-        mapperData.put("PackageName", ConfigUtil.getConfiguration().getPackageName() + "." + ConfigUtil.getConfiguration().getPath().getDao());
-        mapperData.put("BasePackageName", ConfigUtil.getConfiguration().getPackageName());
-        mapperData.put("DaoPackageName", ConfigUtil.getConfiguration().getPath().getDao());
-        mapperData.put("EntityPackageName", ConfigUtil.getConfiguration().getPath().getEntity());
-        mapperData.put("ClassName", className);
-        mapperData.put("EntityName", StringUtil.firstToLowerCase(className));
-        mapperData.put("TableName", tableName);
-        mapperData.put("InsertProperties", GeneratorUtil.generateMapperInsertProperties(tableInfos));
-        mapperData.put("PrimaryKey", getPrimaryKeyColumnInfo(tableInfos).getColumnName());
-        mapperData.put("WhereId", "#{" + getPrimaryKeyColumnInfo(tableInfos).getPropertyName() + "}");
-        mapperData.put("Id", "#{id}");
-        if (!StringUtil.isBlank(parentForeignKey)) { // 多对多
-            mapperData.put("ColumnMap", GeneratorUtil.generateMapperColumnMap(tableName, parentTableName, tableInfos, parentTableInfos, StringUtil.firstToLowerCase(parentClassName)));
-            mapperData.put("ResultMap", GeneratorUtil.generateMapperResultMap(tableInfos));
-            mapperData.put("Association", "");
-            mapperData.put("Collection", GeneratorUtil.generateMapperCollection(parentTableInfos, parentClassName, ConfigUtil.getConfiguration().getPackageName() + ConfigUtil.getConfiguration().getPath().getEntity()));
-            mapperData.put("InsertBatchValues", GeneratorUtil.generateMapperInsertBatchValues(tableInfos, StringUtil.firstToLowerCase(className)));
-            mapperData.put("InsertValues", GeneratorUtil.generateMapperInsertValues(tableInfos));
-            mapperData.put("UpdateProperties", GeneratorUtil.generateMapperUpdateProperties(tableInfos));
-            mapperData.put("Joins", GeneratorUtil.generateMapperJoins(tableName, parentTableName, relationalTableName, foreignKey, parentForeignKey, getPrimaryKeyColumnInfo(tableInfos).getColumnName(), getPrimaryKeyColumnInfo(parentTableInfos).getColumnName()));
-        } else if (!StringUtil.isBlank(foreignKey)) { // 一对多
-            mapperData.put("ColumnMap", GeneratorUtil.generateMapperColumnMap(tableName, parentTableName, tableInfos, parentTableInfos, StringUtil.firstToLowerCase(parentClassName), foreignKey));
-            mapperData.put("ResultMap", GeneratorUtil.generateMapperResultMap(tableInfos));
-            mapperData.put("Association", GeneratorUtil.generateMapperAssociation(parentTableInfos, parentClassName, ConfigUtil.getConfiguration().getPackageName() + ConfigUtil.getConfiguration().getPath().getEntity()));
-            mapperData.put("Collection", "");
-            mapperData.put("InsertBatchValues", GeneratorUtil.generateMapperInsertBatchValues(tableInfos, StringUtil.firstToLowerCase(className), StringUtil.firstToLowerCase(parentClassName), foreignKey, getPrimaryKeyColumnInfo(parentTableInfos).getPropertyName()));
-            mapperData.put("InsertValues", GeneratorUtil.generateMapperInsertValues(tableInfos, StringUtil.firstToLowerCase(parentClassName), foreignKey, getPrimaryKeyColumnInfo(parentTableInfos).getPropertyName()));
-            mapperData.put("UpdateProperties", GeneratorUtil.generateMapperUpdateProperties(tableInfos, StringUtil.firstToLowerCase(parentClassName), foreignKey, getPrimaryKeyColumnInfo(parentTableInfos).getPropertyName()));
-            mapperData.put("Joins", GeneratorUtil.generateMapperJoins(tableName, parentTableName, foreignKey, getPrimaryKeyColumnInfo(parentTableInfos).getColumnName()));
-        } else { // 单表
-            mapperData.put("ColumnMap", GeneratorUtil.generateMapperColumnMap(tableName, tableInfos));
-            mapperData.put("ResultMap", GeneratorUtil.generateMapperResultMap(tableInfos));
-            mapperData.put("Association", "");
-            mapperData.put("Collection", "");
-            mapperData.put("InsertBatchValues", GeneratorUtil.generateMapperInsertBatchValues(tableInfos, StringUtil.firstToLowerCase(className)));
-            mapperData.put("InsertValues", GeneratorUtil.generateMapperInsertValues(tableInfos));
-            mapperData.put("UpdateProperties", GeneratorUtil.generateMapperUpdateProperties(tableInfos));
-            mapperData.put("Joins", "");
-        }
-        String filePath = FileUtil.getResourcePath() + StringUtil.package2Path(ConfigUtil.getConfiguration().getPath().getMapper());
-        String fileName = className + "Mapper.xml";
-        // 生成Mapper文件
-        FileUtil.generateToJava(FreemarketConfigUtils.TYPE_MAPPER, mapperData, filePath + fileName);
-    }
+		System.out.println("Generating " + className + "Mapper.xml");
+		Map<String, String> mapperData = new HashMap<>();
+		mapperData.put("PackageName", ConfigUtil.getConfiguration().getPackageName() + "." + path.getDao());
+		mapperData.put("BasePackageName", ConfigUtil.getConfiguration().getPackageName());
+		mapperData.put("DaoPackageName", path.getDao());
+		mapperData.put("EntityPackageName", path.getEntity());
+		mapperData.put("ClassName", className);
+		mapperData.put("EntityName", StringUtil.firstToLowerCase(className));
+		mapperData.put("TableName", tableName);
+		mapperData.put("InsertProperties", GeneratorUtil.generateMapperInsertProperties(columnFields));
+		mapperData.put("PrimaryKey", getPrimaryKeyColumnInfo(columnFields).getColumnName());
+		mapperData.put("WhereId", "#{" + getPrimaryKeyColumnInfo(columnFields).getPropertyName() + "}");
+		mapperData.put("Id", "#{id}");
 
-    private ColumnInfo getPrimaryKeyColumnInfo(List<ColumnInfo> list) {
-        for (ColumnInfo columnInfo : list) {
-            if (columnInfo.isPrimaryKey()) {
-                return columnInfo;
-            }
-        }
-        return null;
-    }
+		mapperData.put("ColumnMap", GeneratorUtil.generateMapperColumnMap(tableName, columnFields));
+		mapperData.put("ResultMap", GeneratorUtil.generateMapperResultMap(columnFields));
+		mapperData.put("Association", "");
+		mapperData.put("Collection", "");
+		mapperData.put("InsertBatchValues", GeneratorUtil.generateMapperInsertBatchValues(columnFields, StringUtil.firstToLowerCase(className)));
+		mapperData.put("InsertValues", GeneratorUtil.generateMapperInsertValues(columnFields));
+		mapperData.put("UpdateProperties", GeneratorUtil.generateMapperUpdateProperties(columnFields));
+		mapperData.put("Joins", "");
+		String filePath = FileUtil.getResourcePath() + StringUtil.package2Path(path.getMapper());
+		String fileName = className + "Mapper.xml";
+		// 生成Mapper文件
+		FileUtil.generateToJava(FreemarketConfigUtils.TYPE_MAPPER, mapperData, filePath + fileName);
+	}
+
+	private ColumnField getPrimaryKeyColumnInfo(List<ColumnField> list) {
+		for (ColumnField columnField : list) {
+			if (columnField.isPrimaryKey()) {
+				return columnField;
+			}
+		}
+		return null;
+	}
 
 }

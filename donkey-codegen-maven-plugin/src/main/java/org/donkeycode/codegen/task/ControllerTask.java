@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.donkeycode.codegen.entity.TableClass;
 import org.donkeycode.codegen.task.base.AbstractTask;
 import org.donkeycode.codegen.utils.ConfigUtil;
 import org.donkeycode.codegen.utils.FileUtil;
@@ -19,11 +20,10 @@ import freemarker.template.TemplateException;
  * @author nanfeng
  *
  */
-@SuppressWarnings("serial")
 public class ControllerTask extends AbstractTask {
 
-	public ControllerTask(String className) {
-		super(className);
+	public ControllerTask(TableClass tableClass) {
+		super(tableClass);
 	}
 
 	@Override
@@ -43,9 +43,7 @@ public class ControllerTask extends AbstractTask {
 		controllerData.put("Date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		controllerData.put("ClassName", className);
 		controllerData.put("EntityName", StringUtil.firstToLowerCase(className));
-		String filePath = FileUtil.getSourcePath()
-				+ StringUtil.package2Path(ConfigUtil.getConfiguration().getPackageName())
-				+ StringUtil.package2Path(ConfigUtil.getConfiguration().getPath().getController());
+		String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(ConfigUtil.getConfiguration().getPackageName()) + StringUtil.package2Path(ConfigUtil.getConfiguration().getPath().getController());
 		String fileName = className + "Controller.java";
 		// 生成Controller文件
 		FileUtil.generateToJava(FreemarketConfigUtils.TYPE_CONTROLLER, controllerData, filePath + fileName);

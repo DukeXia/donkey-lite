@@ -2,12 +2,12 @@ package org.donkeycode.codegen.invoker;
 
 import java.sql.SQLException;
 
+import org.donkeycode.codegen.entity.TableClass;
 import org.donkeycode.codegen.invoker.base.AbstractBuilder;
 import org.donkeycode.codegen.invoker.base.AbstractInvoker;
 import org.donkeycode.codegen.invoker.base.Invoker;
 import org.donkeycode.codegen.utils.GeneratorUtil;
 import org.donkeycode.codegen.utils.StringUtil;
-
 
 /**
  * Author GreedyStar
@@ -15,46 +15,43 @@ import org.donkeycode.codegen.utils.StringUtil;
  */
 public class SingleInvoker extends AbstractInvoker {
 
-    @Override
-    protected void getTableInfos() throws SQLException {
-        tableInfos = connectionUtil.getMetaData(tableName);
-    }
+	@Override
+	protected void getTableInfos() throws SQLException {
+		columnFields = jDBCConnectionFactory.getMetaData(tableClass.getTableName());
+	}
 
-    @Override
-    protected void initTasks() {
-        taskQueue.initSingleTasks(className, tableName, tableInfos);
-    }
+	@Override
+	protected void initTasks() {
+		taskQueue.initSingleTasks(tableClass, columnFields);
+	}
 
-    public static class Builder extends AbstractBuilder {
-        private SingleInvoker invoker = new SingleInvoker();
+	public static class Builder extends AbstractBuilder {
 
-        public Builder setTableName(String tableName) {
-            invoker.setTableName(tableName);
-            return this;
-        }
+		private SingleInvoker invoker = new SingleInvoker();
 
-        public Builder setClassName(String className) {
-            invoker.setClassName(className);
-            return this;
-        }
+		public Builder setTableClass(TableClass tableClass) {
+			invoker.setTableClass(tableClass);
+			return this;
+		}
 
-        @Override
-        public Invoker build() {
-            if (!isParamtersValid()) {
-                return null;
-            }
-            return invoker;
-        }
 
-        @Override
-        public void checkBeforeBuild() throws Exception {
-            if (StringUtil.isBlank(invoker.getTableName())) {
-                throw new Exception("Expect table's name, but get a blank String.");
-            }
-            if (StringUtil.isBlank(invoker.getClassName())) {
-                invoker.setClassName(GeneratorUtil.generateClassName(invoker.getTableName()));
-            }
-        }
-    }
+		@Override
+		public Invoker build() {
+			if (!isParamtersValid()) {
+				return null;
+			}
+			return invoker;
+		}
+
+		@Override
+		public void checkBeforeBuild() throws Exception {
+			if (StringUtil.isBlank(invoker.getTableClass().getTableName())) {
+				throw new Exception("Expect table's name, but get a blank String.");
+			}
+			if (StringUtil.isBlank(invoker.getTableClass().getTableName())) {
+				//invoker.set(GeneratorUtil.generateClassName(invoker.getTableClass().getTableName()));
+			}
+		}
+	}
 
 }

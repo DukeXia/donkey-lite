@@ -3,7 +3,8 @@ package org.donkeycode.codegen.utils;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.donkeycode.codegen.entity.ColumnInfo;
+import org.donkeycode.codegen.entity.ColumnField;
+import org.donkeycode.codegen.entity.TableClass;
 import org.donkeycode.codegen.task.ControllerTask;
 import org.donkeycode.codegen.task.DaoTask;
 import org.donkeycode.codegen.task.EntityTask;
@@ -19,55 +20,28 @@ public class TaskQueue {
 
 	private LinkedList<AbstractTask> taskQueue = new LinkedList<>();
 
-	private void initCommonTasks(String className) {
+	private void initCommonTasks(TableClass tableClass) {
 		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getController())) {
-			taskQueue.add(new ControllerTask(className));
+			taskQueue.add(new ControllerTask(tableClass));
 		}
 		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getService())) {
-			taskQueue.add(new ServiceTask(className));
+			taskQueue.add(new ServiceTask(tableClass));
 		}
 		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getInterf())) {
-			taskQueue.add(new InterfaceTask(className));
+			taskQueue.add(new InterfaceTask(tableClass));
 		}
 		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getDao())) {
-			taskQueue.add(new DaoTask(className));
+			taskQueue.add(new DaoTask(tableClass));
 		}
 	}
 
-	public void initSingleTasks(String className, String tableName, List<ColumnInfo> tableInfos) {
-		initCommonTasks(className);
+	public void initSingleTasks(TableClass tableClass, List<ColumnField> columnFields) {
+		initCommonTasks(tableClass);
 		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getEntity())) {
-			taskQueue.add(new EntityTask(className, tableInfos));
+			taskQueue.add(new EntityTask(tableClass));
 		}
 		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getMapper())) {
-			taskQueue.add(new MapperTask(className, tableName, tableInfos));
-		}
-	}
-
-	public void initOne2ManyTasks(String tableName, String className, String parentTableName, String parentClassName,
-			String foreignKey, List<ColumnInfo> tableInfos, List<ColumnInfo> parentTableInfos) {
-		initCommonTasks(className);
-		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getEntity())) {
-			taskQueue.add(new EntityTask(className, parentClassName, foreignKey, tableInfos));
-			taskQueue.add(new EntityTask(parentClassName, parentTableInfos));
-		}
-		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getMapper())) {
-			taskQueue.add(new MapperTask(tableName, className, parentTableName, parentClassName, foreignKey, tableInfos,
-					parentTableInfos));
-		}
-	}
-
-	public void initMany2ManyTasks(String tableName, String className, String parentTableName, String parentClassName,
-			String foreignKey, String parentForeignKey, String relationalTableName, List<ColumnInfo> tableInfos,
-			List<ColumnInfo> parentTableInfos) {
-		initCommonTasks(className);
-		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getEntity())) {
-			taskQueue.add(new EntityTask(className, parentClassName, foreignKey, parentForeignKey, tableInfos));
-			taskQueue.add(new EntityTask(parentClassName, parentTableInfos));
-		}
-		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getMapper())) {
-			taskQueue.add(new MapperTask(tableName, className, parentTableName, parentClassName, foreignKey,
-					parentForeignKey, relationalTableName, tableInfos, parentTableInfos));
+			taskQueue.add(new MapperTask(tableClass,  columnFields));
 		}
 	}
 

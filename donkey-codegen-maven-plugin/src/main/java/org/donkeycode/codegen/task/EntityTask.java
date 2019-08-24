@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.donkeycode.codegen.entity.ColumnInfo;
+import org.donkeycode.codegen.ContextConfiguration.Path;
+import org.donkeycode.codegen.entity.ColumnField;
+import org.donkeycode.codegen.entity.TableClass;
 import org.donkeycode.codegen.task.base.AbstractTask;
 import org.donkeycode.codegen.utils.ConfigUtil;
 import org.donkeycode.codegen.utils.FileUtil;
@@ -23,50 +25,33 @@ import freemarker.template.TemplateException;
  */
 public class EntityTask extends AbstractTask {
 
-    /**
-     * 1.单表生成  2.多表时生成子表实体
-     */
-    public EntityTask(String className, List<ColumnInfo> infos) {
-        this(className, null, null, infos);
-    }
+	public EntityTask(TableClass tableClass, List<ColumnField> columnFields) {
+		super(tableClass, columnFields);
+	}
 
-    /**
-     * 一对多关系生成主表实体
-     */
-    public EntityTask(String className, String parentClassName, String foreignKey, List<ColumnInfo> tableInfos) {
-        this(className, parentClassName, foreignKey, null, tableInfos);
-    }
+	public EntityTask(TableClass tableClass) {
+		super(tableClass);
+	}
 
-    /**
-     * 多对多关系生成主表实体
-     */
-    public EntityTask(String className, String parentClassName, String foreignKey, String parentForeignKey, List<ColumnInfo> tableInfos) {
-        super(className, parentClassName, foreignKey, parentForeignKey, tableInfos);
-    }
+	@Override
+	public void run() throws IOException, TemplateException {
 
-    @Override
-    public void run() throws IOException, TemplateException {
-        // 生成Entity填充数据
-        System.out.println("Generating " + className + ".java");
-        Map<String, String> entityData = new HashMap<>();
-        entityData.put("BasePackageName", ConfigUtil.getConfiguration().getPackageName());
-        entityData.put("EntityPackageName", ConfigUtil.getConfiguration().getPath().getEntity());
-        entityData.put("Author", ConfigUtil.getConfiguration().getAuthor());
-        entityData.put("Date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-        entityData.put("ClassName", className);
-        if (!StringUtil.isBlank(parentForeignKey)) { // 多对多：主表实体
-            entityData.put("Properties", GeneratorUtil.generateEntityProperties(parentClassName, tableInfos));
-            entityData.put("Methods", GeneratorUtil.generateEntityMethods(parentClassName, tableInfos));
-        } else if (!StringUtil.isBlank(foreignKey)) { // 多对一：主表实体
-            entityData.put("Properties", GeneratorUtil.generateEntityProperties(parentClassName, tableInfos, foreignKey));
-            entityData.put("Methods", GeneratorUtil.generateEntityMethods(parentClassName, tableInfos, foreignKey));
-        } else { // 单表关系
-            entityData.put("Properties", GeneratorUtil.generateEntityProperties(tableInfos));
-            entityData.put("Methods", GeneratorUtil.generateEntityMethods(tableInfos));
-        }
-        String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(ConfigUtil.getConfiguration().getPackageName()) + StringUtil.package2Path(ConfigUtil.getConfiguration().getPath().getEntity());
-        String fileName = className + ".java";
-        // 生成Entity文件
-        FileUtil.generateToJava(FreemarketConfigUtils.TYPE_ENTITY, entityData, filePath + fileName);
-    }
+		Path path = ConfigUtil.getConfiguration().getPath();
+		// 生成Entity填充数据
+		System.out.println("Generating " + className + ".java");
+		Map<String, String> entityData = new HashMap<>();
+		entityData.put("BasePackageName", ConfigUtil.getConfiguration().getPackageName());
+		entityData.put("EntityPackageName", path.getEntity());
+		entityData.put("Author", ConfigUtil.getConfiguration().getAuthor());
+		entityData.put("Date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		entityData.put("ClassName", className);
+		// 单表关系
+		entityData.put("Properties", GeneratorUtil.generateEntityProperties(columnFields));
+		entityData.put("Methods", GeneratorUtil.generateEntityMethods(columnFields));
+
+		String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(ConfigUtil.getConfiguration().getPackageName()) + StringUtil.package2Path(ConfigUtil.getConfiguration().getPath().getEntity());
+		String fileName = className + ".java";
+		// 生成Entity文件
+		FileUtil.generateToJava(FreemarketConfigUtils.TYPE_ENTITY, entityData, filePath + fileName);
+	}
 }

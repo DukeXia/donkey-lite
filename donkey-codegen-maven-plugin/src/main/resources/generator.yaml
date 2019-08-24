@@ -1,13 +1,27 @@
-db:
-  url:
-  username:
-  password:
-author: unknown
-packageName:
+datasources:
+    url: jdbc:mysql://192.168.2.102:3306/cloud_acl_db?characterEncoding=utf8&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: 12345678
+author: doneky
+
+packageName: com.donkeycat.data
+
 path:
-  controller: controller
-  service: service.impl
-  interf: service
-  dao: dao
-  entity: entity
-  mapper: mappers
+    controller: controller
+    service: service.impl
+    interf: service
+    dao: dao
+    entity: entity
+    mapper: mappers
+tables:
+    userClass:
+        tableName: user
+        domainName: User
+        alias: 用户
+        description: 系统用户信息
+    deptClass:
+        tableName: dept
+        domainName: Dept
+        alias: 企业部门
+        description: 企业组织架构
+    

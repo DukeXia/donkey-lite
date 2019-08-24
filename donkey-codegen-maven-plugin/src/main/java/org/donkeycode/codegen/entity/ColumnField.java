@@ -15,18 +15,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @SuppressWarnings("serial")
-public class ColumnInfo implements Serializable {
+public class ColumnField implements Serializable {
 
 	private String columnName; // 列名
 	private int type; // 类型代码
 	private String propertyName; // 属性名
 	private boolean isPrimaryKey; // 是否主键
 
-	public ColumnInfo() {
+	public ColumnField() {
 
 	}
 
-	public ColumnInfo(String columnName, int type, boolean isPrimaryKey) {
+	public ColumnField(String columnName, int type, boolean isPrimaryKey) {
 		this.columnName = columnName;
 		this.type = type;
 		this.propertyName = StringUtil.columnName2PropertyName(columnName);

@@ -3,7 +3,7 @@ package org.donkeycode.codegen.utils;
 import java.sql.Types;
 import java.util.List;
 
-import org.donkeycode.codegen.entity.ColumnInfo;
+import org.donkeycode.codegen.entity.ColumnField;
 
 
 /**
@@ -19,7 +19,7 @@ public class GeneratorUtil {
      * @param infos 表结构
      * @return
      */
-    public static String generateEntityProperties(List<ColumnInfo> infos) {
+    public static String generateEntityProperties(List<ColumnField> infos) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (i != 0) {
@@ -38,7 +38,7 @@ public class GeneratorUtil {
      * @param infos           表结构
      * @return
      */
-    public static String generateEntityProperties(String parentClassName, List<ColumnInfo> infos) {
+    public static String generateEntityProperties(String parentClassName, List<ColumnField> infos) {
         StringBuilder sb = new StringBuilder(generateEntityProperties(infos));
         sb.append("    ").append("private List<").append(parentClassName).append(">").append(" ").append(StringUtil.firstToLowerCase(parentClassName)).append("s; \n");
         return sb.toString();
@@ -52,7 +52,7 @@ public class GeneratorUtil {
      * @param foreignKey      外键
      * @return
      */
-    public static String generateEntityProperties(String parentClassName, List<ColumnInfo> infos, String foreignKey) {
+    public static String generateEntityProperties(String parentClassName, List<ColumnField> infos, String foreignKey) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (infos.get(i).isPrimaryKey() || !infos.get(i).getColumnName().equals(foreignKey)) {
@@ -74,7 +74,7 @@ public class GeneratorUtil {
      * @param infos 表结构
      * @return
      */
-    public static String generateEntityMethods(List<ColumnInfo> infos) {
+    public static String generateEntityMethods(List<ColumnField> infos) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (i != 0) {
@@ -97,7 +97,7 @@ public class GeneratorUtil {
      * @param infos
      * @return
      */
-    public static String generateEntityMethods(String parentClassName, List<ColumnInfo> infos) {
+    public static String generateEntityMethods(String parentClassName, List<ColumnField> infos) {
         StringBuilder sb = new StringBuilder(generateEntityMethods(infos));
         sb.append("    ").append("public void set" + parentClassName + "s (List<" + parentClassName + "> " + StringUtil.firstToLowerCase(parentClassName) + "s) { \n this." + StringUtil.firstToLowerCase(parentClassName) + "s = " + StringUtil.firstToLowerCase(parentClassName) + "s;\n} \n");
         sb.append("    ").append("public List<" + parentClassName + "> get" + parentClassName + "s(){ return this." + StringUtil.firstToLowerCase(parentClassName) + "s;} \n");
@@ -112,7 +112,7 @@ public class GeneratorUtil {
      * @param foreignKey      外键
      * @return
      */
-    public static String generateEntityMethods(String parentClassName, List<ColumnInfo> infos, String foreignKey) {
+    public static String generateEntityMethods(String parentClassName, List<ColumnField> infos, String foreignKey) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (infos.get(i).isPrimaryKey() || !infos.get(i).getColumnName().equals(foreignKey)) {
@@ -136,7 +136,7 @@ public class GeneratorUtil {
     /**
      * 生成Mapper ColumnMap字段，单表
      */
-    public static String generateMapperColumnMap(String tableName, List<ColumnInfo> infos) {
+    public static String generateMapperColumnMap(String tableName, List<ColumnField> infos) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (i != 0) {
@@ -150,7 +150,7 @@ public class GeneratorUtil {
     /**
      * 生成Mapper ColumnMap字段，一对多
      */
-    public static String generateMapperColumnMap(String tableName, String parentTableName, List<ColumnInfo> infos, List<ColumnInfo> parentInfos, String parentEntityName, String foreignKey) {
+    public static String generateMapperColumnMap(String tableName, String parentTableName, List<ColumnField> infos, List<ColumnField> parentInfos, String parentEntityName, String foreignKey) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (infos.get(i).isPrimaryKey() || !infos.get(i).getColumnName().equals(foreignKey)) {
@@ -160,7 +160,7 @@ public class GeneratorUtil {
                 sb.append(tableName).append(".").append(infos.get(i).getColumnName()).append(" AS ").append("\"").append(infos.get(i).getPropertyName()).append("\",\n");
             }
         }
-        for (ColumnInfo info : parentInfos) {
+        for (ColumnField info : parentInfos) {
             sb.append("        ").append(parentTableName).append(".").append(info.getColumnName()).append(" AS ").append("\"").append(parentEntityName).append(".").append(info.getPropertyName()).append("\",\n");
         }
         return sb.toString().substring(0, sb.toString().length() - 2);
@@ -169,10 +169,10 @@ public class GeneratorUtil {
     /**
      * 生成Mapper ColumnMap字段，多对多
      */
-    public static String generateMapperColumnMap(String tableName, String parentTableName, List<ColumnInfo> infos, List<ColumnInfo> parentInfos, String parentEntityName) {
+    public static String generateMapperColumnMap(String tableName, String parentTableName, List<ColumnField> infos, List<ColumnField> parentInfos, String parentEntityName) {
         StringBuilder sb = new StringBuilder(generateMapperColumnMap(tableName, infos));
         sb.append(",\n");
-        for (ColumnInfo info : parentInfos) {
+        for (ColumnField info : parentInfos) {
             sb.append("        ").append(parentTableName).append(".").append(info.getColumnName()).append(" AS ").append("\"").append(parentEntityName).append("s.").append(info.getPropertyName()).append("\",\n");
         }
         return sb.toString().substring(0, sb.toString().length() - 2);
@@ -184,9 +184,9 @@ public class GeneratorUtil {
      * @param infos
      * @return
      */
-    public static String generateMapperResultMap(List<ColumnInfo> infos) {
+    public static String generateMapperResultMap(List<ColumnField> infos) {
         StringBuilder sb = new StringBuilder();
-        for (ColumnInfo info : infos) {
+        for (ColumnField info : infos) {
             if (info.isPrimaryKey()) {
                 sb.append("<id column=\"").append(info.getPropertyName()).append("\" property=\"").append(info.getPropertyName()).append("\"/> \n");
             } else {
@@ -205,10 +205,10 @@ public class GeneratorUtil {
      * @param parentClassPackage
      * @return
      */
-    public static String generateMapperAssociation(List<ColumnInfo> parentInfos, String parentClassName, String parentClassPackage) {
+    public static String generateMapperAssociation(List<ColumnField> parentInfos, String parentClassName, String parentClassPackage) {
         StringBuilder sb = new StringBuilder();
         sb.append("<association property=\"").append(StringUtil.firstToLowerCase(parentClassName)).append("\" javaType=\"").append(parentClassPackage).append(".").append(parentClassName).append("\">\n");
-        for (ColumnInfo info : parentInfos) {
+        for (ColumnField info : parentInfos) {
             if (info.isPrimaryKey()) {
                 sb.append("            ").append("<id column=\"").append(StringUtil.firstToLowerCase(parentClassName)).append(".").append(info.getPropertyName()).append("\" property=\"").append(info.getPropertyName()).append("\"/> \n");
             } else {
@@ -229,10 +229,10 @@ public class GeneratorUtil {
      * @param parentClassPackage
      * @return
      */
-    public static String generateMapperCollection(List<ColumnInfo> parentInfos, String parentClassName, String parentClassPackage) {
+    public static String generateMapperCollection(List<ColumnField> parentInfos, String parentClassName, String parentClassPackage) {
         StringBuilder sb = new StringBuilder();
         sb.append("<collection property=\"").append(StringUtil.firstToLowerCase(parentClassName)).append("s\" ofType=\"").append(parentClassPackage).append(".").append(parentClassName).append("\">\n");
-        for (ColumnInfo info : parentInfos) {
+        for (ColumnField info : parentInfos) {
             if (info.isPrimaryKey()) {
                 sb.append("            ").append("<id column=\"").append(StringUtil.firstToLowerCase(parentClassName)).append("s").append(".").append(info.getPropertyName()).append("\" property=\"").append(info.getPropertyName()).append("\"/> \n");
             } else {
@@ -286,7 +286,7 @@ public class GeneratorUtil {
      * @param infos
      * @return
      */
-    public static String generateMapperInsertProperties(List<ColumnInfo> infos) {
+    public static String generateMapperInsertProperties(List<ColumnField> infos) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (i != 0) {
@@ -300,7 +300,7 @@ public class GeneratorUtil {
     /**
      * 生成Mapper 插入属性字段（单表，多对多）
      */
-    public static String generateMapperInsertValues(List<ColumnInfo> infos) {
+    public static String generateMapperInsertValues(List<ColumnField> infos) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (i != 0) {
@@ -314,7 +314,7 @@ public class GeneratorUtil {
     /**
      * 生成Mapper 批量插入属性字段（单表，多对多）
      */
-    public static String generateMapperInsertBatchValues(List<ColumnInfo> infos, String entityName) {
+    public static String generateMapperInsertBatchValues(List<ColumnField> infos, String entityName) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (i != 0) {
@@ -328,7 +328,7 @@ public class GeneratorUtil {
     /**
      * 生成Mapper 插入属性字段（一对多）
      */
-    public static String generateMapperInsertValues(List<ColumnInfo> infos, String parentEntityName, String foreignKey, String primaryKey) {
+    public static String generateMapperInsertValues(List<ColumnField> infos, String parentEntityName, String foreignKey, String primaryKey) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (infos.get(i).getColumnName().equals(foreignKey)) {
@@ -349,7 +349,7 @@ public class GeneratorUtil {
     /**
      * 生成Mapper 批量插入属性字段（一对多）
      */
-    public static String generateMapperInsertBatchValues(List<ColumnInfo> infos, String entityName, String parentEntityName, String foreignKey, String primaryKey) {
+    public static String generateMapperInsertBatchValues(List<ColumnField> infos, String entityName, String parentEntityName, String foreignKey, String primaryKey) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (infos.get(i).getColumnName().equals(foreignKey)) {
@@ -370,7 +370,7 @@ public class GeneratorUtil {
     /**
      * 生成Mapper 更新属性字段
      */
-    public static String generateMapperUpdateProperties(List<ColumnInfo> infos) {
+    public static String generateMapperUpdateProperties(List<ColumnField> infos) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (i != 0) {
@@ -384,7 +384,7 @@ public class GeneratorUtil {
     /**
      * 生成Mapper 更新属性字段
      */
-    public static String generateMapperUpdateProperties(List<ColumnInfo> infos, String parentEntityName, String foreignKey, String primaryKey) {
+    public static String generateMapperUpdateProperties(List<ColumnField> infos, String parentEntityName, String foreignKey, String primaryKey) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < infos.size(); i++) {
             if (infos.get(i).getColumnName().equals(foreignKey)) {
