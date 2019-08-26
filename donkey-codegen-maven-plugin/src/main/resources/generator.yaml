@@ -3,24 +3,27 @@ datasources:
     username: root
     password: 12345678
 author: doneky
+    
+dataGenerator:
+    targetPackage: com.leyidai.data
+    targetProject: F:/generatorConfig
 
-packageName: com.donkeycat.data
-
-path:
-    controller: controller
-    service: service.impl
-    interf: service
-    dao: dao
-    entity: entity
-    mapper: mappers
+serviceGenerator:
+    targetPackage: com.leyidai.service
+    targetProject: F:/generatorConfig
+ 
+controllerGenerator:
+    targetPackage: com.leyidai.web
+    targetProject: F:/generatorConfig
+    
 tables:
     userClass:
-        tableName: user
+        tableName: acl_user
         domainName: User
         alias: 用户
         description: 系统用户信息
     deptClass:
-        tableName: dept
+        tableName: acl_dept
         domainName: Dept
         alias: 企业部门
         description: 企业组织架构

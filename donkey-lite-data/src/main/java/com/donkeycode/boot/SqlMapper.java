@@ -231,7 +231,6 @@ public class SqlMapper {
         private Configuration configuration;
         private LanguageDriver languageDriver;
 
-        @SuppressWarnings("deprecation")
         private MSUtils(Configuration configuration) {
             this.configuration = configuration;
             languageDriver = configuration.getDefaultScriptingLanguageInstance();

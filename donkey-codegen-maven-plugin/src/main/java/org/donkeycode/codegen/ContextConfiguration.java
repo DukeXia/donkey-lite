@@ -2,7 +2,9 @@ package org.donkeycode.codegen;
 
 import java.util.Map;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -13,59 +15,69 @@ import lombok.Setter;
 public class ContextConfiguration {
 
 	private String author;
-	private String packageName;
-	private Path path;
+	private ControllerGenerator controllerGenerator;
+	private ServiceGenerator serviceGenerator;
+	private DataGenerator dataGenerator;
 	private Datasources datasources;
-	private Map<String, TableConfiguration> tables;
+	private Map<String, Table> tables;
 
 	/**
 	 * 数据源配置
 	 */
 	@Getter
 	@Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
 	public static class Datasources {
 
 		private String url;
 		private String username;
 		private String password;
 
-		public Datasources() {
-		}
-
-		public Datasources(String url, String username, String password) {
-			this.url = url;
-			this.username = username;
-			this.password = password;
-		}
-
 	}
 
 	@Getter
 	@Setter
-	public static class Path {
-		private String controller;
-		private String service;
-		private String interf;
-		private String dao;
-		private String entity;
-		private String mapper;
-
-		public Path() {
-		}
-
-		public Path(String controller, String service, String interf, String dao, String entity, String mapper) {
-			this.controller = controller;
-			this.service = service;
-			this.interf = interf;
-			this.dao = dao;
-			this.entity = entity;
-			this.mapper = mapper;
-		}
+    @AllArgsConstructor
+    @NoArgsConstructor
+	public static class ControllerGenerator {
+		private String targetPackage;
+		private String targetProject;
 	}
 
-	@Getter
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ServiceGenerator {
+        private String targetPackage;
+        private String targetProject;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class DataGenerator {
+        private String targetPackage;
+        private String targetProject;
+
+
+        public  String getModelPackage(){
+            return targetPackage.concat(".domain");
+        }
+
+        public String getMapperPackage(){
+            return targetPackage.concat(".mapper");
+        }
+    }
+
+
+    @Getter
 	@Setter
-	public static class TableConfiguration {
+    @AllArgsConstructor
+    @NoArgsConstructor
+	public static class Table {
 		private String tableName;
 		private String domainName;
 		private String alias;

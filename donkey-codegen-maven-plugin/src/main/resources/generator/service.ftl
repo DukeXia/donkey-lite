@@ -1,4 +1,4 @@
-package ${package};
+package ${targetPackage};
 
 import ${mapperPackage}.${tableClass.shortClassName}Mapper;
 import ${interfacePackage}.${tableClass.shortClassName}Service;

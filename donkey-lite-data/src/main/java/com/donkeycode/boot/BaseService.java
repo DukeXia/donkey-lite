@@ -17,7 +17,6 @@ import com.github.pagehelper.PageInfo;
 
 import lombok.extern.slf4j.Slf4j;
 import tk.mybatis.mapper.weekend.Weekend;
-import tk.mybatis.mapper.weekend.WeekendCriteria;
 
 /**
  * 关系型数据库持久化

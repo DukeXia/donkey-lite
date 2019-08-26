@@ -16,9 +16,6 @@ import freemarker.template.TemplateException;
  */
 public abstract class AbstractTask {
 
-	protected String tableName;
-	protected String className;
-	protected String foreignKey;
 	protected List<ColumnField> columnFields;
 	protected TableClass tableClass;
 

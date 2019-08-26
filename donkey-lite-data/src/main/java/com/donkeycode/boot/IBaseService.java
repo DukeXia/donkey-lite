@@ -1,14 +1,10 @@
 package com.donkeycode.boot;
 
 import java.util.List;
-import java.util.Map;
 
 import com.donkeycode.core.page.ListFilter;
 import com.donkeycode.core.page.PageFilter;
-import com.donkeycode.core.page.PageResult;
 import com.github.pagehelper.PageInfo;
-import tk.mybatis.mapper.entity.Example;
-import tk.mybatis.mapper.weekend.Weekend;
 
 /**
  * BaseService 通用接口定义
