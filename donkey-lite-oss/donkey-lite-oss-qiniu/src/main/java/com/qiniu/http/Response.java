@@ -3,7 +3,6 @@ package com.qiniu.http;
 
 import com.alibaba.fastjson.JSON;
 import com.qiniu.common.QiniuException;
-import com.qiniu.util.StringMap;
 import com.qiniu.util.StringUtils;
 
 import okhttp3.MediaType;
@@ -177,7 +176,7 @@ public final class Response {
         return JSON.parseObject(b, classOfT);
     }
 
-    public Map jsonToMap() throws QiniuException {
+    public Map<?, ?> jsonToMap() throws QiniuException {
         if (!isJson()) {
             return null;
         }

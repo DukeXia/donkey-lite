@@ -6,12 +6,12 @@ import org.donkeycode.codegen.entity.TableClass;
 import org.donkeycode.codegen.invoker.base.AbstractBuilder;
 import org.donkeycode.codegen.invoker.base.AbstractInvoker;
 import org.donkeycode.codegen.invoker.base.Invoker;
-import org.donkeycode.codegen.utils.GeneratorUtil;
 import org.donkeycode.codegen.utils.StringUtil;
 
 /**
- * Author GreedyStar
- * Date   2018/9/5
+ * 
+ * @author nanfeng
+ *
  */
 public class SingleInvoker extends AbstractInvoker {
 
@@ -22,7 +22,7 @@ public class SingleInvoker extends AbstractInvoker {
 
 	@Override
 	protected void initTasks() {
-		taskQueue.initSingleTasks(tableClass, columnFields);
+		taskQueue.initTasks(tableClass, columnFields);
 	}
 
 	public static class Builder extends AbstractBuilder {
@@ -33,8 +33,7 @@ public class SingleInvoker extends AbstractInvoker {
 			invoker.setTableClass(tableClass);
 			return this;
 		}
-
-
+		
 		@Override
 		public Invoker build() {
 			if (!isParamtersValid()) {

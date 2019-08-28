@@ -6,15 +6,15 @@ author: doneky
     
 dataGenerator:
     targetPackage: com.leyidai.data
-    targetProject: F:/generatorConfig
+    targetProject: /home/nanfeng/Documents/code/test
 
 serviceGenerator:
     targetPackage: com.leyidai.service
-    targetProject: F:/generatorConfig
+    targetProject: /home/nanfeng/Documents/code/test
  
 controllerGenerator:
     targetPackage: com.leyidai.web
-    targetProject: F:/generatorConfig
+    targetProject: /home/nanfeng/Documents/code/test
     
 tables:
     userClass:

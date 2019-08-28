@@ -1,7 +1,7 @@
 package ${targetPackage};
 
 import ${mapperPackage}.${tableClass.shortClassName}Mapper;
-import ${interfacePackage}.${tableClass.shortClassName}Service;
+import ${targetPackage}.${tableClass.shortClassName}Service;
 import ${tableClass.fullClassName};
 
 import com.github.pagehelper.PageInfo;

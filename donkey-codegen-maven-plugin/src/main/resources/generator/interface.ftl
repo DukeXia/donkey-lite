@@ -1,4 +1,4 @@
-package ${package};
+package ${targetPackage};
 
 import com.donkeycode.boot.IBaseService;
 import ${tableClass.fullClassName};

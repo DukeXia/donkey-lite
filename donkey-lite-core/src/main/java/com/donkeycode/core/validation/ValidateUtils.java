@@ -993,7 +993,6 @@ public class ValidateUtils {
      * @throws ValidateIllegalArgumentException if the value falls outside the boundaries (inclusive)
      * @since 3.3
      */
-    @SuppressWarnings("boxing")
     public static void inclusiveBetween(final long start, final long end, final long value) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
@@ -1034,7 +1033,6 @@ public class ValidateUtils {
      * @throws ValidateIllegalArgumentException if the value falls outside the boundaries (inclusive)
      * @since 3.3
      */
-    @SuppressWarnings("boxing")
     public static void inclusiveBetween(final double start, final double end, final double value) {
         // TODO when breaking BC, consider returning value
         if (value < start || value > end) {
@@ -1123,7 +1121,6 @@ public class ValidateUtils {
      * @throws ValidateIllegalArgumentException if the value falls out of the boundaries
      * @since 3.3
      */
-    @SuppressWarnings("boxing")
     public static void exclusiveBetween(final long start, final long end, final long value) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {
@@ -1164,7 +1161,6 @@ public class ValidateUtils {
      * @throws ValidateIllegalArgumentException if the value falls out of the boundaries
      * @since 3.3
      */
-    @SuppressWarnings("boxing")
     public static void exclusiveBetween(final double start, final double end, final double value) {
         // TODO when breaking BC, consider returning value
         if (value <= start || value >= end) {

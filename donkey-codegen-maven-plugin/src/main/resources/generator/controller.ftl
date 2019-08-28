@@ -1,4 +1,4 @@
-package ${package};
+package ${targetPackage};
 
 import ${tableClass.fullClassName};
 import ${servicePackage}.${tableClass.shortClassName}Service;

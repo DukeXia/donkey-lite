@@ -6,43 +6,33 @@ import java.util.List;
 import org.donkeycode.codegen.entity.ColumnField;
 import org.donkeycode.codegen.entity.TableClass;
 import org.donkeycode.codegen.task.ControllerTask;
-import org.donkeycode.codegen.task.DaoTask;
+import org.donkeycode.codegen.task.MapperTask;
 import org.donkeycode.codegen.task.EntityTask;
 import org.donkeycode.codegen.task.InterfaceTask;
-import org.donkeycode.codegen.task.MapperTask;
+import org.donkeycode.codegen.task.MapperXmlTask;
 import org.donkeycode.codegen.task.ServiceTask;
 import org.donkeycode.codegen.task.base.AbstractTask;
 
 /**
- * Author GreedyStar Date 2018-11-27
+ * 
+ * @author nanfeng
+ *
  */
 public class TaskQueue {
 
 	private LinkedList<AbstractTask> taskQueue = new LinkedList<>();
 
 	private void initCommonTasks(TableClass tableClass) {
-		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getController())) {
-			taskQueue.add(new ControllerTask(tableClass));
-		}
-		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getService())) {
-			taskQueue.add(new ServiceTask(tableClass));
-		}
-		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getInterf())) {
-			taskQueue.add(new InterfaceTask(tableClass));
-		}
-		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getDao())) {
-			taskQueue.add(new DaoTask(tableClass));
-		}
+		taskQueue.add(new ControllerTask(tableClass));
+		taskQueue.add(new ServiceTask(tableClass));
+		taskQueue.add(new InterfaceTask(tableClass));
+		taskQueue.add(new MapperTask(tableClass));
 	}
 
-	public void initSingleTasks(TableClass tableClass, List<ColumnField> columnFields) {
+	public void initTasks(TableClass tableClass, List<ColumnField> columnFields) {
 		initCommonTasks(tableClass);
-		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getEntity())) {
-			taskQueue.add(new EntityTask(tableClass));
-		}
-		if (!StringUtil.isBlank(ConfigUtil.getConfiguration().getPath().getMapper())) {
-			taskQueue.add(new MapperTask(tableClass,  columnFields));
-		}
+		taskQueue.add(new EntityTask(tableClass,columnFields));
+		taskQueue.add(new MapperXmlTask(tableClass, columnFields));
 	}
 
 	public boolean isEmpty() {

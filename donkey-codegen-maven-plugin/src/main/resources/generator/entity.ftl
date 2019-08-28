@@ -1,4 +1,4 @@
-package ${BasePackageName}.${EntityPackageName};
+package ${targetPackage};
 
 
 import javax.persistence.Table;
@@ -20,19 +20,18 @@ import java.sql.Timestamp;
 /**
  *
  *
- * @author donkey-lite-generator
- * @since  ${Date}
+ * @author ${author}
+ * @since  ${date}
  */
 @Setter
 @Getter
 @SuppressWarnings("serial")
-@Table(name ="${TableName}")
-public class ${ClassName} extends BaseEntity {
+@Table(name ="${tableClass.tableName}")
+public class ${tableClass.shortClassName} extends BaseEntity {
 
 
     ${Properties}
 
-    public ${ClassName}(){
+    public ${tableClass.shortClassName}(){
     }
-
 }

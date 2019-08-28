@@ -43,7 +43,6 @@ public class TableClass {
 	private String fullClassName;
 	private String packageName;
 	private String description;
-	private String upperCase;
 	private String alias;
 
 	private List<ColumnField> pkFields;

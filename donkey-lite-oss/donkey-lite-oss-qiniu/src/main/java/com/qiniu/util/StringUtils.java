@@ -25,14 +25,14 @@ public final class StringUtils {
     /**
      * @see #join(Object[] array, String sep, String prefix)
      */
-    public static String join(Collection list, String sep) {
+    public static String join(Collection<?> list, String sep) {
         return join(list, sep, null);
     }
 
     /**
      * @see #join(Object[] array, String sep, String prefix)
      */
-    public static String join(Collection list, String sep, String prefix) {
+    public static String join(Collection<?> list, String sep, String prefix) {
         Object[] array = list == null ? null : list.toArray();
         return join(array, sep, prefix);
     }

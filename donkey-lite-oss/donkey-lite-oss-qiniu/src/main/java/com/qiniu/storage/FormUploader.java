@@ -21,7 +21,6 @@ public final class FormUploader {
     private final File file;
     private final byte[] data;
     private final String mime;
-    private final boolean checkCrc;
     private final Configuration configuration;
     private StringMap params;
     private Client client;
@@ -52,7 +51,6 @@ public final class FormUploader {
         this.data = data;
         this.params = params;
         this.mime = mime;
-        this.checkCrc = checkCrc;
         this.configuration = configuration;
     }
 

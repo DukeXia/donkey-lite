@@ -9,8 +9,10 @@ import com.qiniu.http.Response;
  * 七牛SDK异常封装类，封装了http响应数据
  */
 public final class QiniuException extends IOException {
-
-    public final Response response;
+    
+	private static final long serialVersionUID = 1L;
+	
+	public final Response response;
     private String error;
 
     public QiniuException(Response response) {
