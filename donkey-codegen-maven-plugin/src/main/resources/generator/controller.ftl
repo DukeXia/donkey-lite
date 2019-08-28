@@ -27,6 +27,8 @@ import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.page.ListFilter;
 import com.donkeycode.core.utils.ObjectUtils;
 import com.donkeycode.core.validation.ValidateUtils;
+import com.donkeycode.boot.annotation.ResourceInfo;
+import com.donkeycode.web.BaseController;
 import com.donkeycode.web.HttpCode;
 import com.donkeycode.web.HttpServletParamUtils;
 import com.donkeycode.web.ResponseCode;
@@ -38,24 +40,23 @@ import io.swagger.annotations.ApiOperation;
 
 
 /**
- * 资源Web接口
+ * ${tableClass.alias}Web接口
  *
  *
  * @author ${author}
  * @since  ${date}
  */
 @RestController
-@RequestMapping(value = "/api/${tableClass.lowerCaseName}")
-@Api(tags="${tableClass.shortClassName}")
-@RequestMapping("api/" + ResourceConstants.RESOURCE_TYPE_WEBAPP)
-@ResourceInfo(type = ResourceConstants.RESOURCE_TYPE_WEBAPP, description = "Web应用")
+@Api(tags="${tableClass.alias}")
+@RequestMapping("api/" + ResourceConstants.RESOURCE_TYPE_${tableClass.shortClassName?upper_case})
+@ResourceInfo(type = ResourceConstants.RESOURCE_TYPE_${tableClass.shortClassName?upper_case}, description = "${tableClass.description}")
 public class ${tableClass.shortClassName}Controller extends BaseController{
 
     @Autowired
     ${tableClass.shortClassName}Service ${tableClass.lowerCaseName}Service;
 
     /**
-     * 获取资源
+     * 获取${tableClass.alias}
      *
      * @param request
      * @return
@@ -69,7 +70,7 @@ public class ${tableClass.shortClassName}Controller extends BaseController{
     }
 
     /**
-     * 获取资源
+     * 获取${tableClass.alias}
      *
      * @param request
      * @return
@@ -83,7 +84,7 @@ public class ${tableClass.shortClassName}Controller extends BaseController{
     }
 
     /**
-     * 获取资源
+     * 获取${tableClass.alias}
      *
      * @param id
      * @return
@@ -96,7 +97,7 @@ public class ${tableClass.shortClassName}Controller extends BaseController{
     }
 
     /**
-     * 新增资源
+     * 新增${tableClass.alias}
      *
      * @param beanJson
      * @return
@@ -110,7 +111,7 @@ public class ${tableClass.shortClassName}Controller extends BaseController{
     }
 
     /**
-     * 更新资源
+     * 更新${tableClass.alias}
      *
      * @param json
      * @return
@@ -124,7 +125,7 @@ public class ${tableClass.shortClassName}Controller extends BaseController{
     }
 
     /**
-     * 删除资源
+     * 删除${tableClass.alias}
      *
      * @param id
      * @return

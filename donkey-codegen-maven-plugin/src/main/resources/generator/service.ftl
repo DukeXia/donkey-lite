@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 资源服务接口
+ * ${tableClass.alias}服务接口
  *
  * @author ${author}
  * @since  ${date}
