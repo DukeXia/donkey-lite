@@ -29,7 +29,9 @@ public class CodegenMojo extends AbstractMojo {
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
 
-        Map<String, Table> tables = ConfigUtil.getConfiguration().getTables();
+    	Map<String, Table> tables = ConfigUtil.getConfiguration().getTables();
+        ContextConfiguration.DataGenerator dataGenerator = ConfigUtil.getConfiguration().getDataGenerator();
+
         if (CollectionUtils.isNotEmpty(tables)) {
             tables.forEach((key, table) -> {
                 TableClass tableClass = new TableClass();
@@ -37,6 +39,10 @@ public class CodegenMojo extends AbstractMojo {
                 tableClass.setTableName(table.getTableName());
                 tableClass.setShortClassName(table.getDomainName());
                 tableClass.setAlias(table.getAlias());
+                tableClass.setFullClassName(dataGenerator.getModelPackage().concat("." + table.getDomainName()));
+                tableClass.setPackageName(dataGenerator.getModelPackage());
+                tableClass.setLowerCaseName(WordUtils.uncapitalize(table.getDomainName()));
+
                 Invoker invoker = new SingleInvoker.Builder().setTableClass(tableClass).build();
                 invoker.execute();
             });

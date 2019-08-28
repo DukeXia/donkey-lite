@@ -51,7 +51,6 @@ public class ContextConfiguration {
     @NoArgsConstructor
     public static class ServiceGenerator {
         private String targetPackage;
-        private String targetProject;
     }
 
     @Getter
@@ -60,7 +59,6 @@ public class ContextConfiguration {
     @NoArgsConstructor
     public static class DataGenerator {
         private String targetPackage;
-        private String targetProject;
 
 
         public  String getModelPackage(){

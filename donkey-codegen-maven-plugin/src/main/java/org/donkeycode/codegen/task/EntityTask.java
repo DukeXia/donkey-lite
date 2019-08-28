@@ -46,7 +46,7 @@ public class EntityTask extends AbstractTask {
 		entityData.put("Properties", GeneratorUtil.generateEntityProperties(columnFields));
 		entityData.put("author", ConfigUtil.getConfiguration().getAuthor());
 		entityData.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-		String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(data.getTargetProject()) + StringUtil.package2Path(data.getModelPackage());
+		String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(data.getModelPackage());
 		String fileName = tableClass.getShortClassName() + ".java";
 		FileUtil.generateToJava(FreemarketConfigUtils.TYPE_ENTITY, entityData, filePath + fileName);
 	}

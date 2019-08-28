@@ -24,23 +24,23 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ServiceTask extends AbstractTask {
 
-    public ServiceTask(TableClass tableClass) {
-        super(tableClass);
-    }
+	public ServiceTask(TableClass tableClass) {
+		super(tableClass);
+	}
 
-    @Override
-    public void run() throws IOException, TemplateException {
-        ContextConfiguration.ServiceGenerator serviceGenerator = ConfigUtil.getConfiguration().getServiceGenerator();
-        ContextConfiguration.DataGenerator dataGenerator = ConfigUtil.getConfiguration().getDataGenerator();
-        Map<String, Object> serviceData = new HashMap<>();
-        serviceData.put("tableClass", tableClass);
-        serviceData.put("targetPackage", serviceGenerator.getTargetPackage());
-        serviceData.put("mapperPackage", dataGenerator.getMapperPackage());
-        serviceData.put("author", ConfigUtil.getConfiguration().getAuthor());
-        serviceData.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-        String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(serviceGenerator.getTargetProject()) + StringUtil.package2Path(serviceGenerator.getTargetPackage());
-        String fileName = tableClass.getShortClassName() + "ServiceImpl.java";
-        log.info("Generating " + tableClass.getShortClassName() + "ServiceImpl.java");
-        FileUtil.generateToJava(FreemarketConfigUtils.TYPE_SERVICE, serviceData, filePath + fileName);
-    }
+	@Override
+	public void run() throws IOException, TemplateException {
+		ContextConfiguration.ServiceGenerator serviceGenerator = ConfigUtil.getConfiguration().getServiceGenerator();
+		ContextConfiguration.DataGenerator dataGenerator = ConfigUtil.getConfiguration().getDataGenerator();
+		Map<String, Object> serviceData = new HashMap<>();
+		serviceData.put("tableClass", tableClass);
+		serviceData.put("targetPackage", serviceGenerator.getTargetPackage());
+		serviceData.put("mapperPackage", dataGenerator.getMapperPackage());
+		serviceData.put("author", ConfigUtil.getConfiguration().getAuthor());
+		serviceData.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+		String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(serviceGenerator.getTargetPackage());
+		String fileName = tableClass.getShortClassName() + "ServiceImpl.java";
+		log.info("Generating " + tableClass.getShortClassName() + "ServiceImpl.java");
+		FileUtil.generateToJava(FreemarketConfigUtils.TYPE_SERVICE, serviceData, filePath + fileName);
+	}
 }

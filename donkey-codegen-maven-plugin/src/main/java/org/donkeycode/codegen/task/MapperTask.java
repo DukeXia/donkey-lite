@@ -39,7 +39,7 @@ public class MapperTask extends AbstractTask {
 		mapperData.put("baseMapper", "com.donkeycode.boot.utils.BaseMapper");
 		mapperData.put("author", ConfigUtil.getConfiguration().getAuthor());
 		mapperData.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-		String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(data.getTargetProject()) + StringUtil.package2Path(data.getMapperPackage());
+		String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(data.getMapperPackage());
 		String fileName = tableClass.getShortClassName() + "Mapper.java";
 		FileUtil.generateToJava(FreemarketConfigUtils.TYPE_DAO, mapperData, filePath + fileName);
 	}

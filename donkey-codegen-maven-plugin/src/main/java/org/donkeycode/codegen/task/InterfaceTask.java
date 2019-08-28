@@ -38,7 +38,7 @@ public class InterfaceTask extends AbstractTask {
 		interfaceData.put("targetPackage", serviceGenerator.getTargetPackage());
 		interfaceData.put("author", ConfigUtil.getConfiguration().getAuthor());
 		interfaceData.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-		String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(serviceGenerator.getTargetProject()) + StringUtil.package2Path(serviceGenerator.getTargetPackage());
+		String filePath = FileUtil.getSourcePath() + StringUtil.package2Path(serviceGenerator.getTargetPackage());
 		String fileName = tableClass.getShortClassName() + "Service.java";
 		FileUtil.generateToJava(FreemarketConfigUtils.TYPE_INTERFACE, interfaceData, filePath + fileName);
 	}
