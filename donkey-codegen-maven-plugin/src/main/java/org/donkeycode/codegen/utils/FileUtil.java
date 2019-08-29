@@ -11,8 +11,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 /**
- * Author GreedyStar
- * Date   2018/4/19
+ * @author nanfeng
+ * @data 2019年8月29日
  */
 public class FileUtil {
 
@@ -70,35 +70,6 @@ public class FileUtil {
 		default:
 			return null;
 		}
-	}
-
-	private static String getBasicProjectPath() {
-		String path = new File(FileUtil.class.getClassLoader().getResource("").getFile()).getPath() + File.separator;
-		StringBuilder sb = new StringBuilder();
-		sb.append(path.substring(0, path.indexOf("target"))).append("src").append(File.separator).append("main").append(File.separator);
-		return sb.toString();
-	}
-
-	/**
-	 * 获取源码路径
-	 *
-	 * @return
-	 */
-	public static String getSourcePath() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getBasicProjectPath()).append("java").append(File.separator);
-		return sb.toString();
-	}
-
-	/**
-	 * 获取资源文件路径
-	 *
-	 * @return
-	 */
-	public static String getResourcePath() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(getBasicProjectPath()).append("resources").append(File.separator);
-		return sb.toString();
 	}
 
 }

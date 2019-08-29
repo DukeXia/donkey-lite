@@ -5,13 +5,11 @@ import java.util.List;
 
 import org.donkeycode.codegen.entity.ColumnField;
 
-
 /**
  * Author GreedyStar
  * Date   2018/4/19
  */
 public class GeneratorUtil {
-
 
     /**
      * 生成实体类属性字段（基本数据类型，用于单表关系）
@@ -29,7 +27,6 @@ public class GeneratorUtil {
         }
         return sb.toString();
     }
-
 
     /**
      * 生成实体类属性字段（列表，用于多对多关系）
@@ -67,7 +64,6 @@ public class GeneratorUtil {
         return sb.toString();
     }
 
-
     /**
      * 生成实体类存取方法（用于单表关系）
      *
@@ -80,7 +76,8 @@ public class GeneratorUtil {
             if (i != 0) {
                 sb.append("    ");
             }
-            sb.append("public void set").append(StringUtil.firstToUpperCase(infos.get(i).getPropertyName())).append(" (").append(TypeUtil.parseTypeFormSqlType(infos.get(i).getType())).append(" ").append(infos.get(i).getPropertyName()).append(") {this.").append(infos.get(i).getPropertyName()).append(" = ").append(infos.get(i).getPropertyName()).append(";} \n");
+            sb.append("public void set").append(StringUtil.firstToUpperCase(infos.get(i).getPropertyName())).append(" (").append(TypeUtil.parseTypeFormSqlType(infos.get(i).getType())).append(" ").append(infos.get(i).getPropertyName()).append(") {this.").append(infos.get(i).getPropertyName())
+                .append(" = ").append(infos.get(i).getPropertyName()).append(";} \n");
             if (infos.get(i).getType() == Types.BIT || infos.get(i).getType() == Types.TINYINT) {
                 sb.append("    ").append("public ").append(TypeUtil.parseTypeFormSqlType(infos.get(i).getType())).append(" is").append(StringUtil.firstToUpperCase(infos.get(i).getPropertyName())).append("(){ return ").append(infos.get(i).getPropertyName()).append(";} \n");
             } else {
@@ -119,7 +116,8 @@ public class GeneratorUtil {
                 if (i != 0) {
                     sb.append("    ");
                 }
-                sb.append("public void set").append(StringUtil.firstToUpperCase(infos.get(i).getPropertyName())).append(" (").append(TypeUtil.parseTypeFormSqlType(infos.get(i).getType())).append(" ").append(infos.get(i).getPropertyName()).append(") {this.").append(infos.get(i).getPropertyName()).append(" = ").append(infos.get(i).getPropertyName()).append(";} \n");
+                sb.append("public void set").append(StringUtil.firstToUpperCase(infos.get(i).getPropertyName())).append(" (").append(TypeUtil.parseTypeFormSqlType(infos.get(i).getType())).append(" ").append(infos.get(i).getPropertyName()).append(") {this.").append(infos.get(i).getPropertyName())
+                    .append(" = ").append(infos.get(i).getPropertyName()).append(";} \n");
                 if (infos.get(i).getType() == Types.BIT || infos.get(i).getType() == Types.TINYINT) {
                     sb.append("    ").append("public ").append(TypeUtil.parseTypeFormSqlType(infos.get(i).getType())).append(" is").append(StringUtil.firstToUpperCase(infos.get(i).getPropertyName())).append("(){ return ").append(infos.get(i).getPropertyName()).append(";} \n");
                 } else {
@@ -128,7 +126,8 @@ public class GeneratorUtil {
             }
         }
         // 外键为存取父表实体引用
-        sb.append("    ").append("public void set").append(parentClassName).append(" (").append(parentClassName).append(" ").append(StringUtil.firstToLowerCase(parentClassName)).append(") {this.").append(StringUtil.firstToLowerCase(parentClassName)).append(" = ").append(StringUtil.firstToLowerCase(parentClassName)).append(";} \n");
+        sb.append("    ").append("public void set").append(parentClassName).append(" (").append(parentClassName).append(" ").append(StringUtil.firstToLowerCase(parentClassName)).append(") {this.").append(StringUtil.firstToLowerCase(parentClassName)).append(" = ")
+            .append(StringUtil.firstToLowerCase(parentClassName)).append(";} \n");
         sb.append("    ").append("public ").append(parentClassName).append(" get").append(parentClassName).append("(){ return this.").append(StringUtil.firstToLowerCase(parentClassName)).append(";} \n");
         return sb.toString();
     }
@@ -219,7 +218,6 @@ public class GeneratorUtil {
         return sb.toString();
     }
 
-
     /**
      * 对应模板文件${Collection}字段
      * 用于 many2many
@@ -243,7 +241,6 @@ public class GeneratorUtil {
         return sb.toString();
     }
 
-
     /**
      * 生成Mapper Joins字段（一对多关系）
      *
@@ -259,7 +256,6 @@ public class GeneratorUtil {
         return sb.toString();
     }
 
-
     /**
      * 生成Mapper Joins字段（多对多关系）
      *
@@ -274,11 +270,10 @@ public class GeneratorUtil {
      */
     public static String generateMapperJoins(String tableName, String parentTableName, String relationTableName, String foreignKey, String parentForeignKey, String primaryKey, String parentPrimaryKey) {
         StringBuilder sb = new StringBuilder();
-        sb.append("LEFT JOIN ").append(relationTableName).append(" on ").append(relationTableName).append(".").append(foreignKey).append(" = ").append(tableName).append(".").append(primaryKey).append(" \n")
-                .append("        ").append("LEFT JOIN ").append(parentTableName).append(" on ").append(parentTableName).append(".").append(parentPrimaryKey).append(" = ").append(relationTableName).append(".").append(parentForeignKey);
+        sb.append("LEFT JOIN ").append(relationTableName).append(" on ").append(relationTableName).append(".").append(foreignKey).append(" = ").append(tableName).append(".").append(primaryKey).append(" \n").append("        ").append("LEFT JOIN ").append(parentTableName).append(" on ")
+            .append(parentTableName).append(".").append(parentPrimaryKey).append(" = ").append(relationTableName).append(".").append(parentForeignKey);
         return sb.toString();
     }
-
 
     /**
      * 生成Mapper 插入列名字段（所有关系皆用）
