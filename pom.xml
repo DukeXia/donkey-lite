@@ -48,6 +48,7 @@
 		<spring-boot.version>2.1.7.RELEASE</spring-boot.version>
 		<spring-boot-starter-redis.version>1.4.7.RELEASE</spring-boot-starter-redis.version>
 		<javax.mail.version>1.6.0</javax.mail.version>
+		<flowable.version>6.4.2</flowable.version>
 		<poi.version>4.1.0</poi.version>
 		<xmlbeans.version>3.1.0</xmlbeans.version>
 		<fastjson.version>1.2.58</fastjson.version>
@@ -125,6 +126,12 @@
 
 	<dependencyManagement>
 		<dependencies>
+
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter</artifactId>
+                <version>${flowable.version}</version>
+            </dependency>
 
 			<!--json -->
 			<dependency>
