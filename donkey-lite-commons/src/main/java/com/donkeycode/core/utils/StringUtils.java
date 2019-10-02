@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import com.donkeycode.core.collections.CollectionUtils;
+import com.donkeycode.core.collectors.CollectorUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.text.StringEscapeUtils;
 
@@ -52,7 +52,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
         Validate.notEmpty(list);
 
-        if (CollectionUtils.isNotEmpty(list)) {
+        if (CollectorUtils.isNotEmpty(list)) {
             return list.toArray(new String[list.size()]);
         }
         return new String[0];

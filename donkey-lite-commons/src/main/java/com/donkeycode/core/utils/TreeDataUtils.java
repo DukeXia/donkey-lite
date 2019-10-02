@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.donkeycode.core.collections.CollectionUtils;
+import com.donkeycode.core.collectors.CollectorUtils;
 import com.donkeycode.core.entity.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -44,7 +44,7 @@ public class TreeDataUtils {
      */
     public static <T> void buildTree(List<T> pNodes, List<T> originaNodes, String keyName, String pFieldName, String subFieldName, String orderFieldName) {
 
-        CollectionUtils.forEach(pNodes, (index, node) -> {
+        CollectorUtils.forEach(pNodes, (index, node) -> {
             try {
                 List<T> subNodes = getChildren(pNodes.get(index), originaNodes, keyName, pFieldName, subFieldName, orderFieldName);
                 if (!subNodes.isEmpty()) {

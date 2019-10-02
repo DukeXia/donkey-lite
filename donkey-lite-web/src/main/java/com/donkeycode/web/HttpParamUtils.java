@@ -1,7 +1,7 @@
 package com.donkeycode.web;
 
 import com.donkeycode.core.Constants;
-import com.donkeycode.core.collections.CollectionUtils;
+import com.donkeycode.core.collectors.CollectorUtils;
 import com.donkeycode.core.page.ListFilter;
 import com.donkeycode.core.page.ListFilterHelper;
 import com.donkeycode.core.page.PageFilter;
@@ -63,7 +63,7 @@ public class HttpParamUtils {
      * @return
      */
     public static int pageSize(Map<String, String> params) {
-        if (CollectionUtils.isEmpty(params) || StringUtils.isEmpty(params.get(PageFilter.PAGE_SIZE))) {
+        if (CollectorUtils.isEmpty(params) || StringUtils.isEmpty(params.get(PageFilter.PAGE_SIZE))) {
             return Constants.DEFAULT_PAGE_SIZE;
         }
         return Integer.parseInt(params.get(PageFilter.PAGE_SIZE));
@@ -76,7 +76,7 @@ public class HttpParamUtils {
      * @return
      */
     public static int pageNo(Map<String, String> params) {
-        if (CollectionUtils.isEmpty(params) || StringUtils.isEmpty(params.get(PageFilter.PAGE_NO))) {
+        if (CollectorUtils.isEmpty(params) || StringUtils.isEmpty(params.get(PageFilter.PAGE_NO))) {
             return Constants.DEFAULT_PAGE_INDEX;
         }
         int pageNo = Integer.parseInt(params.get(PageFilter.PAGE_NO));

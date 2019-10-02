@@ -28,7 +28,7 @@ import java.util.List;
 
 
 import com.donkeycode.core.utils.CharsetUtils;
-import com.donkeycode.core.collections.CollectionUtils;
+import com.donkeycode.core.collectors.CollectorUtils;
 import com.donkeycode.core.utils.StringUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -80,7 +80,7 @@ public class FileUtils {
 
         if (file.isDirectory()) {
             String[] subFiles = file.list();
-            if (CollectionUtils.isEmpty(subFiles)) {
+            if (CollectorUtils.isEmpty(subFiles)) {
                 return true;
             }
         } else if (file.isFile()) {

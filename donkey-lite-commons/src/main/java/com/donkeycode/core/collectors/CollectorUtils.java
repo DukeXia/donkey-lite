@@ -1,30 +1,16 @@
-package com.donkeycode.core.collections;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Set;
-import java.util.Stack;
-import java.util.TreeSet;
-import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+package com.donkeycode.core.collectors;
 
 import org.apache.commons.lang3.Validate;
 import org.springframework.cglib.beans.BeanMap;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 /**
@@ -33,7 +19,7 @@ import javax.validation.constraints.NotNull;
  * @author donkey
  * @since 2018年12月31日
  */
-public final class CollectionUtils {
+public final class CollectorUtils {
 
     /**
      * 以 delimiter 为分隔符将集合转换为字符串

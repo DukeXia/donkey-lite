@@ -22,6 +22,20 @@ public interface ListFilter {
     String getOrderBy();
 
     /**
+     * 设置是否排序
+     *
+     * @return
+     */
+    void setOrderBy(boolean isOrderBy);
+
+    /**
+     * 是否排序
+     *
+     * @return
+     */
+    boolean isOrderBy();
+
+    /**
      * 设置排序字段
      *
      * @return

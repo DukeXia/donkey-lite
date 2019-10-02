@@ -1,7 +1,7 @@
 package com.donkeycode.boot.file;
 
 import com.donkeycode.boot.ReflectUtils;
-import com.donkeycode.core.collections.CollectionUtils;
+import com.donkeycode.core.collectors.CollectorUtils;
 import com.donkeycode.core.utils.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -222,7 +222,7 @@ public class ExcelHelper {
         List<Object> contents = new ArrayList<>();
         for (List<?> list : rows) {
             // 如果当前第一列中无数据,则忽略当前行的数据
-            if (CollectionUtils.isEmpty(list) || list.get(0) == null) {
+            if (CollectorUtils.isEmpty(list) || list.get(0) == null) {
                 break;
             }
             // 当前行的数据放入map中,生成<fieldName, value>的形式

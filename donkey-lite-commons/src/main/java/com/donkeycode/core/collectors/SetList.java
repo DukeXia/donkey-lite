@@ -1,4 +1,4 @@
-package com.donkeycode.core.collections;
+package com.donkeycode.core.collectors;
 
 import java.util.LinkedList;
 

@@ -1,7 +1,5 @@
 package com.donkeycode.core.seqno;
 
-import com.donkeycode.boot.exception.SeqException;
-
 /**
  * 使用雪花算法
  * 一个long类型的数据，64位。以下是每位的具体含义。

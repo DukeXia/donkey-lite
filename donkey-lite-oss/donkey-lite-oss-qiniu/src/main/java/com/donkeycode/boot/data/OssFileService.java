@@ -1,25 +1,23 @@
 package com.donkeycode.boot.data;
 
-import java.io.File;
-import java.sql.Types;
-import java.util.Date;
-import java.util.List;
-
-import javax.validation.constraints.NotNull;
-
+import com.donkeycode.boot.SqlMapper;
+import com.donkeycode.boot.config.OssConfigProperties;
+import com.donkeycode.boot.data.domain.OssFile;
+import com.donkeycode.core.collectors.CollectorUtils;
+import com.donkeycode.core.page.PageFilter;
+import com.donkeycode.core.seqno.UUIDUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.donkeycode.boot.SqlMapper;
-import com.donkeycode.boot.config.OssConfigProperties;
-import com.donkeycode.boot.data.domain.OssFile;
-import com.donkeycode.core.collections.CollectionUtils;
-import com.donkeycode.core.page.PageFilter;
-import com.donkeycode.core.seqno.UUIDUtils;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import javax.validation.constraints.NotNull;
+import java.io.File;
+import java.sql.Types;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author donkey
@@ -83,7 +81,7 @@ public class OssFileService {
      * @param record
      */
     public void insertRecode(OssFile record) {
-        record.setFileId(UUIDUtils.getRandomUUID());
+        record.setFileId(UUIDUtils.uuid());
         Object[] params = new Object[]{record.getFileId(), record.getName(), record.getOssKey(), record.getFileType(), record.getMeta(), record.getStatus(), record.getFileMD5(), record.getFileSize(), record.getLocalPath(), new Date()};
         int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.BIGINT, Types.VARCHAR, Types.DATE};
         jdbcTemplate.update(INSERT_SQL, params, types);
@@ -96,7 +94,7 @@ public class OssFileService {
      */
     public PageInfo<OssFile> getPageList(PageFilter pageFilter) {
         StringBuffer querySql = new StringBuffer(LIST_SQL);
-        if (CollectionUtils.isNotEmpty(pageFilter.getParams())) {
+        if (CollectorUtils.isNotEmpty(pageFilter.getParams())) {
             if (StringUtils.isNoneBlank(pageFilter.getParams().get("fileType"))) {
                 querySql.append(" and file_type=#{fileType} ");
             }
@@ -104,7 +102,7 @@ public class OssFileService {
                 querySql.append(" and name like concat('%',#{fileName},'%') ");
             }
         }
-        PageHelper.startPage(pageFilter.getPageNum(), pageFilter.getPageSize(), pageFilter.getOrder());
+        PageHelper.startPage(pageFilter.getPageNo(), pageFilter.getPageSize(), pageFilter.getOrderBy());
         List<OssFile> ossFiles = sqlMapper.selectList(querySql.toString(), pageFilter.getParams(), OssFile.class);
         ossFiles.stream().filter(item -> StringUtils.isNoneBlank(item.getOssKey())).forEach(item -> item.setCdnPath(configProperties.getCdnPath() + (item.getOssKey().startsWith("/") ? "" : "/") + item.getOssKey()));
         return new PageInfo<>(ossFiles);

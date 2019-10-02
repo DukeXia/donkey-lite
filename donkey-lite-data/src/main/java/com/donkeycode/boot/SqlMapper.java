@@ -8,7 +8,7 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-import com.donkeycode.core.collections.CollectionUtils;
+import com.donkeycode.core.collectors.CollectorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class SqlMapper {
      * @return back query result T
      */
     private <T> T getOne(List<T> list) {
-        if (CollectionUtils.isEmpty(list)) {
+        if (CollectorUtils.isEmpty(list)) {
             return null;
         }
         if (list.size() == 1) {

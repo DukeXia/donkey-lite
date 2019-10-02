@@ -25,6 +25,7 @@ public class ListFilterHelper implements ListFilter {
     private Constants.OrderMode orderMethod;
 
     private String orderField;
+    private boolean isOrderBy = true;
 
     /**
      * 查询参会
@@ -46,6 +47,16 @@ public class ListFilterHelper implements ListFilter {
         if (StringUtils.isEmpty(orderField)) {
             return "";
         }
-        return ColumnPropertyUtils.propertyToColumn(orderField).concat(" "+orderMethod.getMode());
+        return ColumnPropertyUtils.propertyToColumn(orderField).concat(" " + orderMethod.getMode());
+    }
+
+    @Override
+    public void setOrderBy(boolean isOrderBy) {
+        this.isOrderBy = isOrderBy;
+    }
+
+    @Override
+    public boolean isOrderBy() {
+        return isOrderBy;
     }
 }
