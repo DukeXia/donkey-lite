@@ -3,18 +3,13 @@
 	<parent>
 		<groupId>com.github.donkeycat</groupId>
 		<artifactId>donkey-lite</artifactId>
-		<version>1.0.0.RELEASE</version>
+		<version>2.0.0.RELEASE</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>donkey-lite-acl</artifactId>
 
 	<dependencies>
-        <dependency>
-            <groupId>com.github.donkeycat</groupId>
-            <artifactId>donkey-lite-manager</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>

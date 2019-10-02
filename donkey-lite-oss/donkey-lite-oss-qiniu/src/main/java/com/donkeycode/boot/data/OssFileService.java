@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import com.donkeycode.boot.SqlMapper;
 import com.donkeycode.boot.config.OssConfigProperties;
 import com.donkeycode.boot.data.domain.OssFile;
-import com.donkeycode.core.utils.CollectionUtils;
+import com.donkeycode.core.collections.CollectionUtils;
 import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.seqno.UUIDUtils;
 import com.github.pagehelper.PageHelper;

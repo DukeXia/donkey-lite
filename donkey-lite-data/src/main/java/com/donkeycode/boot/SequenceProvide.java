@@ -5,11 +5,12 @@ import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
+import com.donkeycode.boot.sequence.Sequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.xuanner.seq.range.impl.db.DbSeqRangeMgr;
-import com.xuanner.seq.sequence.impl.DefaultRangeSequence;
+import com.donkeycode.boot.range.impl.db.DbSeqRangeMgr;
+import com.donkeycode.boot.sequence.impl.DefaultRangeSequence;
 
 /**
  * 基于DB方式生成业务编号
@@ -54,7 +55,7 @@ public class SequenceProvide {
         //构建序列号生成器
         defaultRangeSequence.setName(type);
         defaultRangeSequence.setSeqRangeMgr(dbSeqRangeMgr);
-        com.xuanner.seq.sequence.Sequence userSeq = defaultRangeSequence;
+        Sequence userSeq = defaultRangeSequence;
         return type + String.format("%010d", userSeq.nextValue());
     }
 }

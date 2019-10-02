@@ -19,7 +19,7 @@ public enum HttpCode {
     DELETED(206, "已删除或下线"),
     NOT_LOGIN(210, "未登录"),
     REDIRECT(301, "session失效，重定向"),
-    ERROR(500, "错误"),
+    ERROR(500, "服务器内部错误"),
     ERR_INVALID_PARAM(501, "参数不正确"),
     NO_USER_INFO(502, "没有用户登陆");
 

@@ -11,7 +11,7 @@ import com.donkeycode.boot.utils.BaseMapper;
 import com.donkeycode.core.page.ListFilter;
 import com.donkeycode.core.page.PageFilter;
 import com.donkeycode.core.page.PageResult;
-import com.donkeycode.core.utils.CollectionUtils;
+import com.donkeycode.core.collections.CollectionUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 

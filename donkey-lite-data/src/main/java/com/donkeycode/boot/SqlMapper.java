@@ -8,7 +8,7 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-import com.donkeycode.core.utils.CollectionUtils;
+import com.donkeycode.core.collections.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;

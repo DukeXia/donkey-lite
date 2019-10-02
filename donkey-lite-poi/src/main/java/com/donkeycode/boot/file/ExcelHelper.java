@@ -1,7 +1,7 @@
 package com.donkeycode.boot.file;
 
 import com.donkeycode.boot.ReflectUtils;
-import com.donkeycode.core.utils.CollectionUtils;
+import com.donkeycode.core.collections.CollectionUtils;
 import com.donkeycode.core.utils.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ import java.util.*;
 public class ExcelHelper {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static List<Object> importToObjectList(ExcelHead head, File file, Class<?> cls) {
+    public static List<?> importToObjectList(ExcelHead head, File file, Class<?> cls) {
 
         Objects.requireNonNull(head);
         Objects.requireNonNull(file);
