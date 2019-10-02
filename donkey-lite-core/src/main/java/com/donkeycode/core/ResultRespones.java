@@ -27,11 +27,44 @@ public class ResultRespones<T> extends BaseEntity {
         this.message = null;
     }
 
+    public static <T> ResultRespones<T> success() {
+        return success(null);
+    }
+
     public static <T> ResultRespones<T> success(T data) {
-        return new ResultRespones<T>(data);
+        return success(data, null);
+    }
+
+    public static <T> ResultRespones<T> success(T data, String message) {
+        ResultRespones respones = new ResultRespones<T>(data);
+        respones.setMessage(message);
+        return respones;
+    }
+
+    public static <T> ResultRespones<T> fail() {
+        return fail(500, "服务器内部错误");
+    }
+
+    public static <T> ResultRespones<T> fail(String message) {
+        return fail(500, message);
     }
 
     public static <T> ResultRespones<T> fail(T data) {
-        return new ResultRespones<T>(data);
+        return fail(500, data);
+    }
+
+    public static <T> ResultRespones<T> fail(int code, T data) {
+        return fail(code, data, null);
+    }
+
+    public static <T> ResultRespones<T> fail(int code, String message) {
+        return fail(code, null, message);
+    }
+
+    public static <T> ResultRespones<T> fail(int code, T data, String message) {
+        ResultRespones respones = new ResultRespones<T>(data);
+        respones.setMessage(message);
+        respones.setCode(code);
+        return respones;
     }
 }
