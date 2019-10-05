@@ -45,7 +45,7 @@
 		<swagger.version>2.9.2</swagger.version>
 
 		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
-		<spring-boot.version>2.1.8.RELEASE</spring-boot.version>
+		<spring-boot.version>2.1.9.RELEASE</spring-boot.version>
 		<spring-boot-starter-redis.version>1.4.7.RELEASE</spring-boot-starter-redis.version>
 		<javax.mail.version>1.6.0</javax.mail.version>
 		<flowable.version>6.4.2</flowable.version>
@@ -82,7 +82,7 @@
 		<mybatis-generator-maven-plugin.version>1.3.7</mybatis-generator-maven-plugin.version>
 		<exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-		<lombok-maven-plugin.version>1.16.8.0</lombok-maven-plugin.version>
+		<lombok-maven-plugin.version>1.18.10.0</lombok-maven-plugin.version>
 
 		<sonar-maven-plugin.version>3.2</sonar-maven-plugin.version>
 		<!-- Sonar properties -->
@@ -197,6 +197,12 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>swagger-bootstrap-ui</artifactId>
                 <version>1.9.6</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>0.9.1</version>
             </dependency>
             
 			<!-- mariadb 数据库驱动 -->
@@ -319,8 +325,12 @@
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok-maven-plugin</artifactId>
 			</plugin>
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
-				</plugin> -->
+			<!--
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			-->
 		</plugins>
 
 		<pluginManagement>
@@ -413,7 +423,7 @@
 						<dependency>
 							<groupId>mysql</groupId>
 							<artifactId>mysql-connector-java</artifactId>
-							<version>5.1.47</version>
+							<version>8.0.17</version>
 						</dependency>
 						<dependency>
 							<groupId>tk.mybatis</groupId>

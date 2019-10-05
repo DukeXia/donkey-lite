@@ -6,6 +6,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 通用接口响应数据包，包含响应code、响应的数据包data、消息message说明
+ *
+ *
+ * @author nanfeng
+ * @date 2019年10月5日
+ * @param <T>
+ */
 @SuppressWarnings("serial")
 @Setter
 @Getter
@@ -36,7 +44,7 @@ public class ResultRespones<T> extends BaseEntity {
     }
 
     public static <T> ResultRespones<T> success(T data, String message) {
-        ResultRespones respones = new ResultRespones<T>(data);
+        ResultRespones<T> respones = new ResultRespones<T>(data);
         respones.setMessage(message);
         return respones;
     }
@@ -62,7 +70,7 @@ public class ResultRespones<T> extends BaseEntity {
     }
 
     public static <T> ResultRespones<T> fail(int code, T data, String message) {
-        ResultRespones respones = new ResultRespones<T>(data);
+        ResultRespones<T> respones = new ResultRespones<T>(data);
         respones.setMessage(message);
         respones.setCode(code);
         return respones;

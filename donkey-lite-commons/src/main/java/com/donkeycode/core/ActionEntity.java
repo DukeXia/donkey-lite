@@ -6,6 +6,13 @@ import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 实体类基础操作属性封装
+ *
+ *
+ * @author nanfeng
+ * @date 2019年10月5日
+ */
 @Setter
 @Getter
 public abstract class ActionEntity extends BaseEntity {

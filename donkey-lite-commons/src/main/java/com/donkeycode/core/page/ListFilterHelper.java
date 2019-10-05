@@ -3,6 +3,8 @@ package com.donkeycode.core.page;
 import com.donkeycode.core.Constants;
 import com.donkeycode.core.utils.ColumnPropertyUtils;
 import com.donkeycode.core.utils.StringUtils;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,10 +23,11 @@ import java.util.Map;
 @Builder
 public class ListFilterHelper implements ListFilter {
 
-
+    @ApiModelProperty("排序方式")
     private Constants.OrderMode orderMethod;
-
+    @ApiModelProperty("排序字段")
     private String orderField;
+    @ApiModelProperty("是否排序，默认值需要排序")
     private boolean isOrderBy = true;
 
     /**
@@ -51,7 +54,7 @@ public class ListFilterHelper implements ListFilter {
     }
 
     @Override
-    public void setOrderBy(boolean isOrderBy) {
+    public void setIsOrderBy(boolean isOrderBy) {
         this.isOrderBy = isOrderBy;
     }
 

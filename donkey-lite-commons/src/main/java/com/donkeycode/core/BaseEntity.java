@@ -1,11 +1,16 @@
 package com.donkeycode.core;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
- * @author donkey
+ * 基础实体类
+ * 
+ * 实现了Serializable接口，并且重写了ToString方法
+ *
+ * @author nanfeng
+ * @date 2019年10月5日
  */
 public abstract class BaseEntity implements Serializable {
 

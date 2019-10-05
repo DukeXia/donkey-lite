@@ -26,7 +26,7 @@ public interface ListFilter {
      *
      * @return
      */
-    void setOrderBy(boolean isOrderBy);
+    void setIsOrderBy(boolean isOrderBy);
 
     /**
      * 是否排序

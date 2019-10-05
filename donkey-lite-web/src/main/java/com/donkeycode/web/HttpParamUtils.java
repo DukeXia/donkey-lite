@@ -92,7 +92,6 @@ public class HttpParamUtils {
      * @param request
      * @return
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
     public static ListFilter listFilter(@NotBlank HttpServletRequest request) {
         Map<String, String> params = HttpParamUtils.requestToMap(request);
         ListFilter listFilter = ListFilterHelper.builder()
@@ -115,7 +114,6 @@ public class HttpParamUtils {
      * @param request
      * @return
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
     public static PageFilter pageFilter(@NotBlank HttpServletRequest request) {
         Map<String, String> params = HttpParamUtils.requestToMap(request);
         int pageNo = HttpParamUtils.pageNo(params);

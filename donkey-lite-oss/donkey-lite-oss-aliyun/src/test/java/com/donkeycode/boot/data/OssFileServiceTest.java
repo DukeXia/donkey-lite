@@ -1,15 +1,16 @@
 package com.donkeycode.boot.data;
 
-import com.donkeycode.core.page.PageFilter;
-import com.donkeycode.core.page.PageFilterHelper;
+import java.util.Collections;
+import java.util.Date;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.donkeycode.boot.BaseTest;
 import com.donkeycode.boot.data.domain.OssFile;
-
-import java.util.Collections;
-import java.util.Date;
+import com.donkeycode.core.Constants;
+import com.donkeycode.core.page.PageFilter;
+import com.donkeycode.core.page.PageFilterHelper;
 
 public class OssFileServiceTest extends BaseTest {
 
@@ -35,9 +36,10 @@ public class OssFileServiceTest extends BaseTest {
     public void getPageList() {
 
         PageFilter pageProvider = PageFilterHelper.builder()
-            .pageNum(3)
+            .pageNo(3)
             .pageSize(3)
-            .orders(Collections.singletonList("createTime:desc"))
+            .orderField("createTime")
+            .orderMethod(Constants.OrderMode.DESC)
             .params(Collections.singletonMap("fileName", "微信")).build();
 
         ossFileService.getPageList(pageProvider);
